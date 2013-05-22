@@ -1,0 +1,33 @@
+html, body {
+margin:0;
+padding:0;
+}
+#input-container{
+margin-top: 7em;
+}
+.input-symbol{
+float:left;
+width:7.5%;
+margin-left:1%;
+border:1px solid #ccc;
+text-align:center;
+font-size:10em;
+height: 1.15em;
+}
+#sol-container{
+clear: both;
+margin-left: 1%;
+}
+.sol-symbol{
+float:left;
+width:7.5%;
+border:1px solid #ccc;
+border-right:none;
+text-align:center;
+font-size:10em;
+margin-top: 1em;
+height: 1.15em;
+}
+.sol-symbol.last{
+border-right:1px solid #ccc;
+}
