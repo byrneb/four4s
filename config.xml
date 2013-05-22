@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- config.xml reference: https://build.phonegap.com/docs/config-xml -->
+<widget xmlns     = "http://www.w3.org/ns/widgets"
+        xmlns:gap = "http://phonegap.com/ns/1.0"
+        id        = "com.simplelogic.Four4s"
+        version   = "1.0.0">
+
+    <name>Four4s</name>
+
+    <description>
+        Puzzle game
+    </description>
+
+    <author href="http://tricedesigns.com" email="atrice@adobe.com">
+        Brian Byrne
+    </author>
+
+    <!--
+        Enable individual API permissions by defining each here.
+        The 'device' permission is required for the 'deviceready' event.
+    -->
+    <feature name="http://api.phonegap.com/1.0/device" />
+
+    <!--
+        If you do not want any permissions to be added to your app, add the
+        following tag to your config.xml; you will still have the INTERNET
+        permission on your app, which PhoneGap requires.
+    -->
+    <preference name="permissions"                value="none"/>
+
+
+</widget>
