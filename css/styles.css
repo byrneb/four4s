@@ -3,7 +3,7 @@ margin:0;
 padding:0;
 }
 #input-container{
-margin-top: 3em;
+margin-top: 0.5em;
 margin-left: 3%;
 }
 .input-symbol{
@@ -26,9 +26,36 @@ border:1px solid #ccc;
 border-right:none;
 text-align:center;
 font-size:10em;
-margin-top: 1em;
+margin-top: 0.35em;
 height: 0.5em;
 }
 .sol-symbol.last{
 border-right:1px solid #ccc;
+}
+
+#total{
+float:left;
+width: 20%;
+border:1px solid #ccc;
+height: 4.2em;
+margin-top: 0.35em;
+margin-top: 2.5em;
+border-left:none;
+}
+#msg{
+float:left;
+margin-left: 25%;
+width: 10%;
+border:1px solid #ccc;
+height: 4.2em;
+margin-top: 0.35em;
+margin-top: 2.5em;
+}
+#target{
+float:right;
+width: 20%;
+border:1px solid #ccc;
+height: 4.2em;
+margin-top: 2.5em;
+border-right:none;
 }
