@@ -28,8 +28,8 @@
         permission on your app, which PhoneGap requires.
     -->
     <preference name="permissions"                value="none"/>
-	<preference name="phonegap-version"           value="2.3.0" />    
-	<preference name="orientation"                value="landscape" />  
+	<preference name="phonegap-version"           value="2.7.0" />    
+	<preference name="orientation" 				  value="landscape" />
 
 
 </widget>
