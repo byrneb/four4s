@@ -21,7 +21,7 @@ html,body {
 	margin-bottom:  2.5%;
 	border:1px solid #000;
 	line-height: 210%;
-	font-size: 7vh;
+	font-size: 1.7em;
 }
 #sol-container{
 	width: 85%;
@@ -29,7 +29,7 @@ html,body {
 	margin-left: 7.5%;
 	margin-bottom: 3%;
 	border:1px solid #000;
-	font-size: 6vh;	
+	font-size: 1.7em;	
 }
 
 #options{
@@ -53,7 +53,7 @@ html,body {
 	width: 85%;
     height: 7.5%;
 	margin-left: 7.5%;
-	font-size: 7vh;
+	font-size: 2em;
 	text-align:center;
 }
 .key{
@@ -66,7 +66,7 @@ html,body {
 	cursor:default;
 }
 #bracket{
-	font-size: 6vh;
+	font-size: .85em;
 }
 .unselectable {
    -webkit-user-select: none;
