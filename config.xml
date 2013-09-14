@@ -31,6 +31,7 @@
 	<preference name="phonegap-version"           value="2.7.0" />    
 	<preference name="orientation"                value="portrait" />  
 	<preference name="EnableViewportScale" 		  value="true" />
+	<preference name="android-minSdkVersion" value="15" />
 
 
 </widget>
