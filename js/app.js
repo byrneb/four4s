@@ -137,9 +137,7 @@
 		content.append(this.symbolsView.render().el);
 	}
 });
-* {
--webkit-tap-highlight-color: rgba(255, 255, 255, 0); 
-}
+
 makeReadable = function(original){
 	if(original === '')
 		return 0;
