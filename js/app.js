@@ -7,6 +7,8 @@
  
 	tagName: 'div',
 	id: 'target',
+	className: 'unselectable',
+	
 	initialize: function(){
 		_.bindAll(this, 'render');
 		this.template = _.template($('#target-template').html());
@@ -25,6 +27,7 @@
  
 	tagName: 'div',
 	id: 'sol-container',
+	className: 'unselectable',
 	
 	events: {'click #options' : 'clear'},
 	initialize: function(){
@@ -92,7 +95,7 @@
  app.SymbolView  = Backbone.View.extend({
  
 	tagName: 'div',
-	className: 'key',
+	className: 'key unselectable',
 	
 	events: {
 		"click": "keyClicked"
