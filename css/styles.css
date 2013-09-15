@@ -23,7 +23,6 @@ html,body {
 	line-height: 250%;
 	font-size: 2em;
 }
-input:focus {outline: none; }
 
 #sol-container{
 	width: 85%;
@@ -58,6 +57,9 @@ input:focus {outline: none; }
 	font-size: 2.4em;
 	text-align:center;
 }
+div::selection {
+  display:none;
+ }
 .key{
 	width: 20%;
     height: 100%;
