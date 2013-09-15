@@ -25,10 +25,16 @@
  
 	tagName: 'div',
 	id: 'sol-container',
+	
+	events: {'click #options' : 'clear'},
 	initialize: function(){
 		_.bindAll(this, 'render');
 		this.model.on('change:solution', this.render);
 		this.template = _.template($('#sol-template').html());
+	},
+	
+	clear: function(){
+		this.model.set('solution', '');
 	},
 	
 	render: function (){
@@ -36,6 +42,7 @@
 		try{
 			sum = makeReadable(this.model.get('solution'));
 			sum = eval(sum);
+			sum = Number(sum.toFixed(2)).toString();
 		}catch(e)
 		{sum = 0;}
 		this.model.set('total', ('=  '+sum)); 
@@ -137,6 +144,9 @@ makeReadable = function(original){
 	return result;
 };
  $(function() {
+	 window.addEventListener('load', function() {
+		FastClick.attach(document.body);
+	}, false);
     app.router = new Router();
     Backbone.history.start();
 });
