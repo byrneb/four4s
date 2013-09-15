@@ -23,6 +23,8 @@ html,body {
 	line-height: 250%;
 	font-size: 2em;
 }
+input:focus {outline: none; }
+
 #sol-container{
 	width: 85%;
     height: 60%;
