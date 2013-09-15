@@ -137,7 +137,9 @@
 		content.append(this.symbolsView.render().el);
 	}
 });
-
+*{
+-webkit-tap-highlight-color: rgba(255, 255, 255, 0); 
+}
 makeReadable = function(original){
 	if(original === '')
 		return 0;
@@ -147,6 +149,9 @@ makeReadable = function(original){
 	return result;
 };
  $(function() {
+	 window.addEventListener('load', function() {
+		FastClick.attach(document.body);
+	}, false);
     app.router = new Router();
     Backbone.history.start();
 });
