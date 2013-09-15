@@ -147,9 +147,6 @@ makeReadable = function(original){
 	return result;
 };
  $(function() {
-	 window.addEventListener('load', function() {
-		FastClick.attach(document.body);
-	}, false);
     app.router = new Router();
     Backbone.history.start();
 });
