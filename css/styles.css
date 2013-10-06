@@ -73,7 +73,7 @@ textarea:focus, input:focus{
 	border:1px solid #000;
 	cursor:default;
 }
-#bracket{
+.bracket{
 	font-size: .85em;
 }
 .unselectable {

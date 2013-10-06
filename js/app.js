@@ -1,6 +1,49 @@
  var app = app || {};
-  app.SolutionModel = Backbone.Model.extend({
-	
+ 
+   app.Puzzle = Backbone.Model.extend({
+   
+		updateSolution: function(input){
+			var updatedSolution = this.get('solution') + input;
+			
+			if(input == 4)
+				this.incrementFoursCount();
+			this.set('solution', updatedSolution);
+			this.updateTotal();	
+			this.checkTargetReached();
+		},
+		
+		incrementFoursCount: function(){			
+			var foursCount = this.get('foursCount');
+			this.set('foursCount', foursCount+1);
+		},
+		
+		updateTotal: function(){			
+			var sum = 0;
+			try{
+				sum = makeReadable(this.get('solution'));
+				sum = eval(sum);
+				sum = Number(sum.toFixed(2));
+			}
+			catch(e){
+				sum = 0;
+			}
+			this.set('total', (sum)); 
+		},
+		
+		checkTargetReached: function(){
+			var target = this.get('target');
+			if((this.get('total') === target) && (this.get('foursCount') === 4)){
+				this.set('target', target+1);
+				this.clearSolution();
+			}
+		},
+		
+		clearSolution: function(){
+			this.set('solution', '');
+			this.set('total', 0);
+			this.set('foursCount', 0);
+		}
+		
   });
   
   app.TargetView  = Backbone.View.extend({
@@ -11,9 +54,8 @@
 	
 	initialize: function(){
 		_.bindAll(this, 'render');
+		this.model.on('change:target', this.render);
 		this.template = _.template($('#target-template').html());
-		this.model = new Backbone.Model();
-		this.model.set('target',1);
 	},
 	
 	render: function (){
@@ -32,23 +74,15 @@
 	events: {'click #options' : 'clear'},
 	initialize: function(){
 		_.bindAll(this, 'render');
-		this.model.on('change:solution', this.render);
+		this.model.on('change:solution change:total', this.render);
 		this.template = _.template($('#sol-template').html());
 	},
 	
 	clear: function(){
-		this.model.set('solution', '');
+		this.model.clearSolution();
 	},
 	
 	render: function (){
-		sum = 0;
-		try{
-			sum = makeReadable(this.model.get('solution'));
-			sum = eval(sum);
-			sum = Number(sum.toFixed(2)).toString();
-		}catch(e)
-		{sum = 0;}
-		this.model.set('total', ('=  '+sum)); 
 		var renderedContent = this.template(this.model.toJSON());
 		$(this.el).html(renderedContent);
 		return this;
@@ -59,35 +93,25 @@
  
 	tagName: 'div',
 	className: 'symbols unselectable',
-	initialize: function(){
+	initialize: function(){			
+		this.symbolViewArray = new Array();
+		var symbolsArray = ['4', '+', '-', '·', '×', '÷', '(', ')'];
 		_.bindAll(this, 'render');
-		this.template = _.template($('#symbols-template').html());
-		
-		this.fourView = new app.SymbolView({model: new Backbone.Model({symbol: "4"}), 
-											solutionModel:this.model});
-		this.plusView = new app.SymbolView({model: new Backbone.Model({symbol: "+"}), 
-											solutionModel:this.model});
-		this.minusView = new app.SymbolView({model: new Backbone.Model({symbol: "-"}), 
-											solutionModel:this.model});
-		this.decimalView = new app.SymbolView({model: new Backbone.Model({symbol: "·"}), 
-											solutionModel:this.model});
-		this.multiplyView = new app.SymbolView({model: new Backbone.Model({symbol: "×"}), 
-											solutionModel:this.model});
-		this.divideView = new app.SymbolView({model: new Backbone.Model({symbol: "÷"}), 
-											solutionModel:this.model});
-		this.bracketlView = new app.SymbolView({model: new Backbone.Model({symbol: "("}),
-												solutionModel:this.model, id:"bracket"});
-		this.bracketrView = new app.SymbolView({model: new Backbone.Model({symbol: ")"}),
-												solutionModel:this.model, id:"bracket"});
+		this.template = _.template($('#symbols-template').html());	
+		for (var i = 0; i < symbolsArray.length; i++) {
+			if( (symbolsArray[i] === '(' ) | ( symbolsArray[i] === ')') )
+				this.symbolViewArray[i] = new app.SymbolView( { symbol : symbolsArray[i], solutionModel:this.model, className:'key unselectable bracket'});
+			else
+				this.symbolViewArray[i] = new app.SymbolView( { symbol : symbolsArray[i], solutionModel:this.model});
+		}
 	},
 	
 	render: function (){
-		var renderedContent = this.template();
-		$(this.el).html(renderedContent);
+		$(this.el).html(this.template);
 		
-		this.$el.append(this.fourView.render().el,this.plusView.render().el,this.minusView.render().el,
-						this.decimalView.render().el,this.multiplyView.render().el,this.divideView.render().el,
-						this.bracketlView.render().el,this.bracketrView.render().el);
+		for (var i = 0; i < this.symbolViewArray.length; i++) {
+			this.$el.append(this.symbolViewArray[i].render().el);
+		}
 		return this;
 	}
 });
@@ -104,18 +128,18 @@
 	initialize: function(){
 		_.bindAll(this, 'render', 'keyClicked');
 		this.solutionModel = this.options.solutionModel;
-		this.template = _.template($('#key-template').html());
+		this.symbol = this.options.symbol;
+		var symbolRef = this.symbol;
+		this.template = _.template($('#key-template').html(), { symbol :  symbolRef});
 	},
 	
 	render: function (){
-		var renderedContent = this.template(this.model.toJSON());
-		$(this.el).html(renderedContent);
+		$(this.el).html(this.template);
 		return this;
 	},
 	
 	keyClicked: function(){
-		updatedSolution = this.solutionModel.get('solution') + this.model.get('symbol');
-		this.solutionModel.set('solution', updatedSolution);
+		this.solutionModel.updateSolution(this.symbol);
 	}
 });
 
@@ -124,10 +148,10 @@
         "" : "home"
 		},
 	initialize: function(){
-		this.solutionModel = new app.SolutionModel({solution:"", total:""});
-		this.targetView = new app.TargetView();
-		this.solutionView = new app.SolutionView({model:this.solutionModel});
-		this.symbolsView = new app.SymbolsView({model:this.solutionModel});
+		this.puzzle = new app.Puzzle({target:1,solution:"", total:0, foursCount:0});
+		this.targetView = new app.TargetView({model:this.puzzle});
+		this.solutionView = new app.SolutionView({model:this.puzzle});
+		this.symbolsView = new app.SymbolsView({model:this.puzzle});
 	},
 	home:function() {
 		var content = $('#four4sApp');
