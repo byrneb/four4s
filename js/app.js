@@ -2,19 +2,47 @@
  
    app.Puzzle = Backbone.Model.extend({
    
-		updateSolution: function(input){
-			var updatedSolution = this.get('solution') + input;
+		update: function(input){			
+			this.updateTotal();	
+			this.checkTargetReached();
+			
+			if(this.foursCountReached())
+				$( "#four-key" ).addClass( "gray" );			
+			else
+				$( "#four-key" ).removeClass( "gray" );
+		},
+		
+		addToSolution: function(input){			
+			var updatedSolution = this.get('solution') + input;			
+			this.set('solution', updatedSolution);
 			
 			if(input == 4)
 				this.incrementFoursCount();
-			this.set('solution', updatedSolution);
-			this.updateTotal();	
-			this.checkTargetReached();
+			this.update();
+		},
+		
+		removeFromSolution: function(){
+			var solution = this.get('solution');
+			this.set('solution', solution.slice(0,-1));
+			
+			var removedChar = solution.charAt(solution.length-1);
+			if(removedChar === '4')
+				this.decrementFoursCount();
+			this.update();
 		},
 		
 		incrementFoursCount: function(){			
 			var foursCount = this.get('foursCount');
 			this.set('foursCount', foursCount+1);
+		},
+		
+		decrementFoursCount: function(){			
+			var foursCount = this.get('foursCount');
+			this.set('foursCount', foursCount-1);
+		},
+		
+		foursCountReached: function(){
+			return this.get('foursCount') === 4;
 		},
 		
 		updateTotal: function(){			
@@ -24,15 +52,15 @@
 				sum = eval(sum);
 				sum = Number(sum.toFixed(2));
 			}
-			catch(e){
+			catch(e)
 				sum = 0;
-			}
+			
 			this.set('total', (sum)); 
 		},
 		
 		checkTargetReached: function(){
 			var target = this.get('target');
-			if((this.get('total') === target) && (this.get('foursCount') === 4)){
+			if((this.get('total') === target) && (this.foursCountReached())){
 				this.set('target', target+1);
 				this.clearSolution();
 			}
@@ -42,6 +70,7 @@
 			this.set('solution', '');
 			this.set('total', 0);
 			this.set('foursCount', 0);
+			$( "#four-key" ).removeClass( "gray" );
 		}
 		
   });
@@ -71,7 +100,8 @@
 	id: 'sol-container',
 	className: 'unselectable',
 	
-	events: {'click #options' : 'clear'},
+	events: {'click #clear' : 'clear', 
+			 'click #backspace' : 'backspace'},
 	initialize: function(){
 		_.bindAll(this, 'render');
 		this.model.on('change:solution change:total', this.render);
@@ -80,6 +110,10 @@
 	
 	clear: function(){
 		this.model.clearSolution();
+	},
+	
+	backspace: function(){
+		this.model.removeFromSolution();
 	},
 	
 	render: function (){
@@ -96,22 +130,20 @@
 	initialize: function(){			
 		this.symbolViewArray = new Array();
 		var symbolsArray = ['4', '+', '-', '·', '×', '÷', '(', ')'];
+		var idArray = ['four-key', 'plus-key', 'minus-key', 'dot-key', 'multiply-key', 'divide-key', 'left-bracket-key', 'right-bracket-key'];
 		_.bindAll(this, 'render');
 		this.template = _.template($('#symbols-template').html());	
-		for (var i = 0; i < symbolsArray.length; i++) {
-			if( (symbolsArray[i] === '(' ) | ( symbolsArray[i] === ')') )
-				this.symbolViewArray[i] = new app.SymbolView( { symbol : symbolsArray[i], solutionModel:this.model, className:'key unselectable bracket'});
-			else
-				this.symbolViewArray[i] = new app.SymbolView( { symbol : symbolsArray[i], solutionModel:this.model});
-		}
+		for (var i = 0; i < symbolsArray.length; i++) 
+			this.symbolViewArray[i] = new app.SymbolView( { id : idArray[i], symbol : symbolsArray[i], solutionModel:this.model});
+		
 	},
 	
 	render: function (){
 		$(this.el).html(this.template);
 		
-		for (var i = 0; i < this.symbolViewArray.length; i++) {
+		for (var i = 0; i < this.symbolViewArray.length; i++) 
 			this.$el.append(this.symbolViewArray[i].render().el);
-		}
+			
 		return this;
 	}
 });
@@ -139,7 +171,9 @@
 	},
 	
 	keyClicked: function(){
-		this.solutionModel.updateSolution(this.symbol);
+		if( !((this.symbol === '4') && this.solutionModel.foursCountReached()) )
+			this.solutionModel.addToSolution(this.symbol);
+		
 	}
 });
 
