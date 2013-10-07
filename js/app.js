@@ -52,9 +52,9 @@
 				sum = eval(sum);
 				sum = Number(sum.toFixed(2));
 			}
-			catch(e)
+			catch(e){
 				sum = 0;
-			
+			}
 			this.set('total', (sum)); 
 		},
 		
