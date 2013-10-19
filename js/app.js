@@ -129,7 +129,7 @@
 	className: 'symbols ',
 	initialize: function(){			
 		this.symbolViewArray = new Array();
-		var symbolsArray = ['4', '+', '-', '÷', '×', '∙', '(', ')', '⌫'];
+		var symbolsArray = ['4', '+', '-', '÷', '×', '∙', '(', ')', '⊳'];
 		var idArray = ['four-key', 'plus-key', 'minus-key', 'dot-key', 'multiply-key', 'divide-key', 'left-bracket-key', 'right-bracket-key', 'back-key'];
 		_.bindAll(this, 'render');
 		this.template = _.template($('#symbols-template').html());	
