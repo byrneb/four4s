@@ -9,15 +9,11 @@
 <div id="four4sApp"></div>
 <script type="text/template" id="symbols-template"></script>
 <script type="text/template" id="sol-template">
-	<div id="options">			
-		<div class="option" id="backspace">Backspace</div>
-		<div class="option" id="clear">Start Over</div>
-	</div>
 	<div id="solution"><%= solution %></div>
-	<div id="total">= <%= total %></div>
+	<div id="total"><div class="center">= <%= total %></div></div>
 </script>
-<script type="text/template" id="target-template">Target : <%= target %></script>
-<script type="text/template" id="key-template"><%= symbol %></script>
+<script type="text/template" id="header-template"><div class="center">Target : <%= target %></div></script>
+<script type="text/template" id="key-template"><div class="center"><%= symbol %></div></script>
 
 <script src="lib/jquery-1.7.1.min.js"></script>
 <script src="lib/underscore-min.js"></script>
