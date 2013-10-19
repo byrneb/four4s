@@ -1,4 +1,4 @@
- var app = app || {};
+ï»¿ var app = app || {};
  
    app.Puzzle = Backbone.Model.extend({
    
@@ -75,16 +75,16 @@
 		
   });
   
-  app.TargetView  = Backbone.View.extend({
+  app.HeaderView  = Backbone.View.extend({
  
 	tagName: 'div',
-	id: 'target',
-	className: 'unselectable',
+	id: 'header',
+	className: '',
 	
 	initialize: function(){
 		_.bindAll(this, 'render');
 		this.model.on('change:target', this.render);
-		this.template = _.template($('#target-template').html());
+		this.template = _.template($('#header-template').html());
 	},
 	
 	render: function (){
@@ -98,7 +98,7 @@
  
 	tagName: 'div',
 	id: 'sol-container',
-	className: 'unselectable',
+	className: '',
 	
 	events: {'click #clear' : 'clear', 
 			 'click #backspace' : 'backspace'},
@@ -126,11 +126,11 @@
   app.SymbolsView  = Backbone.View.extend({
  
 	tagName: 'div',
-	className: 'symbols unselectable',
+	className: 'symbols ',
 	initialize: function(){			
 		this.symbolViewArray = new Array();
-		var symbolsArray = ['4', '+', '-', '·', '×', '÷', '(', ')'];
-		var idArray = ['four-key', 'plus-key', 'minus-key', 'dot-key', 'multiply-key', 'divide-key', 'left-bracket-key', 'right-bracket-key'];
+		var symbolsArray = ['4', '+', '-', 'Ã·', 'Ã—', 'âˆ™', '(', ')', 'âŒ«'];
+		var idArray = ['four-key', 'plus-key', 'minus-key', 'dot-key', 'multiply-key', 'divide-key', 'left-bracket-key', 'right-bracket-key', 'back-key'];
 		_.bindAll(this, 'render');
 		this.template = _.template($('#symbols-template').html());	
 		for (var i = 0; i < symbolsArray.length; i++) 
@@ -151,7 +151,7 @@
  app.SymbolView  = Backbone.View.extend({
  
 	tagName: 'div',
-	className: 'key unselectable',
+	className: 'key ',
 	
 	events: {
 		"click": "keyClicked"
@@ -183,14 +183,14 @@
 		},
 	initialize: function(){
 		this.puzzle = new app.Puzzle({target:1,solution:"", total:0, foursCount:0});
-		this.targetView = new app.TargetView({model:this.puzzle});
+		this.HeaderView = new app.HeaderView({model:this.puzzle});
 		this.solutionView = new app.SolutionView({model:this.puzzle});
 		this.symbolsView = new app.SymbolsView({model:this.puzzle});
 	},
 	home:function() {
 		var content = $('#four4sApp');
 		content.empty();
-		content.append(this.targetView.render().el);
+		content.append(this.HeaderView.render().el);
 		content.append(this.solutionView.render().el);
 		content.append(this.symbolsView.render().el);
 	}
