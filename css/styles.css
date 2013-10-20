@@ -29,6 +29,38 @@ html,body {
 	border-bottom:2px solid rgb(181, 184, 185);
 	position: relative;
 }
+
+#home{
+	border: 2px solid rgb(0, 150, 218);
+	height: 63%;
+	border-radius: 8%;
+	width: 17%;
+	position: absolute;
+	top: 14%;
+	left: 4.5%;
+	bottom: 0;
+	right: 0;
+	font-size: .7em;
+	color:rgb(0, 150, 218);
+}
+
+.half{
+	margin-top: 26%;
+}
+
+#hint{
+	border: 2px solid rgb(0, 150, 218);
+	height: 63%;
+	border-radius: 8%;
+	width: 17%;
+	position: absolute;
+	top: 14%;
+	left: 77%;
+	bottom: 0;
+	right: 0;
+	font-size: .8em;
+	color:rgb(0, 150, 218);
+}
 .center{
 	  width: 50%;
 	  height: 50%;
