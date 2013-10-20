@@ -63,6 +63,7 @@
 			if((this.get('total') === target) && (this.foursCountReached())){
 				this.set('target', target+1);
 				this.clearSolution();
+				localStorage.setItem( 'target', JSON.stringify(target+1) );
 			}
 		},
 		
@@ -175,6 +176,12 @@
 		},
 	initialize: function(){
 		this.puzzle = new app.Puzzle({target:1,solution:"", total:0, foursCount:0});
+		
+		if(localStorage.getItem( 'car' ) !== null){
+			var target =  JSON.parse( localStorage.getItem( 'target' ) );
+			this.puzzle.set('target', target);
+		}
+			
 		this.HeaderView = new app.HeaderView({model:this.puzzle});
 		this.solutionView = new app.SolutionView({model:this.puzzle});
 		this.symbolsView = new app.SymbolsView({model:this.puzzle});
