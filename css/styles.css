@@ -85,14 +85,16 @@ html,body {
 	border-radius: 50%;
 	cursor: default;
 	color: white;
-	background-color: rgb(28, 203, 218);
+	background-color: rgb(0, 150, 218);
+	border:1px solid rgb(0, 150, 218);
 	position: relative;
 }
 #minus-key, #divide-key, #back-key{
 	margin-right: 0;
 }
 #back-key{
-	background-color: rgb(207, 34, 41);	
+	background-color: rgb(207, 34, 41);
+	border:1px solid rgb(207, 34, 41);	
 }
 
 .gray {
