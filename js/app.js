@@ -100,22 +100,12 @@
 	id: 'sol-container',
 	className: '',
 	
-	events: {'click #clear' : 'clear', 
-			 'click #backspace' : 'backspace'},
 	initialize: function(){
 		_.bindAll(this, 'render');
 		this.model.on('change:solution change:total', this.render);
 		this.template = _.template($('#sol-template').html());
 	},
-	
-	clear: function(){
-		this.model.clearSolution();
-	},
-	
-	backspace: function(){
-		this.model.removeFromSolution();
-	},
-	
+		
 	render: function (){
 		var renderedContent = this.template(this.model.toJSON());
 		$(this.el).html(renderedContent);
@@ -171,9 +161,11 @@
 	},
 	
 	keyClicked: function(){
-		if( !((this.symbol === '4') && this.solutionModel.foursCountReached()) )
+		if (this.symbol === '«')
+			this.solutionModel.removeFromSolution();	
+		else if( !((this.symbol === '4') && this.solutionModel.foursCountReached()) )
 			this.solutionModel.addToSolution(this.symbol);
-		
+			
 	}
 });
 

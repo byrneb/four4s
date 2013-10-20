@@ -42,7 +42,7 @@ html,body {
 #back-key .center{
 	  height: 70%;
 	  width: 70%;
-	font-size: .8em;	
+	font-size: .8em;
 }
 
 #sol-container{
@@ -85,11 +85,14 @@ html,body {
 	border-radius: 50%;
 	cursor: default;
 	color: white;
-	background-color: rgb(113, 206, 214);
+	background-color: rgb(28, 203, 218);
 	position: relative;
 }
 #minus-key, #divide-key, #back-key{
 	margin-right: 0;
+}
+#back-key{
+	background-color: rgb(207, 34, 41);	
 }
 
 .gray {
