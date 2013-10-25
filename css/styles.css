@@ -78,14 +78,14 @@ html,body {
 #sol-container{
 	width: 85%;
     height: 20%;
-	margin-top: 7%;
+	margin-top: 9%;
 	margin-bottom: 3%;
 	margin-left: 7.5%;
 	font-size: 2em;	
 }
 #solution{
 	width: 100%;
-    height: 30%;
+    height: 25%;
 }
 #total{
 	width: 100%;
