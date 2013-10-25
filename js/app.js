@@ -177,7 +177,7 @@
 	initialize: function(){
 		this.puzzle = new app.Puzzle({target:1,solution:"", total:0, foursCount:0});
 		
-		if(localStorage.getItem( 'car' ) !== null){
+		if(localStorage.getItem( 'target' ) !== null){
 			var target =  JSON.parse( localStorage.getItem( 'target' ) );
 			this.puzzle.set('target', target);
 		}
