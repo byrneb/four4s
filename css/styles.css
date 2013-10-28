@@ -102,8 +102,6 @@ html,body {
 }
 .key{
 	width: 20%;
-	margin-left: 1%;
-	margin-right: 16%;
 	margin-top: 7%;
 	float: left;
 	border: 1px solid #FFF;
@@ -116,7 +114,7 @@ html,body {
 	margin-right: 0%;
 }
 .icon-plus-key, .icon-mutliply-key, .icon-right-bracket-key{
-  left: 50%;
+  margin-left: 20%;
 }
 #back-key{
 	background-color: rgb(207, 34, 41);
