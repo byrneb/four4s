@@ -96,7 +96,7 @@ html,body {
 	font-size: 2em;	
 }
 .symbols{
-	width: 90%;
+	width: 80%;
     height: 50%;
 	margin: 0 auto;
 }
@@ -116,8 +116,7 @@ html,body {
 	margin-right: 0%;
 }
 .icon-plus-key, .icon-mutliply-key, .icon-right-bracket-key{
-	margin: 0 auto;
-	margin-top: 7%;
+  left: 50%;
 }
 #back-key{
 	background-color: rgb(207, 34, 41);
