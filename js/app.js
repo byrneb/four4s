@@ -121,11 +121,11 @@
 	initialize: function(){			
 		this.symbolViewArray = new Array();
 		var symbolsArray = ['4', '+', '-', '·', '×', '÷', '(', ')', '«'];
-		var idArray = ['four-key', 'plus-key', 'minus-key', 'dot-key', 'multiply-key', 'divide-key', 'left-bracket-key', 'right-bracket-key', 'back-key'];
+		var classArray = ['four-key', 'plus-key', 'minus-key', 'dot-key', 'mutliply-key', 'divide-key', 'left-bracket-key', 'right-bracket-key', 'back-key'];
 		_.bindAll(this, 'render');
 		this.template = _.template($('#symbols-template').html());	
 		for (var i = 0; i < symbolsArray.length; i++) 
-			this.symbolViewArray[i] = new app.SymbolView( { id : idArray[i], symbol : symbolsArray[i], solutionModel:this.model});
+			this.symbolViewArray[i] = new app.SymbolView( { className : 'key icon-'+classArray[i], symbol : symbolsArray[i], solutionModel:this.model});
 		
 	},
 	
@@ -141,8 +141,7 @@
 
  app.SymbolView  = Backbone.View.extend({
  
-	tagName: 'div',
-	className: 'key ',
+	tagName: 'span',
 	
 	events: {
 		"click": "keyClicked"
@@ -153,7 +152,7 @@
 		this.solutionModel = this.options.solutionModel;
 		this.symbol = this.options.symbol;
 		var symbolRef = this.symbol;
-		this.template = _.template($('#key-template').html(), { symbol :  symbolRef});
+		this.template = _.template($('#key-template').html());
 	},
 	
 	render: function (){
