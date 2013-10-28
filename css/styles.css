@@ -96,29 +96,23 @@ html,body {
 	font-size: 2em;	
 }
 .symbols{
-	clear: both;
 	width: 90%;
     height: 50%;
-	margin-left: 7.5%;
-	font-size: 2.4em;
-	text-align:center;
+	margin: 0 auto;
 }
 .key{
 	width: 20%;
-	height: 22%;
 	margin-left: 1%;
 	margin-right: 16%;
 	margin-top: 7%;
 	float: left;
 	border: 1px solid #FFF;
-	border-radius: 50%;
 	cursor: default;
-	color: white;
-	background-color: rgb(0, 150, 218);
-	border:1px solid rgb(0, 150, 218);
+	color: rgb(0, 150, 218);
 	position: relative;
+	font-size: 3.65em;
 }
-#minus-key, #divide-key, #back-key{
+.icon-minus-key, .icon-divide-key, .icon-back-key{
 	margin-right: 0;
 }
 #back-key{
@@ -129,5 +123,57 @@ html,body {
 .gray {
 	border: 1px solid #CCBEBE;
 	color: #CCBEBE;
+}
+
+@font-face {
+	font-family: 'icomoon';
+	src:url('../fonts/icomoon.eot');
+	src:url('../fonts/icomoon.eot?#iefix') format('embedded-opentype'),
+		url('../fonts/icomoon.ttf') format('truetype'),
+		url('../fonts/icomoon.woff') format('woff'),
+		url('../fonts/icomoon.svg#icomoon') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+[class*="icon-"] {
+	font-family: 'icomoon';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.icon-right-bracket-key:before {
+	content: "\e600";
+}
+.icon-divide-key:before {
+	content: "\e601";
+}
+.icon-four-key:before {
+	content: "\e602";
+}
+.icon-dot-key:before {
+	content: "\e603";
+}
+.icon-plus-key:before {
+	content: "\e604";
+}
+.icon-mutliply-key:before {
+	content: "\e605";
+}
+.icon-minus-key:before {
+	content: "\e606";
+}
+.icon-left-bracket-key:before {
+	content: "\e607";
+}
+.icon-back-key:before {
+	content: "\e608";
 }
 
