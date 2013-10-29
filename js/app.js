@@ -184,6 +184,7 @@
 		this.HeaderView = new app.HeaderView({model:this.puzzle});
 		this.solutionView = new app.SolutionView({model:this.puzzle});
 		this.symbolsView = new app.SymbolsView({model:this.puzzle});
+		
 	},
 	home:function() {
 		var content = $('#four4sApp');
