@@ -93,7 +93,7 @@ html,body {
     height: 60%;
 	text-align: center;
 	position: relative;
-	font-size: 2em;	
+	font-size: 19vw;
 }
 .symbols{
 	width: 80%;
@@ -107,7 +107,7 @@ html,body {
 	border: 1px solid #FFF;
 	cursor: default;
 	color: rgb(0, 150, 218);
-	font-size: 3.65em;
+	font-size: 17vw;
 }
 .icon-minus-key, .icon-divide-key, .icon-back-key{
 	float: right;
@@ -116,9 +116,8 @@ html,body {
 .icon-plus-key, .icon-mutliply-key, .icon-right-bracket-key{
   margin-left: 20%;
 }
-#back-key{
-	background-color: rgb(207, 34, 41);
-	border:1px solid rgb(207, 34, 41);	
+.icon-back-key{
+	color: rgb(207, 34, 41);
 }
 
 .gray {
