@@ -10,7 +10,7 @@
 <div id="four4sApp"></div>
 <script type="text/template" id="header-template">
 	<div id="home"><div class="half"><i class="fa fa-home"></i></div></div>
-	<div class="center">Target : <%= target %></div>
+	<div id="target" class="center">Target : <%= target %></div>
 	<div id="hint"><div class="half"><i class="fa fa-lightbulb-o"></i></div></div>
 </script>
 <script type="text/template" id="symbols-template"></script>
@@ -26,6 +26,12 @@
 <script src='lib/fastclick.js'></script>
 
 <script src="js/app.js"></script>
+<script>
+  $(document).ready(function() {   
+  var height = .2 * $('.symbols').height();
+  $( ".key" ).css( "fontSize", height ); 
+	});
+</script>
 </body>
 
 </html>
