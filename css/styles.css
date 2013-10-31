@@ -27,7 +27,6 @@ html,body {
     height: 14%;
 	font-size: 2em;
 	border-bottom:2px solid rgb(181, 184, 185);
-	position: relative;
 	color: white;
 	background-color: rgb(0, 150, 218);
 }
@@ -35,28 +34,21 @@ html,body {
 #home{
 	height: 100%;
 	width: 21%;
-	position: absolute;
-	top: 3%;
-	left: 2.5%;
-	bottom: 0;
-	right: 0;
 	border-right: 1px solid rgb(255, 255, 255);
+	float: left;
 }
-
-.half{
-	margin-top: 34%;
-}
-
-#hint{
-	
+#hint{	
 	height: 100%;
-	width: 21%;
-	position: absolute;
-	top: 3%;
-	left: 77.5%;
-	bottom: 0;
-	right: 0;
 	border-left: 1px solid rgb(255, 255, 255);
+	float: left;
+}
+#target{
+	height: 100%;
+	float: left;
+	line-height: 75%;
+}
+#above-target-filler{
+	height: 35%;
 }
 .center{
 	  width: 100%;
@@ -65,14 +57,8 @@ html,body {
 	  position: absolute;
 	  top: 0; left: 0; bottom: 0; right: 0;
 }
-.key .center, #total .center {
+#total .center {
 	  height: 70%;
-}
-
-#back-key .center{
-	  height: 70%;
-	  width: 70%;
-	  font-size: .8em;
 }
 
 #sol-container{
@@ -175,5 +161,8 @@ html,body {
 }
 .icon-back-key:before {
 	content: "\e608";
+}
+.fa{
+	margin-top: 30%;
 }
 
