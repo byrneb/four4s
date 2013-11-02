@@ -134,7 +134,8 @@ html,body {
 	background: rgb(207, 34, 41);
 	-webkit-transform: rotateZ(-33deg);
 	-moz-transform: rotateZ(-33deg);
-	border: 1px solid white;
+	-webkit-backface-visibility: hidden;
+	padding: 2px;
 }
 .modal-backdrop {
 	position: fixed;
