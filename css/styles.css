@@ -69,6 +69,7 @@ html,body {
 	margin: 0 auto;
 }
 .key{
+	width: 20%;
 	float: left;
 	border: 1px solid #FFF;
 	cursor: default;
