@@ -135,6 +135,7 @@ html,body {
 	outline: 1px solid transparent;
 	-webkit-transform: rotateZ(-33deg);
 	-moz-transform: rotateZ(-33deg);
+	-webkit-backface-visibility: hidden;
 }
 .modal-backdrop {
 	position: fixed;
