@@ -130,14 +130,11 @@ html,body {
 	top: 53%;
 	margin-top: -3px;
 	width: 156%;
-	height: 7px;
+	height: 9px;
 	background: rgb(207, 34, 41);
-	padding: 2px;
 	outline: 1px solid transparent;
-	-webkit-transform-style: preserve-3d;
 	-webkit-transform: rotateZ(-33deg);
 	-moz-transform: rotateZ(-33deg);
-	-webkit-backface-visibility: hidden;
 }
 .modal-backdrop {
 	position: fixed;
