@@ -83,7 +83,7 @@ html,body {
   margin-left: 20%;
 }
 .icon-back-key{
-	color: rgb(207, 34, 41);x
+	color: rgb(207, 34, 41);
 }
 
 .gray {
@@ -120,7 +120,7 @@ html,body {
 
 .strikethrough {
 	position: relative;
-	font-size: 161px;
+	font-size: 155px;
 	color: rgb(82, 80, 80);
 }
 .strikethrough:after {
@@ -131,9 +131,10 @@ html,body {
 	margin-top: -3px;
 	width: 156%;
 	height: 7px;
-	background: red;
+	background: rgb(207, 34, 41);
 	-webkit-transform: rotateZ(-33deg);
 	-moz-transform: rotateZ(-33deg);
+	border: 1px solid rgb(207, 34, 41);
 }
 .modal-backdrop {
 	position: fixed;
