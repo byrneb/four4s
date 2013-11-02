@@ -10,13 +10,13 @@
 <div id="four4sApp"></div>
 <script type="text/template" id="header-template">
 	<div id="home"><i class="fa fa-home"></i></div>
-	<div id="target"><div id="above-target-filler"></div> Target : <%= target %></div>
+	<div id="target"> Target : <%= target %></div>
 	<div id="hint"><i class="fa fa-lightbulb-o"></i></div>
 </script>
 <script type="text/template" id="symbols-template"></script>
 <script type="text/template" id="sol-template">
 	<div id="solution"><%= solution %></div>
-	<div id="total"><div class="center">= <%= total %></div></div>
+	<div id="total"><%= total %></div>
 </script>
 <script type="text/template" id="key-template"></script>
 
@@ -26,25 +26,6 @@
 <script src='lib/fastclick.js'></script>
 
 <script src="js/app.js"></script>
-<script>
-  $(document).ready(function() {   
-  var bodyHeight = $('body').height(); 
-  var bodyWidth = $('body').width();
-  
-  var diameter = .1 * $('body').height();
-  $( ".key" ).css( "fontSize", diameter ); 
-  var headerOptionWidth = bodyHeight*.13;
-  $( "#home, #hint" ).css( "width", headerOptionWidth); 
-  
-  var headerWidth = $('#header').width();
-  var headerTotalWidth = headerWidth - (2*bodyHeight*.14); 
-  $( "#target" ).css( "width", headerTotalWidth);
-  
-  
-  var headerFontSize = .4*bodyHeight*.13;
-  $( "#home, #hint" ).css( "fontSize", headerFontSize ); 
-	});
-</script>
 </body>
 
 </html>
