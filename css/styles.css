@@ -90,6 +90,62 @@ html,body {
 	color: gray;
 }
 
+.modal {
+	height: 53%;
+	position: fixed;
+	top: 24%;
+	z-index: 1050;
+	width: 84%;
+	margin-left: 8%;
+	background-color: #ffffff;
+	border: 1px solid #999;
+	border: 1px solid rgba(0, 0, 0, 0.3);
+	-moz-border-radius: 6px;
+	border-radius: 4%;
+	-webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+	-moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+	box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+	-webkit-background-clip: padding-box;
+	-moz-background-clip: padding-box;
+	background-clip: padding-box;
+	outline: none;
+}
+.modal-header {
+	height: 24%;
+	border-bottom: 1px solid #eee;
+	font-size: 3em;
+	line-height: 84px;
+	color: rgb(82, 80, 80);
+}
+
+.strikethrough {
+	position: relative;
+	font-size: 161px;
+	color: rgb(82, 80, 80);
+}
+.strikethrough:after {
+	content: "";
+	position: absolute;
+	left: -24%;
+	top: 53%;
+	margin-top: -3px;
+	width: 156%;
+	height: 7px;
+	background: red;
+	-webkit-transform: rotateZ(-33deg);
+	-moz-transform: rotateZ(-33deg);
+}
+.modal-backdrop {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 1040;
+	opacity: .1;
+	background-color: #000000;
+}
+
 @font-face {
 	font-family: 'icomoon';
 	src:url('../fonts/icomoon.eot');
