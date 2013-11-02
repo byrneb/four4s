@@ -7,13 +7,6 @@
 </head>
 
 <body>
-<div id="hu">
-<div class="modal">	
-	<div class="modal-header">Success</div>
-<span class="strikethrough">7</span>
-</div>
-<div class="modal-backdrop"></div>
-</div>
 <div id="four4sApp"></div>
 
 
@@ -28,6 +21,14 @@
 	<div id="total"><%= total %></div>
 </script>
 <script type="text/template" id="key-template"></script>
+
+<script type="text/template" id="modal-template">
+	<div class="modal">	
+	<div class="modal-header">Success</div>
+		<span class="strikethrough"><%= target %></span>
+	</div>
+	<div class="modal-backdrop"></div>
+</script>
 
 <script src="lib/jquery-1.7.1.min.js"></script>
 <script src="lib/underscore-min.js"></script>
