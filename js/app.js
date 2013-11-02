@@ -61,17 +61,23 @@
 		checkTargetReached: function(){
 			var target = this.get('target');
 			if((this.get('total') === target) && (this.foursCountReached())){
-				this.set('target', target+1);
-				this.clearSolution();
-				localStorage.setItem( 'target', JSON.stringify(target+1) );
+				modal = new app.ModalView({model: this});
+				modal.show();
 			}
+		},
+		
+		nextTarget: function(){
+			var target = this.get('target');
+			this.set('target', target+1);
+			this.clearSolution();
+			localStorage.setItem( 'target', JSON.stringify(target+1) );
 		},
 		
 		clearSolution: function(){
 			this.set('solution', '');
 			this.set('total', 0);
 			this.set('foursCount', 0);
-			$( "#four-key" ).removeClass( "gray" );
+			$( ".icon-four-key" ).removeClass( "gray" );
 		}
 		
   });
@@ -203,6 +209,39 @@
 	}
 });
 
+app.ModalView = Backbone.View.extend({
+
+        events: {
+            'click ': 'close'
+        },
+
+        initialize: function() {
+			_.bindAll(this, 'render');
+            this.template = _.template($('#modal-template').html());
+        },
+
+        render: function() {
+            this.$el.html(this.template(this.model.toJSON()));
+			var bodyHeight = $('body').height(); 
+		
+			this.$( ".modal-header" ).css( "font-size", .07*bodyHeight); 
+			this.$( ".modal-header" ).css( "margin-top", .04*bodyHeight); 
+			this.$( ".strikethrough" ).css( "margin-top", .085*bodyHeight); 
+			this.$( ".strikethrough" ).css( "font-size", .27*bodyHeight); 
+            return this;
+        },
+
+        show: function() {
+            $(document.body).append(this.render().el);                
+        },
+
+        close: function() {
+            this.remove();
+			this.model.nextTarget();
+        }
+           
+    });
+	
  Router = Backbone.Router.extend({
 	routes: {
         "" : "home"

@@ -111,10 +111,9 @@ html,body {
 	outline: none;
 }
 .modal-header {
-	height: 24%;
+	height: 22%;
 	border-bottom: 1px solid #eee;
 	font-size: 3em;
-	line-height: 84px;
 	color: rgb(82, 80, 80);
 }
 
@@ -122,6 +121,8 @@ html,body {
 	position: relative;
 	font-size: 155px;
 	color: rgb(82, 80, 80);
+	display: inline-block;
+	line-height: .7;
 }
 .strikethrough:after {
 	content: "";
