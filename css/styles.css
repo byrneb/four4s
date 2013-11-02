@@ -87,8 +87,7 @@ html,body {
 }
 
 .gray {
-	border: 1px solid #CCBEBE;
-	color: #CCBEBE;
+	color: gray;
 }
 
 @font-face {

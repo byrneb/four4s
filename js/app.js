@@ -7,9 +7,9 @@
 			this.checkTargetReached();
 			
 			if(this.foursCountReached())
-				$( "#four-key" ).addClass( "gray" );			
+				$( ".icon-four-key" ).addClass( "gray" );			
 			else
-				$( "#four-key" ).removeClass( "gray" );
+				$( ".icon-four-key" ).removeClass( "gray" );
 		},
 		
 		addToSolution: function(input){			
@@ -103,7 +103,7 @@
 		var headerTotalWidth = bodyWidth - (2*bodyHeight*.14); 
 		this.$( "#target" ).css( "width", headerTotalWidth);
 		
-		var marginTop = bodyHeight*.31*.14; 
+		var marginTop = bodyHeight*.31*.145; 
 		this.$( ".fa, #target").css( "margin-top", marginTop);
 		  
 		  
