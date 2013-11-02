@@ -91,6 +91,24 @@
 	render: function (){
 		var renderedContent = this.template(this.model.toJSON());
 		$(this.el).html(renderedContent);
+		
+		var bodyHeight = $('body').height(); 
+		var bodyWidth = $('body').width();		  
+		 
+		var homeOptionWidth = bodyHeight*.14;
+		var hintOptionWidth = bodyHeight*.13;
+		this.$( "#home" ).css( "width", homeOptionWidth); 
+		this.$( "#hint" ).css( "width", hintOptionWidth); 
+		  
+		var headerTotalWidth = bodyWidth - (2*bodyHeight*.14); 
+		this.$( "#target" ).css( "width", headerTotalWidth);
+		
+		var marginTop = bodyHeight*.31*.14; 
+		this.$( ".fa, #target").css( "margin-top", marginTop);
+		  
+		  
+		var headerFontSize = .4*bodyHeight*.13;
+		this.$( "#home, #hint, #target" ).css( "fontSize", headerFontSize ); 
 		return this;
 	}
 });
@@ -110,6 +128,15 @@
 	render: function (){
 		var renderedContent = this.template(this.model.toJSON());
 		$(this.el).html(renderedContent);
+		
+		var bodyHeight = $('body').height();	  
+		var marginTop = bodyHeight*.1; 	  
+		var marginBottom = bodyHeight*.015; 		
+		
+		this.$el.css( "margin-top", marginTop ); 
+		this.$( "#solution" ).css( "margin-bottom", .025*bodyHeight ); 
+		this.$( "#solution" ).css( "font-size", .055*bodyHeight ); 
+		this.$( "#total" ).css( "font-size", .13*bodyHeight ); 
 		return this;
 	}
 });
@@ -157,6 +184,13 @@
 	
 	render: function (){
 		$(this.el).html(this.template);
+		 
+		var bodyHeight = $('body').height(); 
+		  
+		var diameter = .1 * bodyHeight;
+		var marginTop = .04 * bodyHeight;
+		this.$el.css( "fontSize", diameter ); 
+		this.$el.css( "margin-top", marginTop ); 
 		return this;
 	},
 	

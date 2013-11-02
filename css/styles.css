@@ -25,7 +25,6 @@ html,body {
 #header{
 	width: 100%;
     height: 14%;
-	font-size: 2em;
 	border-bottom:2px solid rgb(181, 184, 185);
 	color: white;
 	background-color: rgb(0, 150, 218);
@@ -33,7 +32,6 @@ html,body {
 
 #home{
 	height: 100%;
-	width: 21%;
 	border-right: 1px solid rgb(255, 255, 255);
 	float: left;
 }
@@ -43,43 +41,27 @@ html,body {
 	float: left;
 }
 #target{
-	height: 100%;
+	height: 65%;
 	float: left;
-	line-height: 75%;
+	line-height: 100%;
 }
 #above-target-filler{
 	height: 35%;
 }
-.center{
-	  width: 100%;
-	  height: 45%;
-	  margin: auto;
-	  position: absolute;
-	  top: 0; left: 0; bottom: 0; right: 0;
-}
-#total .center {
-	  height: 70%;
-}
 
 #sol-container{
 	width: 85%;
-    height: 22.5%;
-	margin-top: 13%;
-	margin-bottom: 3%;
+    height: 23.5%;
 	margin-left: 7.5%;
-	font-size: 2em;	
 }
 #solution{
 	width: 100%;
     height: 25%;
-	margin-bottom: 3%;
 }
 #total{
 	width: 100%;
-    height: 60%;
-	text-align: center;
+    height: 59%;
 	position: relative;
-	font-size: 2em;	
 }
 .symbols{
 	width: 80%;
@@ -87,13 +69,10 @@ html,body {
 	margin: 0 auto;
 }
 .key{
-	width: 20%;
-	margin-top: 7%;
 	float: left;
 	border: 1px solid #FFF;
 	cursor: default;
 	color: rgb(0, 150, 218);
-	font-size: 3.65em;
 }
 .icon-minus-key, .icon-divide-key, .icon-back-key{
 	float: right;
@@ -161,8 +140,5 @@ html,body {
 }
 .icon-back-key:before {
 	content: "\e608";
-}
-.fa{
-	margin-top: 30%;
 }
 
