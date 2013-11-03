@@ -151,7 +151,6 @@ html,body {
 
 @font-face {
 	font-family: 'icomoon';
-	src:url('../fonts/icomoon.eot');
 	src:url('../fonts/icomoon.eot?#iefix') format('embedded-opentype'),
 		url('../fonts/icomoon.ttf') format('truetype'),
 		url('../fonts/icomoon.woff') format('woff'),
