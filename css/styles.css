@@ -168,7 +168,7 @@ html,body {
 	font-variant: normal;
 	text-transform: none;
 	line-height: 1;
-
+	text-rendering: auto;
 }
 
 .icon-right-bracket-key:before {
