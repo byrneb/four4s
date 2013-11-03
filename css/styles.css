@@ -151,6 +151,7 @@ html,body {
 
 @font-face {
 	font-family: 'icomoon';
+	src:url('../fonts/icomoon.eot');
 	src:url('../fonts/icomoon.eot?#iefix') format('embedded-opentype'),
 		url('../fonts/icomoon.ttf') format('truetype'),
 		url('../fonts/icomoon.woff') format('woff'),
@@ -158,6 +159,7 @@ html,body {
 	font-weight: normal;
 	font-style: normal;
 }
+
 [class*="icon-"] {
 	font-family: 'icomoon';
 	speak: none;
@@ -175,27 +177,30 @@ html,body {
 .icon-right-bracket-key:before {
 	content: "\e600";
 }
-.icon-plus-key:before {
+.icon-pluss-key:before {
 	content: "\e601";
 }
-.icon-mutliply-key:before {
+.icon-plus-key:before {
 	content: "\e602";
 }
-.icon-minus-key:before {
+.icon-mutliply-key:before {
 	content: "\e603";
 }
-.icon-left-bracket-key:before {
+.icon-minus-key:before {
 	content: "\e604";
 }
-.icon-four-key:before {
+.icon-left-bracket-key:before {
 	content: "\e605";
 }
-.icon-dot-key:before {
+.icon-four-key:before {
 	content: "\e606";
 }
-.icon-divide-key:before {
+.icon-dot-key:before {
 	content: "\e607";
 }
-.icon-back-key:before {
+.icon-divide-key:before {
 	content: "\e608";
+}
+.icon-back-key:before {
+	content: "\e609";
 }
