@@ -79,7 +79,7 @@ html,body {
 	float: right;
 	margin-right: 0%;
 }
-.icon-plus-key, .icon-mutliply-key, .icon-right-bracket-key{
+.icon-pluss-key, .icon-mutliply-key, .icon-right-bracket-key{
   margin-left: 20%;
 }
 .icon-back-key{
@@ -177,31 +177,33 @@ html,body {
 .icon-right-bracket-key:before {
 	content: "\e600";
 }
-.icon-plus-key:before {
+.icon-pluss-key:before {
 	content: "\e601";
 }
-.icon-mutliply-key:before {
+.icon-plus-key:before {
 	content: "\e602";
 }
-.icon-minus-key:before {
+.icon-mutliply-key:before {
 	content: "\e603";
 }
-.icon-left-bracket-key:before {
+.icon-minus-key:before {
 	content: "\e604";
 }
-.icon-four-key:before {
+.icon-left-bracket-key:before {
 	content: "\e605";
 }
-.icon-dot-key:before {
+.icon-four-key:before {
 	content: "\e606";
 }
-.icon-divide-key:before {
+.icon-dot-key:before {
 	content: "\e607";
 }
-.icon-back-key:before {
+.icon-divide-key:before {
 	content: "\e608";
 }
-
+.icon-back-key:before {
+	content: "\e609";
+}
 
 
 
