@@ -167,39 +167,36 @@ html,body {
 	font-variant: normal;
 	text-transform: none;
 	line-height: 1;
-	text-rendering: auto;
+
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 .icon-right-bracket-key:before {
 	content: "\e600";
 }
-.icon-pluss-key:before {
+.icon-plus-key:before {
 	content: "\e601";
 }
-.icon-plus-key:before {
+.icon-mutliply-key:before {
 	content: "\e602";
 }
-.icon-mutliply-key:before {
+.icon-minus-key:before {
 	content: "\e603";
 }
-.icon-minus-key:before {
+.icon-left-bracket-key:before {
 	content: "\e604";
 }
-.icon-left-bracket-key:before {
+.icon-four-key:before {
 	content: "\e605";
 }
-.icon-four-key:before {
+.icon-dot-key:before {
 	content: "\e606";
 }
-.icon-dot-key:before {
+.icon-divide-key:before {
 	content: "\e607";
 }
-.icon-divide-key:before {
+.icon-back-key:before {
 	content: "\e608";
 }
-.icon-back-key:before {
-	content: "\e609";
-}
-
-
-
