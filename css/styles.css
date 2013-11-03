@@ -159,7 +159,6 @@ html,body {
 	font-weight: normal;
 	font-style: normal;
 }
-
 [class*="icon-"] {
 	font-family: 'icomoon';
 	speak: none;
@@ -204,3 +203,4 @@ html,body {
 .icon-back-key:before {
 	content: "\e609";
 }
+
