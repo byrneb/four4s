@@ -180,26 +180,27 @@ html,body {
 .icon-plus-key:before {
 	content: "\e601";
 }
-.icon-mutliply-key:before {
+.icon-minus-key:before {
 	content: "\e602";
 }
-.icon-minus-key:before {
+.icon-left-bracket-key:before {
 	content: "\e603";
 }
-.icon-left-bracket-key:before {
+.icon-four-key:before {
 	content: "\e604";
 }
-.icon-four-key:before {
+.icon-divide-key:before {
 	content: "\e605";
 }
 .icon-dot-key:before {
 	content: "\e606";
 }
-.icon-divide-key:before {
+.icon-back-key:before {
 	content: "\e607";
 }
-.icon-back-key:before {
+.icon-mutliply-key:before {
 	content: "\e608";
 }
+
 
 
