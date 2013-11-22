@@ -172,7 +172,9 @@ html,body {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
-
+.key:active{
+	color: black;
+}
 .icon-right-bracket-key:before {
 	content: "\e600";
 }

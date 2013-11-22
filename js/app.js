@@ -87,6 +87,9 @@
 	tagName: 'div',
 	id: 'header',
 	className: '',
+	events: {
+		"click #home": "home"
+    },
 	
 	initialize: function(){
 		_.bindAll(this, 'render');
@@ -116,6 +119,10 @@
 		var headerFontSize = .4*bodyHeight*.13;
 		this.$( "#home, #hint, #target" ).css( "fontSize", headerFontSize ); 
 		return this;
+	},
+	
+	home: function (){
+		navigator.app.exitApp();
 	}
 });
 
