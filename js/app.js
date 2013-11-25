@@ -258,11 +258,14 @@ app.ModalView = Backbone.View.extend({
 	
 	render: function (){
 		$(this.el).html(this.template);
-		var height = $('body').height()*.06; 
+		var height = $('body').height()*.08; 
+		var fontSize = $('body').height()*.033; 
 		this.$( ".leftside-edge" ).css( "width", height); 
 		this.$( ".rightside-edge" ).css( "width", height); 
 		this.$( ".menu-option" ).css( "margin-left", -height/2); 
 		this.$( ".menu-option" ).css( "margin-right", -height/2);
+		this.$( ".menu-option" ).css( "font-size", fontSize);
+		
 		return this;
 	},
 	

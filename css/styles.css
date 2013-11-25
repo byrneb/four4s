@@ -120,13 +120,17 @@ a {
 }
 .menu-option{
 	width: 50%;
-	height: 6%;
+	height: 8%;
 	font-size: 20px;
 	color: white;
 	background: rgb(0, 150, 218);
 	float: left;
 	margin-left: -3%;
-	line-height: 185%;
+	line-height: 225%;
+}
+.menu-option-leading{
+	height: 2.35%;
+	width: 100%;
 }
 .options-divider{
 	width: 100%;
@@ -134,17 +138,17 @@ a {
 	float: left;
 }
 .leftside-edge{
-	width: 6%;
+	width: 8%;
 	margin-left: 20%;
-	height: 6%;
+	height: 8%;
 	background: rgb(0, 150, 218);
 	float: left;
 	border-radius: 50%;
 }
 
 .rightside-edge{
-	width: 6%;
-	height: 6%;
+	width: 8%;
+	height: 8%;
 	background: rgb(0, 150, 218);
 	float: left;
 	border-radius: 50%;
