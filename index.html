@@ -10,10 +10,14 @@
 <div id="four4sApp"></div>
 
 <script type="text/template" id="home-template">
-	<div>Four4s</div>
-	<div><a href="#play">Create Project</a></div>
-	<div><a href="#play">Create Project</a></div>
-	<div><a href="#play">Create Project</a></div>
+	<div id="menu-header" ></div>
+	<div id="menu-title" >Four4s</div>
+	<div id="menu-title-footer" ></div>
+	<div class="leftside-edge"></div><div class="menu-option" ><a href="#play">Play</a></div><div class="rightside-edge"></div>
+	<div class="options-divider" ></div>
+	<div class="leftside-edge"></div><div class="menu-option" ><a href="#play">Select a Level</a></div><div class="rightside-edge"></div>
+	<div class="options-divider" ></div>
+	<div class="leftside-edge"></div><div class="menu-option" id="exit" >Exit</div><div class="rightside-edge"></div>
 </script>
 
 <script type="text/template" id="header-template">
@@ -36,7 +40,7 @@
 	<div class="modal-backdrop"></div>
 </script>
 
-<script src="lib/jquery-1.7.1.min.js"></script>
+<script src="lib/jquery-2.0.2.min.js"></script>
 <script src="lib/underscore-min.js"></script>
 <script src="lib/backbone-min.js"></script>
 <script src='lib/fastclick.js'></script>

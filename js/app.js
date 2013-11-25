@@ -87,9 +87,6 @@
 	tagName: 'div',
 	id: 'header',
 	className: '',
-	events: {
-		"click #home": "home"
-    },
 	
 	initialize: function(){
 		_.bindAll(this, 'render');
@@ -119,10 +116,6 @@
 		var headerFontSize = .4*bodyHeight*.13;
 		this.$( "#home, #hint, #target" ).css( "fontSize", headerFontSize ); 
 		return this;
-	},
-	
-	home: function (){
-		navigator.app.exitApp();
 	}
 });
 
@@ -249,9 +242,38 @@ app.ModalView = Backbone.View.extend({
            
     });
 	
+	 
+  app.HomeView  = Backbone.View.extend({
+ 
+	tagName: 'div',
+	id: 'home-screen',	
+	events: {
+		"click #exit": "exit"
+    },
+	
+	initialize: function(){		
+		_.bindAll(this, 'render');
+		this.template = _.template($('#home-template').html());			
+	},
+	
+	render: function (){
+		$(this.el).html(this.template);
+		var height = $('body').height()*.06; 
+		this.$( ".leftside-edge" ).css( "width", height); 
+		this.$( ".rightside-edge" ).css( "width", height); 
+		this.$( ".menu-option" ).css( "margin-left", -height/2); 
+		this.$( ".menu-option" ).css( "margin-right", -height/2);
+		return this;
+	},
+	
+	exit: function (){
+		navigator.app.exitApp();
+	}
+});
  Router = Backbone.Router.extend({
 	routes: {
-        "" : "home"
+        "" : "home", 
+		"play" : "play"
 		},
 	initialize: function(){
 		this.puzzle = new app.Puzzle({target:1,solution:"", total:0, foursCount:0});
@@ -267,6 +289,14 @@ app.ModalView = Backbone.View.extend({
 		
 	},
 	home:function() {
+		this.homeView = new app.HomeView();		
+		
+		var content = $('#four4sApp');
+		content.empty();
+		content.append(this.homeView.render().el);
+	},
+	
+	play:function(){
 		var content = $('#four4sApp');
 		content.empty();
 		content.append(this.HeaderView.render().el);

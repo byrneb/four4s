@@ -15,6 +15,10 @@ html,body {
 	user-select: none; 
 	border-bottom:1px solid rgb(0, 0, 0);
 }
+a {
+  color: white;
+  text-decoration: none; /* no underline */
+}
 #four4sApp{
 	width: 100%;
     height: 100%;
@@ -88,6 +92,62 @@ html,body {
 
 .gray {
 	color: gray;
+}
+
+#home-screen{
+	width: 100%;
+    height: 100%;
+	overflow: hidden;
+	background-color: rgb(238, 238, 238);
+}
+
+#menu-title{
+	width: 85%;
+	margin-left: 7.5%;
+	font-size: 70px;
+	background: white;
+	font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+}
+
+#menu-header{
+	width: 100%;
+	height: 15%;
+}
+
+#menu-title-footer{
+	width: 100%;
+	height: 15%;
+}
+.menu-option{
+	width: 50%;
+	height: 6%;
+	font-size: 20px;
+	color: white;
+	background: rgb(0, 150, 218);
+	float: left;
+	margin-left: -3%;
+	line-height: 185%;
+}
+.options-divider{
+	width: 100%;
+	height: 10%;
+	float: left;
+}
+.leftside-edge{
+	width: 6%;
+	margin-left: 20%;
+	height: 6%;
+	background: rgb(0, 150, 218);
+	float: left;
+	border-radius: 50%;
+}
+
+.rightside-edge{
+	width: 6%;
+	height: 6%;
+	background: rgb(0, 150, 218);
+	float: left;
+	border-radius: 50%;
 }
 
 .modal {
