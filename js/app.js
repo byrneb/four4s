@@ -87,6 +87,9 @@
 	tagName: 'div',
 	id: 'header',
 	className: '',
+	events: {
+		"click #home": "homeMenu"
+    },
 	
 	initialize: function(){
 		_.bindAll(this, 'render');
@@ -115,7 +118,12 @@
 		  
 		var headerFontSize = .4*bodyHeight*.13;
 		this.$( "#home, #hint, #target" ).css( "fontSize", headerFontSize ); 
+		this.delegateEvents(); 
 		return this;
+	},
+	
+	homeMenu: function (){
+		app.router.navigate("", true);
 	}
 });
 
@@ -143,6 +151,7 @@
 		this.$( "#solution" ).css( "margin-bottom", .025*bodyHeight ); 
 		this.$( "#solution" ).css( "font-size", .055*bodyHeight ); 
 		this.$( "#total" ).css( "font-size", .13*bodyHeight ); 
+		this.delegateEvents(); 
 		return this;
 	}
 });
@@ -167,7 +176,7 @@
 		
 		for (var i = 0; i < this.symbolViewArray.length; i++) 
 			this.$el.append(this.symbolViewArray[i].render().el);
-			
+		this.delegateEvents(); 	
 		return this;
 	}
 });
@@ -197,6 +206,7 @@
 		var marginTop = .04 * bodyHeight;
 		this.$el.css( "fontSize", diameter ); 
 		this.$el.css( "margin-top", marginTop ); 
+		this.delegateEvents(); 
 		return this;
 	},
 	
@@ -248,7 +258,8 @@ app.ModalView = Backbone.View.extend({
 	tagName: 'div',
 	id: 'home-screen',	
 	events: {
-		"click #exit": "exit"
+		"click #exit": "exit",
+		"click #option-play": "play"
     },
 	
 	initialize: function(){		
@@ -271,6 +282,10 @@ app.ModalView = Backbone.View.extend({
 	
 	exit: function (){
 		navigator.app.exitApp();
+	},
+	
+	play: function (){
+		app.router.navigate("play", true);
 	}
 });
  Router = Backbone.Router.extend({
@@ -289,19 +304,27 @@ app.ModalView = Backbone.View.extend({
 		this.HeaderView = new app.HeaderView({model:this.puzzle});
 		this.solutionView = new app.SolutionView({model:this.puzzle});
 		this.symbolsView = new app.SymbolsView({model:this.puzzle});
+		this.homeView = new app.HomeView();	
 		
 	},
-	home:function() {
-		this.homeView = new app.HomeView();		
+	home:function() {	
 		
 		var content = $('#four4sApp');
 		content.empty();
+		
+		this.homeView.delegateEvents();
+		
 		content.append(this.homeView.render().el);
 	},
 	
 	play:function(){
 		var content = $('#four4sApp');
 		content.empty();
+		
+		this.HeaderView.delegateEvents();
+		this.solutionView.delegateEvents();
+		this.symbolsView.delegateEvents();
+		
 		content.append(this.HeaderView.render().el);
 		content.append(this.solutionView.render().el);
 		content.append(this.symbolsView.render().el);
