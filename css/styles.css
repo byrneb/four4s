@@ -126,10 +126,10 @@ a {
 	background: rgb(0, 150, 218);
 	float: left;
 	margin-left: -3%;
-	line-height: 225%;
+	line-height: 100%;
 }
 .menu-option-leading{
-	height: 2.35%;
+	height: 30%;
 	width: 100%;
 }
 .options-divider{
