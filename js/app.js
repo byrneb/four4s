@@ -231,6 +231,7 @@ app.ModalView = Backbone.View.extend({
         },
 
         render: function() {
+			this.model.set('title', "Success");
             this.$el.html(this.template(this.model.toJSON()));
 			var bodyHeight = $('body').height(); 
 		
