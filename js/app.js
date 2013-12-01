@@ -1,7 +1,7 @@
 var app = app || {};
 
 app.Puzzle = Backbone.Model.extend({
-   
+
 	update: function(input) {
 		this.updateTotal();
 		this.checkTargetReached();
@@ -20,7 +20,7 @@ app.Puzzle = Backbone.Model.extend({
 			this.incrementFoursCount();
 		this.update();
 	},
-		
+
 	removeFromSolution: function(){
 		var solution = this.get('solution');
 		this.set('solution', solution.slice(0,-1));
@@ -30,17 +30,17 @@ app.Puzzle = Backbone.Model.extend({
 			this.decrementFoursCount();
 		this.update();
 	},
-		
+
 	incrementFoursCount: function(){
 		var foursCount = this.get('foursCount');
 		this.set('foursCount', foursCount+1);
 	},
-		
+
 	decrementFoursCount: function(){
 		var foursCount = this.get('foursCount');
 		this.set('foursCount', foursCount-1);
 	},
-		
+
 	foursCountReached: function(){
 		return this.get('foursCount') === 4;
 	},
@@ -79,17 +79,17 @@ app.Puzzle = Backbone.Model.extend({
 		this.set('foursCount', 0);
 		$( ".icon-four-key" ).removeClass( "gray" );
 	}
-		
+
 });
-  
+
 app.HeaderView  = Backbone.View.extend({
- 
+
 	tagName: 'div',
 	id: 'header',
 	className: '',
 	events: {
 		"click #home": "homeMenu"
-    },
+	},
 	
 	initialize: function(){
 		_.bindAll(this, 'render');
@@ -110,8 +110,8 @@ app.HeaderView  = Backbone.View.extend({
 	}
 });
 
- app.SolutionView  = Backbone.View.extend({
- 
+app.SolutionView  = Backbone.View.extend({
+
 	tagName: 'div',
 	id: 'sol-container',
 	className: '',
@@ -121,26 +121,17 @@ app.HeaderView  = Backbone.View.extend({
 		this.model.on('change:solution change:total', this.render);
 		this.template = _.template($('#sol-template').html());
 	},
-		
+
 	render: function (){
 		var renderedContent = this.template(this.model.toJSON());
 		$(this.el).html(renderedContent);
-		
-		var bodyHeight = $('body').height();
-		var marginTop = bodyHeight*0.1;
-		var marginBottom = bodyHeight*0.015;
-
-		this.$el.css( "margin-top", marginTop );
-		this.$( "#solution" ).css( "margin-bottom", 0.025*bodyHeight );
-		this.$( "#solution" ).css( "font-size", 0.055*bodyHeight );
-		this.$( "#total" ).css( "font-size", 0.13*bodyHeight );
 		this.delegateEvents();
 		return this;
 	}
 });
- 
-  app.SymbolsView  = Backbone.View.extend({
- 
+
+app.SymbolsView  = Backbone.View.extend({
+
 	tagName: 'div',
 	className: 'symbols ',
 	initialize: function(){
@@ -163,13 +154,13 @@ app.HeaderView  = Backbone.View.extend({
 	}
 });
 
- app.SymbolView  = Backbone.View.extend({
- 
+app.SymbolView  = Backbone.View.extend({
+
 	tagName: 'span',
 	
 	events: {
 		"click": "keyClicked"
-    },
+	},
 	
 	initialize: function(){
 		_.bindAll(this, 'render', 'keyClicked');
@@ -181,13 +172,6 @@ app.HeaderView  = Backbone.View.extend({
 	
 	render: function (){
 		$(this.el).html(this.template);
-		 
-		var bodyHeight = $('body').height();
-
-		var diameter = 0.1 * bodyHeight;
-		var marginTop = 0.04 * bodyHeight;
-		this.$el.css( "fontSize", diameter);
-		this.$el.css( "margin-top", marginTop);
 		this.delegateEvents();
 		return this;
 	},
@@ -197,68 +181,55 @@ app.HeaderView  = Backbone.View.extend({
 			this.solutionModel.removeFromSolution();
 		else if( !((this.symbol === '4') && this.solutionModel.foursCountReached()) )
 			this.solutionModel.addToSolution(this.symbol);
-			
+
 	}
 });
 
 app.ModalView = Backbone.View.extend({
 
-        events: {
-            'click ': 'close'
-        },
+	events: {
+		'click ': 'close'
+	},
 
-        initialize: function() {
-			_.bindAll(this, 'render');
-            this.template = _.template($('#modal-template').html());
-        },
+	initialize: function() {
+		_.bindAll(this, 'render');
+		this.template = _.template($('#modal-template').html());
+	},
 
-        render: function() {
-			this.model.set('title', "Success");
-            this.$el.html(this.template(this.model.toJSON()));
-			var bodyHeight = $('body').height();
-		
-			this.$( ".modal-header" ).css( "font-size", 0.07*bodyHeight);
-			this.$( ".modal-header" ).css( "margin-top", 0.04*bodyHeight);
-			this.$( ".strikethrough" ).css( "margin-top", 0.085*bodyHeight);
-			this.$( ".strikethrough" ).css( "font-size", 0.27*bodyHeight);
-            return this;
-        },
+	render: function() {
+		this.model.set('title', "Success");
+		this.$el.html(this.template(this.model.toJSON()));
+		return this;
+	},
 
-        show: function() {
-            $(document.body).append(this.render().el);
-        },
+	show: function() {
+		$(document.body).append(this.render().el);
+	},
 
-        close: function() {
-            this.remove();
-			this.model.nextTarget();
-        }
-           
-    });
-	
-	 
-  app.HomeView  = Backbone.View.extend({
- 
+	close: function() {
+		this.remove();
+		this.model.nextTarget();
+	}
+
+});
+
+
+app.HomeView  = Backbone.View.extend({
+
 	tagName: 'div',
 	id: 'home-screen',
 	events: {
 		"click #exit": "exit",
 		"click #option-play": "play"
-    },
+	},
 
-    initialize: function(){
+	initialize: function(){
 		_.bindAll(this, 'render');
 		this.template = _.template($('#home-template').html());
 	},
 	
 	render: function (){
 		$(this.el).html(this.template);
-		var height = $('body').height()*0.08;
-		var fontSize = $('body').height()*0.033;
-		this.$( ".leftside-edge" ).css( "width", height);
-		this.$( ".rightside-edge" ).css( "width", height);
-		this.$( ".menu-option" ).css( "margin-left", -height/2);
-		this.$( ".menu-option" ).css( "margin-right", -height/2);
-		this.$( ".menu-option" ).css( "font-size", fontSize);
 		
 		return this;
 	},
@@ -271,11 +242,11 @@ app.ModalView = Backbone.View.extend({
 		app.router.navigate("play", true);
 	}
 });
- Router = Backbone.Router.extend({
+Router = Backbone.Router.extend({
 	routes: {
-        "" : "home",
+		"" : "home",
 		"play" : "play"
-		},
+	},
 	initialize: function(){
 		this.puzzle = new app.Puzzle({target:1,solution:"", total:0, foursCount:0});
 		
@@ -283,7 +254,7 @@ app.ModalView = Backbone.View.extend({
 			var target =  JSON.parse( localStorage.getItem( 'target' ) );
 			this.puzzle.set('target', target);
 		}
-			
+
 		this.HeaderView = new app.HeaderView({model:this.puzzle});
 		this.solutionView = new app.SolutionView({model:this.puzzle});
 		this.symbolsView = new app.SymbolsView({model:this.puzzle});
@@ -323,74 +294,127 @@ makeReadable = function(original){
 	return result;
 };
 
-		function changecss(theClass,element,value) {
-		//Last Updated on July 4, 2011
-		//documentation for this script at
-		//http://www.shawnolson.net/a/503/altering-css-class-attributes-with-javascript.html
-		 var cssRules;
+changecss = function (theClass,element,value) {
+	//http://www.shawnolson.net/a/503/altering-css-class-attributes-with-javascript.html
+	var cssRules;
 
 
-		 for (var S = 0; S < document.styleSheets.length; S++){
+	for (var S = 0; S < document.styleSheets.length; S++){
 
 
-			  try{
-			  	document.styleSheets[S].insertRule(theClass+' { '+element+': '+value+'; }',document.styleSheets[S][cssRules].length);
+		try{
+			document.styleSheets[S].insertRule(theClass+' { '+element+': '+value+'; }',document.styleSheets[S][cssRules].length);
 
-			  } catch(err){
-			  		try{document.styleSheets[S].addRule(theClass,element+': '+value+';');
+		} catch(err){
+			try{document.styleSheets[S].addRule(theClass,element+': '+value+';');
 
-					}catch(err){
+		}catch(err){
 
-					 	try{
-						    if (document.styleSheets[S]['rules']) {
-							  cssRules = 'rules';
-							 } else if (document.styleSheets[S]['cssRules']) {
-							  cssRules = 'cssRules';
-							 } else {
-							  //no rules found... browser unknown
-							 }
-
-							  for (var R = 0; R < document.styleSheets[S][cssRules].length; R++) {
-							   if (document.styleSheets[S][cssRules][R].selectorText == theClass) {
-							    if(document.styleSheets[S][cssRules][R].style[element]){
-							    document.styleSheets[S][cssRules][R].style[element] = value;
-								break;
-							    }
-							   }
-							  }
-						  } catch (err){}
-
-
-
+			try{
+				if (document.styleSheets[S]['rules']) {
+					cssRules = 'rules';
+				} else if (document.styleSheets[S]['cssRules']) {
+					cssRules = 'cssRules';
+				} else {
+					  //no rules found... browser unknown
 					}
 
-			  }
+					for (var R = 0; R < document.styleSheets[S][cssRules].length; R++) {
+						if (document.styleSheets[S][cssRules][R].selectorText == theClass) {
+							if(document.styleSheets[S][cssRules][R].style[element]){
+								document.styleSheets[S][cssRules][R].style[element] = value;
+								break;
+							}
+						}
+					}
+				} catch (err){}
 
+
+
+			}
 
 		}
-	}
 
- $(function() {
+
+	}
+}
+
+calculateStylesheetProperties = function(){
+	var bodyHeight = $('body').height();
+	var bodyWidth = $('body').width();
+
+	/* Header */
+	var homeOptionWidth = bodyHeight*0.14;
+	var hintOptionWidth = bodyHeight*0.13;
+	var headerFontSize = 0.4*bodyHeight*0.13;
+	var headerTotalWidth = bodyWidth - (2*bodyHeight*0.14);
+	var iconsmarginTop = bodyHeight*0.31*0.145;
+	homeOptionWidth = Math.round(homeOptionWidth * 100) / 100;
+	hintOptionWidth = Math.round(hintOptionWidth * 100) / 100;
+	headerTotalWidth = Math.round(headerTotalWidth * 100) / 100;
+	headerFontSize = Math.round(headerFontSize * 100) / 100;
+	iconsmarginTop = Math.round(iconsmarginTop * 100) / 100;
+	changecss('#hint','width',hintOptionWidth+'px');
+	changecss('#home','width',homeOptionWidth+'px');
+	changecss('#target','width',headerTotalWidth+'px');
+	changecss('.fa, #target','margin-top',iconsmarginTop+'px');
+	changecss('#home, #hint, #target','font-size',headerFontSize+'px');
+
+	/* Home Screen */
+	var menuOptionHeight = $('body').height()*0.08;
+	var menuOptionFontSize = $('body').height()*0.033;
+	menuOptionHeight = Math.round(menuOptionHeight * 100) / 100;
+	menuOptionFontSize = Math.round(menuOptionFontSize * 100) / 100;
+	changecss('.leftside-edge, .rightside-edge','width',menuOptionHeight+'px');
+	changecss('.menu-option','margin-left',(-menuOptionHeight/2)+'px');
+	changecss('.menu-option','margin-right',(-menuOptionHeight/2)+'px');
+	changecss('.menu-option','font-size',menuOptionFontSize+'px');
+
+	/* Solution */
+	var marginTop = bodyHeight*0.1;
+	var marginBottom = bodyHeight*0.025;
+	var solutionFontSize = bodyHeight*0.055;
+	var totalFontSize = bodyHeight*0.13;
+	marginTop = Math.round(marginTop * 100) / 100;
+	marginBottom = Math.round(marginBottom * 100) / 100;
+	solutionFontSize = Math.round(solutionFontSize * 100) / 100;
+	totalFontSize = Math.round(totalFontSize * 100) / 100;
+	changecss('#sol-container','margin-top',marginTop+'px');
+	changecss('#solution','margin-bottom',marginBottom+'px');
+	changecss('#solution','font-size',solutionFontSize+'px');
+	changecss('#total','font-size',totalFontSize+'px');
+
+	/* Modal */	
+	var modalFontSize = 0.07*bodyHeight;
+	var modalMarginTop = 0.04 * bodyHeight;
+	var strikeThroughMarginTop = 0.085 * bodyHeight;
+	var strikeThroughFontSize = 0.27 * bodyHeight;
+	modalFontSize = Math.round(modalFontSize * 100) / 100;
+	modalMarginTop = Math.round(modalMarginTop * 100) / 100;
+	strikeThroughMarginTop = Math.round(strikeThroughMarginTop * 100) / 100;
+	strikeThroughFontSize = Math.round(strikeThroughFontSize * 100) / 100;
+
+	changecss('.modal-header','font-size',modalFontSize+'px');
+	changecss('.modal-header','margin-top',modalMarginTop+'px');
+	changecss('.strikethrough','margin-top',strikeThroughMarginTop+'px');
+	changecss('.strikethrough','font-size',strikeThroughFontSize+'px');
+
+	/* Symbol */
+	var diameter = 0.1 * bodyHeight;
+	var marginTop = 0.04 * bodyHeight;
+	diameter = Math.round(diameter * 100) / 100;
+	marginTop = Math.round(marginTop * 100) / 100;
+	changecss('.key','font-size',diameter+'px');
+	changecss('.key','margin-top',marginTop+'px');
+
+};
+
+$(function() {
 	window.addEventListener('load', function() {
 		FastClick.attach(document.body);
 	}, false);
 
-		var bodyHeight = $('body').height();
-	var bodyWidth = $('body').width();
-	 
-	var homeOptionWidth = bodyHeight*0.14;
-	var hintOptionWidth = bodyHeight*0.13;
-	changecss('#hint','width',hintOptionWidth+'px');
-	changecss('#home','width',homeOptionWidth+'px');
-
-	var headerTotalWidth = bodyWidth - (2*bodyHeight*0.14);
-	changecss('#target','width',headerTotalWidth+'px');
-	
-	var marginTop = bodyHeight*0.31*0.145;
-	changecss('.fa, #target','margin-top',marginTop+'px');
-
-	var headerFontSize = 0.4*bodyHeight*0.13;
-	changecss('#home, #hint, #target','font-size',headerFontSize+'px');
-    app.router = new Router();
-    Backbone.history.start();
+	calculateStylesheetProperties();
+	app.router = new Router();
+	Backbone.history.start();
 });
