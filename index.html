@@ -1,15 +1,17 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Four4s</title>
-<link rel="stylesheet" href="css/styles.css" />
-<link rel="stylesheet" href="css/font-awesome.min.css" />
+	<title>Four4s</title>
+	<link rel="stylesheet" href="css/styles.css" />
+	<link rel="stylesheet" href="css/font-awesome.min.css" />
 </head>
 
 <body>
-<div id="four4sApp"></div>
+	<div id="four4sApp"></div>
 
-<script type="text/template" id="home-template">
+	<script type="text/template" id="play-screen-template"></script>
+
+	<script type="text/template" id="home-screen-template">
 	<div id="menu-header" ></div>
 	<div id="menu-title" >Four4s</div>
 	<div id="menu-title-footer" ></div>
@@ -18,34 +20,34 @@
 	<div class="leftside-edge"></div><div class="menu-option" id="option-play-level"><div class="menu-option-leading"></div>Select a Level</div><div class="rightside-edge"></div>
 	<div class="options-divider" ></div>
 	<div class="leftside-edge"></div><div class="menu-option" id="exit" ><div class="menu-option-leading"></div>Exit</div><div class="rightside-edge"></div>
-</script>
+	</script>
 
-<script type="text/template" id="header-template">
+	<script type="text/template" id="header-template">
 	<div id="home"><i class="fa fa-home"></i></div>
 	<div id="target"> Target : <%= target %></div>
 	<div id="hint"><i class="fa fa-lightbulb-o"></i></div>
-</script>
-<script type="text/template" id="symbols-template"></script>
-<script type="text/template" id="sol-template">
+	</script>
+	<script type="text/template" id="symbols-template"></script>
+	<script type="text/template" id="sol-template">
 	<div id="solution"><%= solution %></div>
 	<div id="total"><%= total %></div>
-</script>
-<script type="text/template" id="key-template"></script>
+	</script>
+	<script type="text/template" id="key-template"></script>
 
-<script type="text/template" id="modal-template">
-	<div class="modal">	
-	<div class="modal-header"><%= title %></div>
-		<span class="strikethrough"><%= target %></span>
-	</div>
-	<div class="modal-backdrop"></div>
-</script>
+	<script type="text/template" id="modal-template">
+		<div class="modal">	
+			<div class="modal-header"><%= title %></div>
+			<div id="modal-content" class="info-message"><%= content %></div>
+		</div>
+		<div class="modal-backdrop"></div>
+	</script>
 
-<script src="lib/jquery-2.0.2.min.js"></script>
-<script src="lib/underscore-min.js"></script>
-<script src="lib/backbone-min.js"></script>
-<script src='lib/fastclick.js'></script>
-<script src="phonegap.js"></script>
-<script src="js/app.js"></script>
+	<script src="lib/jquery-2.0.2.min.js"></script>
+	<script src="lib/underscore-min.js"></script>
+	<script src="lib/backbone-min.js"></script>
+	<script src='lib/fastclick.js'></script>
+	<script src="phonegap.js"></script>
+	<script src="js/app.js"></script>
 </body>
 
 </html>
