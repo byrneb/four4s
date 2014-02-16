@@ -67,12 +67,12 @@ a {
     height: 59%;
 	position: relative;
 }
-.symbols{
+#buttons{
 	width: 80%;
     height: 50%;
 	margin: 0 auto;
 }
-.key{
+.button{
 	width: 20%;
 	float: left;
 	border: 1px solid #FFF;
@@ -154,7 +154,7 @@ a {
 	border-radius: 50%;
 }
 
-.modal {
+.modal-view {
 	height: 53%;
 	position: fixed;
 	top: 24%;
@@ -180,7 +180,7 @@ a {
 	font-size: 3em;
 	color: rgb(82, 80, 80);
 }
-
+.quotes {display: none;}
 .strikethrough {
 	position: relative;
 	font-size: 155px;
@@ -213,6 +213,10 @@ a {
 	background-color: #000000;
 }
 
+.icon-four-key:before {
+	color: #0096DA;
+}
+
 @font-face {
 	font-family: 'icomoon';
 	src:url('../fonts/icomoon.eot');
@@ -236,7 +240,7 @@ a {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
-.key:active{
+.button:active{
 	color: black;
 }
 .icon-right-bracket-key:before {
