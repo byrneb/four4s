@@ -6,48 +6,61 @@
 	<link rel="stylesheet" href="css/font-awesome.min.css" />
 </head>
 
-<body>
-	<div id="four4sApp"></div>
+	<body>
+		<div id="four4sApp"></div>
 
-	<script type="text/template" id="play-screen-template"></script>
+		<script type="text/template" id="modal-template">
+			<div class="modal-view">	
+				<div class="modal-header"><%= title %></div>
+				<div id="modal-content" class="info-message"><%= content %></div>
+			</div>
+			<div class="modal-backdrop"></div>
+		</script>
+			
+		<script type="text/template" id="header-template">
+			<div id="home">
+				<i class="fa fa-home"></i>
+			</div>
+			<div id="target"> Target : <%= target %></div>
+			<div id="hint">
+				<i class="fa fa-lightbulb-o"></i>
+			</div>
+		</script>
 
-	<script type="text/template" id="home-screen-template">
-	<div id="menu-header" ></div>
-	<div id="menu-title" >Four4s</div>
-	<div id="menu-title-footer" ></div>
-	<div class="leftside-edge"></div><div class="menu-option" id="option-play"><div class="menu-option-leading"></div>Play</div><div class="rightside-edge"></div>
-	<div class="options-divider" ></div>
-	<div class="leftside-edge"></div><div class="menu-option" id="option-play-level"><div class="menu-option-leading"></div>Select a Level</div><div class="rightside-edge"></div>
-	<div class="options-divider" ></div>
-	<div class="leftside-edge"></div><div class="menu-option" id="exit" ><div class="menu-option-leading"></div>Exit</div><div class="rightside-edge"></div>
-	</script>
+		<script type="text/template" id="sol-template">
+			<div id="solution"><%= solution %></div>
+			<div id="total"><%= total %></div>
+		</script>
 
-	<script type="text/template" id="header-template">
-	<div id="home"><i class="fa fa-home"></i></div>
-	<div id="target"> Target : <%= target %></div>
-	<div id="hint"><i class="fa fa-lightbulb-o"></i></div>
-	</script>
-	<script type="text/template" id="symbols-template"></script>
-	<script type="text/template" id="sol-template">
-	<div id="solution"><%= solution %></div>
-	<div id="total"><%= total %></div>
-	</script>
-	<script type="text/template" id="key-template"></script>
+		<script type="text/template" id="buttons-template">
+			<span class="button icon-four-key"></span>
+			<span class="button icon-plus-key"></span>
+			<span class="button icon-minus-key"></span>
+			<span class="button icon-dot-key"></span>
+			<span class="button icon-mutliply-key"></span>
+			<span class="button icon-divide-key"></span>
+			<span class="button icon-left-bracket-key"></span>
+			<span class="button icon-right-bracket-key"></span>
+			<span class="button icon-back-key"></span>
+		</script>
 
-	<script type="text/template" id="modal-template">
-		<div class="modal">	
-			<div class="modal-header"><%= title %></div>
-			<div id="modal-content" class="info-message"><%= content %></div>
-		</div>
-		<div class="modal-backdrop"></div>
-	</script>
+		<script type="text/template" id="home-screen-template">
+			<div id="menu-header" ></div>
+			<div id="menu-title" >Four4s</div>
+			<div id="menu-title-footer" ></div>
+			<div class="leftside-edge"></div><div class="menu-option" id="option-play"><div class="menu-option-leading"></div>Play</div><div class="rightside-edge"></div>
+			<div class="options-divider" ></div>
+			<div class="leftside-edge"></div><div class="menu-option" id="option-play-level"><div class="menu-option-leading"></div>Select a Level</div><div class="rightside-edge"></div>
+			<div class="options-divider" ></div>
+			<div class="leftside-edge"></div><div class="menu-option" id="exit" ><div class="menu-option-leading"></div>Exit</div><div class="rightside-edge"></div>
+		</script>
 
-	<script src="lib/jquery-2.0.2.min.js"></script>
-	<script src="lib/underscore-min.js"></script>
-	<script src="lib/backbone-min.js"></script>
-	<script src='lib/fastclick.js'></script>
-	<script src="phonegap.js"></script>
-	<script src="js/app.js"></script>
-</body>
+		<script src="lib/jquery-2.0.2.min.js"></script>
+		<script src="lib/underscore-min.js"></script>
+		<script src="lib/backbone-min.js"></script>
+		<script src='lib/fastclick.js'></script>
+		<script src="phonegap.js"></script>
+		<script src="js/app.js"></script>
+	</body>
 
 </html>

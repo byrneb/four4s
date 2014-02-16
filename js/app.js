@@ -1,109 +1,359 @@
 var app = app || {};
 
-app.Puzzle = Backbone.Model.extend({
-
-	update: function(input) {
-		this.updateTotal();
-		this.checkTargetReached();
-
-		if(this.foursCountReached())
-			$( ".icon-four-key" ).addClass( "gray" );
-		else
-			$( ".icon-four-key" ).removeClass( "gray" );
+app.LevelManagementModel = Backbone.Model.extend({
+	
+	isTutorialsLastModal : function(){
+		return (this.get('level') === 2 && this.get('modal') === 1 && this.get('mode') === "tutorial") 
 	},
 
-	addToSolution: function(input){
-		var updatedSolution = this.get('solution') + input;
-		this.set('solution', updatedSolution);
+	isAnotherModal : function(){
+		if (this.get('mode') === "puzzle")
+			return false;
+		else if(this.get('level') === 0 && this.get('modal') === 1)
+			return true;
+		else if(this.get('level') === 1 && this.get('modal') === 1)
+			return true;
+		
+	},
 
-		if(input == 4)
+	finishTutorial : function(){
+		this.set("mode", "puzzle");
+		this.set('modal', 0);
+		this.set('level', 1);
+	},
+
+	incrementLevel : function(){
+		var currentLevel = this.get("level");
+		currentLevel++;
+		this.set("level", currentLevel);
+	},
+
+	incrementModal : function(){
+		var currentModal = this.get("modal");
+		currentModal++;
+		this.set("modal", currentModal);
+	},
+
+	getNextModalModel : function(){
+		if(this.get("mode") === "tutorial" ){
+			if(this.get('level') === 0 && this.get('modal') === 2){
+				return new app.ModalModel({
+							'title'			: 'Tutorial 1',
+							'content' 		: '<p>Create the above target 16</p>'+
+											  '<p>If you run into trouble click </p>'+
+											  '<p>the hint button <i class="fa fa-lightbulb-o"></i></p>',
+							'isTutorialMsg' : true 
+						});
+			}
+			else if(this.get('level') === 1 && this.get('modal') === 1){
+				return new app.ModalModel({
+							'title'			: 'level 1',
+							'content' 		: 'modal 1',
+							'isTutorialMsg' : true 
+						});
+			}
+			else if(this.get('level') === 1 && this.get('modal') === 2){
+				return new app.ModalModel({
+							'title'			: 'level 1',
+							'content' 		: 'modal 2',
+							'isTutorialMsg' : true 
+						});
+			}
+			else if(this.get('level') === 2 && this.get('modal') === 1){
+				return new app.ModalModel({
+							'title'			: 'level 2',
+							'content' 		: 'modal 1',
+							'isTutorialMsg' : true 
+						});
+			}
+		}
+		else {
+			return new app.ModalModel({
+							'title'			: 'Success',
+							'content' 		: this.get("level"),
+							'isTutorialMsg' : false 
+						});
+		}
+	},
+
+	getNextTarget: function(){
+		if(this.get("mode") === "tutorial" ){
+			if(this.get('level') === 1){
+				return 16;
+			}
+			else if(this.get('level') === 2){
+				return 4444;
+			}
+		}
+		else {
+			return this.get('level');
+		}
+	}
+});
+
+app.HeaderModel = Backbone.Model.extend({
+
+	isPuzzleSolved : function(currentTotal){
+		return currentTotal === this.get("target");
+	}
+
+});
+
+app.SolutionModel = Backbone.Model.extend({
+
+	addCharacter : function(newChar){
+		var updatedSolution = this.get("solution") + newChar;
+		this.set("solution", updatedSolution);
+
+		if(newChar === "4")
 			this.incrementFoursCount();
-		this.update();
 	},
 
-	removeFromSolution: function(){
-		var solution = this.get('solution');
-		this.set('solution', solution.slice(0,-1));
+	removeLastCharacter : function(){
+		var solution = this.get("solution");
+		this.set("solution", solution.slice(0,-1));
 
 		var removedChar = solution.charAt(solution.length-1);
-		if(removedChar === '4')
+		if(removedChar === "4")
 			this.decrementFoursCount();
-		this.update();
 	},
 
-	incrementFoursCount: function(){
-		var foursCount = this.get('foursCount');
-		this.set('foursCount', foursCount+1);
+	isFour4sUsed : function(){
+		return this.get("foursCount") === 4;
 	},
 
-	decrementFoursCount: function(){
-		var foursCount = this.get('foursCount');
-		this.set('foursCount', foursCount-1);
+	incrementFoursCount : function(){
+		var foursCount = this.get("foursCount");
+		this.set("foursCount", foursCount+1);
 	},
 
-	foursCountReached: function(){
-		return this.get('foursCount') === 4;
+	decrementFoursCount : function(){
+		var foursCount = this.get("foursCount");
+		this.set("foursCount", foursCount-1);
 	},
 
-	updateTotal: function(){
+	updateTotal : function(){
 		var sum = 0;
 		try{
-			sum = makeReadable(this.get('solution'));
+			sum = this.makeReadable(this.get("solution"));
 			sum = eval(sum);
 			sum = Number(sum.toFixed(2));
 		}
 		catch(e){
 			sum = 0;
 		}
-		this.set('total', (sum));
+		this.set("total", (sum));
 	},
 
-	checkTargetReached: function(){
-		var target = this.get('target');
-		if((this.get('total') === target) && (this.foursCountReached())){
-			this.set('isSolved', true);
-		}
+	makeReadable : function(original){
+		if(original === "")
+			return 0;
+		this.result = original.replace(/·/g,".");
+		this.result = this.result.replace(/÷/g,"/");
+		this.result = this.result.replace(/×/g,"*");
+		return this.result;
 	},
 
-	nextTarget: function(){
-		var target = this.get('target');
-		this.set('target', target+1);
-		this.clearSolution();
-		localStorage.setItem( 'target', JSON.stringify(target+1) );
-	},
-
-	clearSolution: function(){
-		this.set('solution', '');
-		this.set('total', 0);
-		this.set('foursCount', 0);
-		this.set('isSolved', false);
+	cleanUp : function(){
+		this.set("solution", "");
+		this.set("total", 0);
+		this.set("foursCount", 0);
 		$( ".icon-four-key" ).removeClass( "gray" );
+	}
+});
+
+app.ModalModel = Backbone.Model.extend({
+
+});
+
+app.ModalView = Backbone.View.extend({
+
+	events: {
+		"click" : "triggerEventOnParentView"
 	},
 
-	endTutorial: function(){
-		this.set('target',1);
-		this.clearSolution();
-		this.set('isTutorialMode', false);
-		localStorage.setItem( 'isTutorialMode', JSON.stringify(false) );
+	initialize: function() {
+		_.bindAll(this, "render");
+		this.template = _.template($("#modal-template").html());
+
+		if(localStorage.getItem( 'modal' ) !== null){
+			var modal = JSON.parse( localStorage.getItem( 'modal' ));
+			this.model = new app.ModalModel({
+				'title'			: modal.title,
+				'content' 		: modal.content,
+				'isTutorialMsg' : modal.isTutorialMsg 
+			});
+		}
+		else{
+			this.model = new app.ModalModel({
+				'title'			: 'Welcome',
+				'content' 		: 	'<div class="quotes">Rules</div>'+
+									'<div class="quotes">3. Use <i class="icon-four-key"></i> Four Times</div>'+
+									'<div class="quotes">3. Use <i class="icon-four-key"></i> Four Times</div>'+
+									'<div class="quotes">3. Use <i class="icon-four-key"></i> Four Times</div>'+
+									'<div class="quotes">Simples.... right?</div>',
+				'isTutorialMsg' : true 
+			});
+		}
+
+	},
+
+	render: function() {
+		this.$el.html(this.template(this.model.toJSON()));
+		this.delegateEvents();
+
+		if(this.model.get("isTutorialMsg")){
+			this.$( "#modal-content" ).removeClass( "strikethrough" ).addClass( "info-message" );			
+			this.startMessageRelay();
+		}
+		else
+			this.$( "#modal-content" ).removeClass( "info-message" ).addClass( "strikethrough" );
+		return this;
+	},
+
+	startMessageRelay: function() {
+		var quotes = this.$(".quotes");
+	    var quoteIndex = -1;
+	    
+	    function showNextQuote() {
+	    	++quoteIndex;
+	        if(quoteIndex !== 4)
+	        quotes.eq(quoteIndex % quotes.length)
+	    		.fadeIn(2000)
+	            .delay(2000)
+	            .fadeOut(2000, showNextQuote);
+	        else
+	        quotes.eq(quoteIndex % quotes.length)
+	            .fadeIn(2000);
+    	}
+    
+    showNextQuote();
+	},
+
+	close: function() {
+		this.$el.hide();
+	},
+
+	open: function() {
+		this.$el.show();
+	},
+
+	triggerEventOnParentView: function(){
+		this.trigger("clicked:modal");
+	},
+
+	setModel: function(model){
+		this.model = model;
+		localStorage.setItem( 'modal', JSON.stringify(this.model));
+		this.render();
 	}
 
 });
 
-app.ModalData = Backbone.Model.extend();
+app.PlayScreenView = Backbone.View.extend({
+	tagName: "div",
+	id: "play-screen",
 
-app.HeaderView  = Backbone.View.extend({
+	initialize: function(){
+		_.bindAll(this, "render");
+		this.template = _.template($("#sol-template").html());
 
-	tagName: 'div',
-	id: 'header',
-	className: '',
+		this.buttonsView = new app.ButtonsView();
+
+		this.modalView = new app.ModalView();
+		this.listenTo(this.modalView, "clicked:modal", this.onModalClickedSetNextState);
+
+		this.solutionView = new app.SolutionView();
+		this.solutionView.listenTo(this.buttonsView, "clicked:button", this.solutionView.onButtonClickUpdateSolution);
+
+		this.headerView = new app.HeaderView();
+		this.headerView.listenTo(this.solutionView, "change:total", this.headerView.onTotalChangeCheckSolved);
+
+		this.listenTo(this.headerView, "solved:puzzle", this.onPuzzleSolvedSetNextState);
+
+		if(localStorage.getItem( 'levelManagementModel' ) !== null){
+			var levelManagementModel = JSON.parse( localStorage.getItem( 'levelManagementModel' ));
+			this.model = new app.LevelManagementModel({
+				"level" : levelManagementModel.level,
+				"modal" : levelManagementModel.modal,
+				"mode"	: levelManagementModel.mode
+			});
+
+			if(this.model.get("modal") === 0 )
+				this.modalView.$el.css( "display", "none");
+		}
+		else{
+			this.model = new app.LevelManagementModel({
+				"level" : 0,
+				"modal" : 1,
+				"mode"	: "tutorial"
+			});
+		}
+	},
+
+	render: function(){
+		this.$el.empty();
+		this.$el.append(this.modalView.render().el,
+						this.headerView.render().el,
+						this.solutionView.render().el,
+						this.buttonsView.render().el);
+		return this;
+	},
+
+	onPuzzleSolvedSetNextState: function(){
+		this.model.set('modal', 1);
+		var modalModel = this.model.getNextModalModel();
+		this.modalView.setModel(modalModel);
+		localStorage.setItem( 'levelManagementModel', JSON.stringify(this.model));
+		this.modalView.open();
+	},
+
+	onModalClickedSetNextState: function(){
+		if(this.model.isTutorialsLastModal()){
+			this.model.finishTutorial();
+
+			this.headerView.setTarget(1);
+			this.solutionView.clearView();
+			this.modalView.close();
+		}
+		else if(this.model.isAnotherModal()){
+			this.model.incrementModal();
+			var modalModel = this.model.getNextModalModel();
+			this.modalView.setModel(modalModel);
+		}
+		else{
+			//setup next modal
+			this.model.set('modal', 0);
+			this.model.incrementLevel();
+
+			var targetNumber = this.model.getNextTarget()
+			this.headerView.setTarget(targetNumber);
+			this.solutionView.clearView();
+			this.modalView.close();
+		}
+		localStorage.setItem( 'levelManagementModel', JSON.stringify(this.model));
+	}
+});
+
+app.HeaderView = Backbone.View.extend({
+
+	tagName: "div",
+	id: "header",
+
 	events: {
 		"click #home": "homeMenu"
 	},
 
 	initialize: function(){
-		_.bindAll(this, 'render');
-		this.model.on('change:target', this.render);
-		this.template = _.template($('#header-template').html());
+		_.bindAll(this, "render");
+		if(localStorage.getItem( 'target' ) !== null){
+			var target = JSON.parse( localStorage.getItem( 'target' ));
+			this.model = new app.HeaderModel({"target": target});
+		}
+		else
+			this.model = new app.HeaderModel({"target": 16});
+		this.model.on("change:target", this.render);
+		this.template = _.template($("#header-template").html());
 	},
 
 	render: function (){
@@ -116,203 +366,110 @@ app.HeaderView  = Backbone.View.extend({
 
 	homeMenu: function (){
 		app.router.navigate("", true);
+	},
+
+	onTotalChangeCheckSolved : function(currentTotal){
+		if(this.model.isPuzzleSolved(currentTotal))
+			this.trigger("solved:puzzle");
+	},
+
+	setTarget : function(newTarget){
+		this.model.set("target", newTarget);
+		localStorage.setItem( 'target', JSON.stringify(newTarget));
 	}
 });
 
-app.SolutionView  = Backbone.View.extend({
+app.SolutionView = Backbone.View.extend({
 
-	tagName: 'div',
-	id: 'sol-container',
-	className: '',
+	tagName: "div",
+	id: "sol-container",
 
 	initialize: function(){
-		_.bindAll(this, 'render');
-		this.model.on('change:solution change:total', this.render);
-		this.template = _.template($('#sol-template').html());
+		_.bindAll(this, "render", "onButtonClickUpdateSolution");
+		this.model = new app.SolutionModel({
+			"solution" : "",
+			"foursCount" : 0,
+			"total" : 0
+		});
+		this.model.on("change", this.render);
+		this.template = _.template($("#sol-template").html());
 	},
 
 	render: function (){
 		var renderedContent = this.template(this.model.toJSON());
 		$(this.el).html(renderedContent);
-		this.delegateEvents();
-		return this;
-	}
-});
-
-app.SymbolsView  = Backbone.View.extend({
-
-	tagName: 'div',
-	className: 'symbols ',
-	initialize: function(){
-		this.symbolViewArray = [];
-		var symbolsArray = ['4', '+', '-', '·', '×', '÷', '(', ')', '«'];
-		var classArray = ['four-key', 'plus-key', 'minus-key', 'dot-key', 'mutliply-key', 'divide-key', 'left-bracket-key', 'right-bracket-key', 'back-key'];
-		_.bindAll(this, 'render');
-		this.template = _.template($('#symbols-template').html());
-		for (var i = 0; i < symbolsArray.length; i++)
-			this.symbolViewArray[i] = new app.SymbolView( { className : 'key icon-'+classArray[i], symbol : symbolsArray[i], solutionModel:this.model});
-	},
-
-	render: function (){
-		$(this.el).html(this.template);
-
-		for (var i = 0; i < this.symbolViewArray.length; i++)
-			this.$el.append(this.symbolViewArray[i].render().el);
-		this.delegateEvents();
-		return this;
-	}
-});
-
-app.SymbolView  = Backbone.View.extend({
-
-	tagName: 'span',
-
-	events: {
-		"click": "keyClicked"
-	},
-
-	initialize: function(options){
-		_.bindAll(this, 'render', 'keyClicked');
-		this.solutionModel = options.solutionModel;
-		this.symbol = options.symbol;
-		var symbolRef = this.symbol;
-		this.template = _.template($('#key-template').html());
-	},
-
-	render: function (){
-		$(this.el).html(this.template);
-		this.delegateEvents();
 		return this;
 	},
 
-	keyClicked: function(){
-		if (this.symbol === '«')
-			this.solutionModel.removeFromSolution();
-		else if( !((this.symbol === '4') && this.solutionModel.foursCountReached()) )
-			this.solutionModel.addToSolution(this.symbol);
-
-	}
-});
-
-app.ModalView = Backbone.View.extend({
-
-	initialize: function() {
-		_.bindAll(this, 'render');
-		this.template = _.template($('#modal-template').html());
-	},
-
-	render: function() {
-		this.$el.html(this.template(this.model.toJSON()));
-		this.delegateEvents();
-
-		if(this.model.get('isTutorialMsg'))
-			this.$( "#modal-content" ).removeClass( "strikethrough" ).addClass( "info-message" );
+	onButtonClickUpdateSolution: function(keyPressed){
+		if(keyPressed === "<<")
+			this.model.removeLastCharacter();
+		else if(keyPressed === "4" && this.model.isFour4sUsed())
+			return;
 		else
-			this.$( "#modal-content" ).removeClass( "info-message" ).addClass( "strikethrough" );
-		return this;
-	}
+			this.model.addCharacter(keyPressed);
 
+		this.model.updateTotal();
+		if(this.model.isFour4sUsed()){
+			$( ".icon-four-key" ).addClass( "gray" );
+			this.trigger("change:total", this.model.get("total"));
+		}
+		else
+			$( ".icon-four-key" ).removeClass( "gray" );
+	},
+
+	clearView: function(){
+		this.model.cleanUp();
+	}
 });
 
-app.PlayScreenView = Backbone.View.extend({
-	tagName: 'div',
-	id: 'play-screen',
+app.ButtonsView = Backbone.View.extend({
+	tagName: "div",
+	id: "buttons",
 
 	events : {
-		'click .modal-backdrop, .modal': "modalClicked"
+		"click .button": "onButtonClickPassKey"
 	},
 
-	initialize: function(){
-		_.bindAll(this, 'render', 'setModalActive');
-		this.template = _.template($('#play-screen-template').html());
-		this.headerView = new app.HeaderView({model:this.model});
-		this.solutionView = new app.SolutionView({model:this.model});
-		this.symbolsView = new app.SymbolsView({model:this.model});
-		this.modalData = new app.ModalData();
-
-		if(this.model.get('isTutorialMode')){
-			this.modalData.set({
-				'title'			: 'Tutorial #1',
-				'content'		: 'Use <span class="icon-four-key"></span> x4 times',
-				'isTutorialMsg'	: true
-			});
-		}
-
-		this.model.on("change:isModalActive", this.render);
-		this.model.on("change:isSolved", this.setModalActive);
-		this.modalView = new app.ModalView({model: this.modalData});
-		this.listenTo(this.modalView, 'modal:close', this.alerta);
+	initialize : function(){
+		_.bindAll(this, "render");
+		this.template = _.template($("#buttons-template").html());
 	},
 
-	modalClicked: function(){
-		if(this.model.get('isTutorialMode') && (this.model.get('tutorialStage') === 1)){
-			//set for modal after first click. msg = press the hint button
-			this.modalData.set('title', 'Tutorial #1');
-			this.modalData.set('content', 'message');
-			
-            this.model.set('tutorialStage', 2);
-		}
-		else if(this.model.get('isTutorialMode') && (this.model.get('tutorialStage') === 3)){
-			//set for modal after first click. msg = don't forget about the hint button
-			this.modalData.set('title', 'Tutorial #2');
-			this.modalData.set('content', 'message');
-			
-			this.model.set('tutorialStage', 4);
-		}
-		//close modal
-		else{
-			if(this.model.get('isTutorialMode') && (this.model.get('tutorialStage') === 2)){
-				//set for modal for next time puzzle solved ie you can combine numbers hint?
-				this.modalData.set('title', 'Tutorial #2');
-				this.modalData.set('content', 'message2');
-				
-				this.model.set('target', 16);
-				this.model.set('tutorialStage', 3);
-			}
-			else if(this.model.get('isTutorialMode') && (this.model.get('tutorialStage') === 4)){
-
-				this.modalData.set('title', 'Play');
-				this.modalData.set('content', 'lets get crackin');
-
-				this.model.set('target', 4444);
-				this.model.clearSolution();
-				this.model.set('tutorialStage', 5);
-			}
-			else if(this.model.get('isTutorialMode') && (this.model.get('tutorialStage') === 5)){
-				this.model.endTutorial();
-
-				this.modalData.set('isTutorialMsg', false);
-				localStorage.setItem( 'isModalActive', JSON.stringify(false) );
-				localStorage.setItem( 'target', JSON.stringify(1) );
-			}
-			else{
-				this.model.nextTarget();
-			}
-			localStorage.setItem( 'isModalActive', JSON.stringify(false) );
-			this.model.set('isModalActive', false);			
-		}
-		this.render();
-	},
-
-	render: function(){
-		this.$el.empty();
-		if(this.model.get('isModalActive')){
-			if(!this.model.get('isTutorialMode')){
-				this.modalData.set('title', "Success");
-				this.modalData.set('content', this.model.get('target'));
-			}
-			this.$el.append(this.modalView.render().el);
-		}
-		this.$el.append(this.headerView.render().el, this.solutionView.render().el, this.symbolsView.render().el);
+	render : function(){
+		$(this.el).html(this.template);
 		this.delegateEvents();
 		return this;
 	},
 
-	setModalActive: function(){
-		localStorage.setItem( 'isModalActive', JSON.stringify(true) );
-		this.model.set('isModalActive', true);
+	onButtonClickPassKey: function(event){
+		var source = event.target.className;
+		var keyPressed = this.getKeyPressed(source);
+		this.trigger("clicked:button", keyPressed);
+	},
+
+	getKeyPressed : function(input){
+		if(input.indexOf("four") != -1)
+			return "4";
+		else if(input.indexOf("plus") != -1)
+			return "+";
+		else if(input.indexOf("minus") != -1)
+			return "-";
+		else if(input.indexOf("dot") != -1)
+			return ".";
+		else if(input.indexOf("mutliply") != -1)
+			return "×";
+		else if(input.indexOf("divide") != -1)
+			return "÷";
+		else if(input.indexOf("left") != -1)
+			return "(";
+		else if(input.indexOf("right") != -1)
+			return ")";
+		else if(input.indexOf("back") != -1)
+			return "<<";
 	}
 });
+
 app.HomeScreenView  = Backbone.View.extend({
 
 	tagName: 'div',
@@ -340,32 +497,17 @@ app.HomeScreenView  = Backbone.View.extend({
 		app.router.navigate("play", true);
 	}
 });
+
 Router = Backbone.Router.extend({
+
+	initialize: function(){
+		this.playScreenView = new app.PlayScreenView();
+		this.homeScreenView = new app.HomeScreenView();
+	},
+
 	routes: {
 		"" : "home",
 		"play" : "play"
-	},
-	initialize: function(){
-		this.puzzle = new app.Puzzle({target		: 1,
-									solution		: "",
-									total			: 0,
-									foursCount		: 0,
-									isTutorialMode	: true,
-									tutorialStage	: 1,
-									isModalActive	: true
-								});
-
-		if(localStorage.getItem( 'target' ) !== null){
-			var target =  JSON.parse( localStorage.getItem( 'target' ) );
-			var isTutorialMode =  JSON.parse( localStorage.getItem( 'isTutorialMode' ) );
-			var isModalActive =  JSON.parse( localStorage.getItem( 'isModalActive' ) );
-			this.puzzle.set('target', target);
-			this.puzzle.set('isTutorialMode', isTutorialMode);
-			this.puzzle.set('isModalActive', isModalActive);
-		}
-
-		this.playScreenView = new app.PlayScreenView({model:this.puzzle});
-		this.homeScreenView = new app.HomeScreenView();
 	},
 
 	home:function() {
@@ -373,27 +515,17 @@ Router = Backbone.Router.extend({
 		var content = $('#four4sApp');
 		content.empty();
 
-		this.homeScreenView.delegateEvents();
-
 		content.append(this.homeScreenView.render().el);
+		this.playScreenView.delegateEvents();
 	},
 
 	play:function(){
-		var content = $('#four4sApp');
+		var content = $("#four4sApp");
 		content.empty();
 		content.append(this.playScreenView.render().el);
-		this.playScreenView.delegateEvents();
+		this.homeScreenView.delegateEvents();
 	}
 });
-
-makeReadable = function(original){
-	if(original === '')
-		return 0;
-	this.result = original.replace(/·/g,'.');
-	this.result = this.result.replace(/÷/g,'/');
-	this.result = this.result.replace(/×/g,'*');
-	return this.result;
-};
 
 changecss = function (theClass,element,value) {
     //http://www.shawnolson.net/a/503/altering-css-class-attributes-with-javascript.html
@@ -404,18 +536,18 @@ changecss = function (theClass,element,value) {
 
 
     	try{
-    		document.styleSheets[S].insertRule(theClass+' { '+element+': '+value+'; }',document.styleSheets[S][cssRules].length);
+    		document.styleSheets[S].insertRule(theClass+" { "+element+": "+value+"; }",document.styleSheets[S][cssRules].length);
 
     	} catch(err){
-    		try{document.styleSheets[S].addRule(theClass,element+': '+value+';');
+    		try{document.styleSheets[S].addRule(theClass,element+": "+value+";");
 
 	    	}catch(err){
 
 	    		try{
-	    			if (document.styleSheets[S]['rules']) {
-	    				cssRules = 'rules';
-	    			} else if (document.styleSheets[S]['cssRules']) {
-	    				cssRules = 'cssRules';
+	    			if (document.styleSheets[S]["rules"]) {
+	    				cssRules = "rules";
+	    			} else if (document.styleSheets[S]["cssRules"]) {
+	    				cssRules = "cssRules";
 	    			} else {
 	                                      //no rules found... browser unknown
 	                                  }
@@ -441,8 +573,8 @@ changecss = function (theClass,element,value) {
 };
 
 calculateStylesheetProperties = function(){
-	var bodyHeight = $('body').height();
-	var bodyWidth = $('body').width();
+	var bodyHeight = $("body").height();
+	var bodyWidth = $("body").width();
 
 	/* Header */
 	var homeOptionWidth = bodyHeight*0.14;
@@ -455,21 +587,21 @@ calculateStylesheetProperties = function(){
 	headerTotalWidth = Math.round(headerTotalWidth * 100) / 100;
 	headerFontSize = Math.round(headerFontSize * 100) / 100;
 	iconsmarginTop = Math.round(iconsmarginTop * 100) / 100;
-	changecss('#hint','width',hintOptionWidth+'px');
-	changecss('#home','width',homeOptionWidth+'px');
-	changecss('#target','width',headerTotalWidth+'px');
-	changecss('.fa, #target','margin-top',iconsmarginTop+'px');
-	changecss('#home, #hint, #target','font-size',headerFontSize+'px');
+	changecss("#hint","width",hintOptionWidth+"px");
+	changecss("#home","width",homeOptionWidth+"px");
+	changecss("#target","width",headerTotalWidth+"px");
+	changecss(".fa, #target","margin-top",iconsmarginTop+"px");
+	changecss("#home, #hint, #target","font-size",headerFontSize+"px");
 
 	/* Home Screen */
-	var menuOptionHeight = $('body').height()*0.08;
-	var menuOptionFontSize = $('body').height()*0.033;
+	var menuOptionHeight = $("body").height()*0.08;
+	var menuOptionFontSize = $("body").height()*0.033;
 	menuOptionHeight = Math.round(menuOptionHeight * 100) / 100;
 	menuOptionFontSize = Math.round(menuOptionFontSize * 100) / 100;
-	changecss('.leftside-edge, .rightside-edge','width',menuOptionHeight+'px');
-	changecss('.menu-option','margin-left',(-menuOptionHeight/2)+'px');
-	changecss('.menu-option','margin-right',(-menuOptionHeight/2)+'px');
-	changecss('.menu-option','font-size',menuOptionFontSize+'px');
+	changecss(".leftside-edge, .rightside-edge","width",menuOptionHeight+"px");
+	changecss(".menu-option","margin-left",(-menuOptionHeight/2)+"px");
+	changecss(".menu-option","margin-right",(-menuOptionHeight/2)+"px");
+	changecss(".menu-option","font-size",menuOptionFontSize+"px");
 
 	/* Solution */
 	var marginTop = bodyHeight*0.1;
@@ -480,33 +612,37 @@ calculateStylesheetProperties = function(){
 	marginBottom = Math.round(marginBottom * 100) / 100;
 	solutionFontSize = Math.round(solutionFontSize * 100) / 100;
 	totalFontSize = Math.round(totalFontSize * 100) / 100;
-	changecss('#sol-container','margin-top',marginTop+'px');
-	changecss('#solution','margin-bottom',marginBottom+'px');
-	changecss('#solution','font-size',solutionFontSize+'px');
-	changecss('#total','font-size',totalFontSize+'px');
+	changecss("#sol-container","margin-top",marginTop+"px");
+	changecss("#solution","margin-bottom",marginBottom+"px");
+	changecss("#solution","font-size",solutionFontSize+"px");
+	changecss("#total","font-size",totalFontSize+"px");
 
 	/* Modal */        
 	var modalFontSize = 0.07*bodyHeight;
 	var modalMarginTop = 0.04 * bodyHeight;
 	var strikeThroughMarginTop = 0.085 * bodyHeight;
 	var strikeThroughFontSize = 0.27 * bodyHeight;
+	var tutorialTextMarginTop = 0.15 * bodyHeight;
+	var tutorialFontSize =  0.045*bodyHeight;
 	modalFontSize = Math.round(modalFontSize * 100) / 100;
 	modalMarginTop = Math.round(modalMarginTop * 100) / 100;
 	strikeThroughMarginTop = Math.round(strikeThroughMarginTop * 100) / 100;
 	strikeThroughFontSize = Math.round(strikeThroughFontSize * 100) / 100;
 
-	changecss('.modal-header','font-size',modalFontSize+'px');
-	changecss('.modal-header','margin-top',modalMarginTop+'px');
-	changecss('.strikethrough','margin-top',strikeThroughMarginTop+'px');
-	changecss('.strikethrough','font-size',strikeThroughFontSize+'px');
+	changecss(".modal-header","font-size",modalFontSize+"px");
+	changecss(".modal-header","margin-top",modalMarginTop+"px");
+	changecss(".strikethrough","margin-top",strikeThroughMarginTop+"px");
+	changecss(".strikethrough","font-size",strikeThroughFontSize+"px");
+	changecss(".quotes","margin-top",tutorialTextMarginTop+"px");
+	changecss(".quotes","font-size",tutorialFontSize+"px");
 
 	/* Symbol */
 	var diameter = 0.1 * bodyHeight;
 	var marginTop = 0.04 * bodyHeight;
 	diameter = Math.round(diameter * 100) / 100;
 	marginTop = Math.round(marginTop * 100) / 100;
-	changecss('.key','font-size',diameter+'px');
-	changecss('.key','margin-top',marginTop+'px');
+	changecss(".button","font-size",diameter+"px");
+	changecss(".button","margin-top",marginTop+"px");
 
 };
 
@@ -520,7 +656,7 @@ $(function() {
 		});
 	})(Backbone.View);
 
-	window.addEventListener('load', function() {
+	window.addEventListener("load", function() {
 		FastClick.attach(document.body);
 	}, false);
 
@@ -528,3 +664,4 @@ $(function() {
 	app.router = new Router();
 	Backbone.history.start();
 });
+
