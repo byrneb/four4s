@@ -188,9 +188,9 @@ app.ModalView = Backbone.View.extend({
 			this.model = new app.ModalModel({
 				'title'			: 'Welcome',
 				'content' 		: 	'<div class="tutorial-top">Rules:</div>'+
-									'<div class="rule">1. Use <i class="icon-four-key"></i> Four Times</div>'+
-									'<div class="rule">2. Use <i class="icon-four-key"></i> Four Times</div>'+
-									'<div class="rule">3. Use <i class="icon-four-key"></i> Four Times</div>'+
+									'<div class="rule">1. Use <i class="icon-four-key"></i> four <br> times!</div>'+
+									'<div class="rule">2. Use <i class="icon-four-key"></i> four <br> times!!</div>'+
+									'<div class="rule">3. Use <i class="icon-four-key"></i> four <br> times!!!</div>'+
 									'<div class="rule">Simples.... right?</div>',
 				'isTutorialMsg' : true 
 			});
@@ -220,16 +220,16 @@ app.ModalView = Backbone.View.extend({
 	    	++ruleIndex;
 	        if(ruleIndex < 2)
 		        rules.eq(ruleIndex % rules.length)
-		    		.fadeIn(2000)
+		    		.fadeIn(1000)
 		            .delay(1000)
-		            .fadeOut(2000, showNextRule);
+		            .fadeOut(1000, showNextRule);
 		    else if (ruleIndex === 2) {
 		    	rules.eq(ruleIndex % rules.length)
-		    		.fadeIn(2000)
+		    		.fadeIn(1000)
 		            .delay(1000)
-		            .fadeOut(2000);
+		            .fadeOut(1000);
 		    	heading	
-		    		.delay(3000)	    		
+		    		.delay(2000)	    		
 		            .fadeOut(2000, showNextRule);
 		        }
 	        else{
@@ -636,7 +636,7 @@ calculateStylesheetProperties = function(){
 	var modalMarginTop = 0.04 * bodyHeight;
 	var strikeThroughMarginTop = 0.085 * bodyHeight;
 	var strikeThroughFontSize = 0.27 * bodyHeight;
-	var tutorialTextMarginTop = 0.04 * bodyHeight;
+	var tutorialTextMarginTop = 0.02 * bodyHeight;
 	var tutorialFontSize =  0.05*bodyHeight;
 	modalFontSize = Math.round(modalFontSize * 100) / 100;
 	modalMarginTop = Math.round(modalMarginTop * 100) / 100;
