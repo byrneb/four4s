@@ -189,8 +189,8 @@ app.ModalView = Backbone.View.extend({
 				'title'			: 'Welcome',
 				'content' 		: 	'<div class="tutorial-top">Rules:</div>'+
 									'<div class="rule">1. Use the number <br><i class="icon-four-key"></i><br>four times!</div>'+
-									'<div class="rule">2. Use the number <br><i class="icon-four-key"></i><br>four times!</div>'+
-									'<div class="rule">3. Use the number <br><i class="icon-four-key"></i><br>four times!</div>'+
+									'<div class="rule">2. Use the number <br><i class="icon-four-key"></i><br>four times!!</div>'+
+									'<div class="rule">3. Use the number <br><i class="icon-four-key"></i><br>four times!!!</div>'+
 									'<div class="rule">Simples.... right?</div>',
 				'isTutorialMsg' : true 
 			});
@@ -220,16 +220,16 @@ app.ModalView = Backbone.View.extend({
 	    	++ruleIndex;
 	        if(ruleIndex < 2)
 		        rules.eq(ruleIndex % rules.length)
-		    		.fadeIn(1000)
+		    		.fadeIn(1500)
 		            .delay(1000)
-		            .fadeOut(1000, showNextRule);
+		            .fadeOut(1500, showNextRule);
 		    else if (ruleIndex === 2) {
 		    	rules.eq(ruleIndex % rules.length)
-		    		.fadeIn(1000)
+		    		.fadeIn(1500)
 		            .delay(1000)
-		            .fadeOut(1000);
+		            .fadeOut(1500);
 		    	heading	
-		    		.delay(2000)	    		
+		    		.delay(2500)	    		
 		            .fadeOut(2000, showNextRule);
 		        }
 	        else{
