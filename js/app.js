@@ -630,6 +630,7 @@ calculateStylesheetProperties = function(){
 	changecss("#solution","font-size",solutionFontSize+"px");
 	changecss("#total","font-size",totalFontSize+"px");
 
+
 	/* Modal */        
 	var modalFontSize = 0.07*bodyHeight;
 	var modalMarginTop = 0.04 * bodyHeight;
@@ -648,6 +649,7 @@ calculateStylesheetProperties = function(){
 	changecss(".strikethrough","font-size",strikeThroughFontSize+"px");
 	changecss(".rule, .tutorial-top","margin-top",tutorialTextMarginTop+"px");
 	changecss(".rule, .tutorial-top","font-size",tutorialFontSize+"px");
+	changecss(".rule","height",(totalFontSize+1)+"px");
 
 	/* Symbol */
 	var diameter = 0.1 * bodyHeight;
