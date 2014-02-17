@@ -649,7 +649,8 @@ calculateStylesheetProperties = function(){
 	changecss(".strikethrough","font-size",strikeThroughFontSize+"px");
 	changecss(".rule, .tutorial-top","margin-top",tutorialTextMarginTop+"px");
 	changecss(".rule, .tutorial-top","font-size",tutorialFontSize+"px");
-	changecss(".rule","height",(totalFontSize+1)+"px");
+	changecss(".rule","height",totalFontSize+"px");
+	changecss(".rule i","font-size", (tutorialFontSize-6)+"px");
 
 	/* Symbol */
 	var diameter = 0.1 * bodyHeight;
