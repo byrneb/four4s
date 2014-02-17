@@ -155,9 +155,9 @@ a {
 }
 
 .modal-view {
-	height: 53%;
+	height: 35%;
 	position: fixed;
-	top: 24%;
+	top: 15%;
 	z-index: 1050;
 	width: 84%;
 	margin-left: 8%;
