@@ -188,9 +188,9 @@ app.ModalView = Backbone.View.extend({
 			this.model = new app.ModalModel({
 				'title'			: 'Welcome',
 				'content' 		: 	'<div class="tutorial-top">Rules:</div>'+
-									'<div class="rule">1. Use <i class="icon-four-key"></i> four <br> times!</div>'+
-									'<div class="rule">2. Use <i class="icon-four-key"></i> four <br> times!!</div>'+
-									'<div class="rule">3. Use <i class="icon-four-key"></i> four <br> times!!!</div>'+
+									'<div class="rule">1. Use the number <br><i class="icon-four-key"></i><br>four times!</div>'+
+									'<div class="rule">2. Use the number <br><i class="icon-four-key"></i><br>four times!</div>'+
+									'<div class="rule">3. Use the number <br><i class="icon-four-key"></i><br>four times!</div>'+
 									'<div class="rule">Simples.... right?</div>',
 				'isTutorialMsg' : true 
 			});
@@ -650,7 +650,8 @@ calculateStylesheetProperties = function(){
 	changecss(".rule, .tutorial-top","margin-top",tutorialTextMarginTop+"px");
 	changecss(".rule, .tutorial-top","font-size",tutorialFontSize+"px");
 	changecss(".rule","height",totalFontSize+"px");
-	changecss(".rule i","font-size", (tutorialFontSize-6)+"px");
+	changecss(".rule i","font-size", (tutorialFontSize+2)+"px");
+	changecss(".rule i","line-height", "1.3");
 
 	/* Symbol */
 	var diameter = 0.1 * bodyHeight;
