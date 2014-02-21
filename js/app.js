@@ -42,7 +42,7 @@ app.LevelManagementModel = Backbone.Model.extend({
 							'content' 		: '<div class="long-msg">'+
 											  '<div class="modal-msg">Create the above target 16</div>'+
 											  '<div class="modal-msg">If you run into trouble click '+
-											  '<br>the hint button <i class="fa fa-lightbulb-o"></i></div>'+
+											  '<br>the hint button <br><i class="fa fa-lightbulb-o"></i></div>'+
 											  '</div>',
 							'isTutorialMsg' : true 
 						});
