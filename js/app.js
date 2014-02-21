@@ -39,9 +39,11 @@ app.LevelManagementModel = Backbone.Model.extend({
 			if(this.get('level') === 0 && this.get('modal') === 2){
 				return new app.ModalModel({
 							'title'			: 'Tutorial 1',
-							'content' 		: '<p>Create the above target 16</p>'+
-											  '<p>If you run into trouble click </p>'+
-											  '<p>the hint button <i class="fa fa-lightbulb-o"></i></p>',
+							'content' 		: '<div class="long-msg">'+
+											  '<div class="modal-msg">Create the above target 16</div>'+
+											  '<div class="modal-msg">If you run into trouble click '+
+											  '<br>the hint button <i class="fa fa-lightbulb-o"></i></div>'+
+											  '</div>',
 							'isTutorialMsg' : true 
 						});
 			}
@@ -188,10 +190,10 @@ app.ModalView = Backbone.View.extend({
 			this.model = new app.ModalModel({
 				'title'			: 'Welcome',
 				'content' 		: 	'<div class="tutorial-top">Rules:</div>'+
-									'<div class="rule">1. Use the number <br><i class="icon-four-key"></i><br>four times!</div>'+
-									'<div class="rule">2. Use the number <br><i class="icon-four-key"></i><br>four times!!</div>'+
-									'<div class="rule">3. Use the number <br><i class="icon-four-key"></i><br>four times!!!</div>'+
-									'<div class="rule">Simples.... right?</div>',
+									'<div class="rule modal-msg">1. Use the number <br><i class="icon-four-key"></i><br>four times!</div>'+
+									'<div class="rule modal-msg">2. Use the number <br><i class="icon-four-key"></i><br>four times!!</div>'+
+									'<div class="rule modal-msg">3. Use the number <br><i class="icon-four-key"></i><br>four times!!!</div>'+
+									'<div class="rule modal-msg">Simples.... right?</div>',
 				'isTutorialMsg' : true 
 			});
 		}
@@ -218,7 +220,7 @@ app.ModalView = Backbone.View.extend({
 	    
 	    function showNextRule() {
 	    	++ruleIndex;
-	        if(ruleIndex < 2)
+	        if(ruleIndex < rules.length-2)
 		        rules.eq(ruleIndex % rules.length)
 		    		.fadeIn(1500)
 		            .delay(1000)
@@ -230,7 +232,7 @@ app.ModalView = Backbone.View.extend({
 		            .fadeOut(1500);
 		    	heading	
 		    		.delay(2500)	    		
-		            .fadeOut(2000, showNextRule);
+		            .fadeOut(1500, showNextRule);
 		        }
 	        else{
 	        	heading.css( "color", "white" );
@@ -636,8 +638,10 @@ calculateStylesheetProperties = function(){
 	var modalMarginTop = 0.04 * bodyHeight;
 	var strikeThroughMarginTop = 0.085 * bodyHeight;
 	var strikeThroughFontSize = 0.27 * bodyHeight;
-	var tutorialTextMarginTop = 0.02 * bodyHeight;
+	var tutorialTextMarginTop = 0.035 * bodyHeight;
 	var tutorialFontSize =  0.05*bodyHeight;
+	var longTutorialTextMarginTop = 0.06 * bodyHeight;
+	var longTutorialFontSize =  0.03*bodyHeight;
 	modalFontSize = Math.round(modalFontSize * 100) / 100;
 	modalMarginTop = Math.round(modalMarginTop * 100) / 100;
 	strikeThroughMarginTop = Math.round(strikeThroughMarginTop * 100) / 100;
@@ -647,11 +651,14 @@ calculateStylesheetProperties = function(){
 	changecss(".modal-header","margin-top",modalMarginTop+"px");
 	changecss(".strikethrough","margin-top",strikeThroughMarginTop+"px");
 	changecss(".strikethrough","font-size",strikeThroughFontSize+"px");
-	changecss(".rule, .tutorial-top","margin-top",tutorialTextMarginTop+"px");
-	changecss(".rule, .tutorial-top","font-size",tutorialFontSize+"px");
-	changecss(".rule","height",totalFontSize+"px");
-	changecss(".rule i","font-size", (tutorialFontSize+2)+"px");
-	changecss(".rule i","line-height", "1.3");
+	changecss(".modal-msg, .tutorial-top","margin-top",tutorialTextMarginTop+"px");
+	changecss(".long-msg .modal-msg","margin-top",longTutorialTextMarginTop+"px");
+	changecss(".modal-msg, .tutorial-top","font-size",tutorialFontSize+"px");
+	changecss(".long-msg .modal-msg","font-size",longTutorialFontSize+"px");
+	changecss(".modal-msg i","font-size", (tutorialFontSize+2)+"px");
+	changecss(".long-msg .modal-msg i","font-size", (longTutorialFontSize+2)+"px");
+	changecss(".modal-msg i","line-height", "1.3");
+	changecss(".modal-msg i","margin-top", "0px");
 
 	/* Symbol */
 	var diameter = 0.1 * bodyHeight;
