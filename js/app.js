@@ -41,8 +41,8 @@ app.LevelManagementModel = Backbone.Model.extend({
 							'title'			: 'Tutorial 1',
 							'content' 		: '<div class="long-msg">'+
 											  '<div class="top modal-msg">Create the above target 16</div>'+
-											  '<div class="modal-msg">If you run into trouble <br>click '+
-											  'the hint button <br><i class="fa fa-lightbulb-o"></i></div>'+
+											  '<div class="modal-msg">If you run into trouble <div>click '+
+											  'the hint button </div><i class="fa fa-lightbulb-o"></i></div>'+
 											  '</div>',
 							'isTutorialMsg' : true 
 						});
@@ -641,9 +641,10 @@ calculateStylesheetProperties = function(){
 	var tutorialTextMarginTop = 0.035 * bodyHeight;
 	var tutorialFontSize =  0.05*bodyHeight;
 	var longTutorialTextMarginTop1 = 0.066 * bodyHeight;
-	var longTutorialTextMarginTop2 = 0.04 * bodyHeight;
+	var longTutorialTextMarginTop2 = 0.0246 * bodyHeight;
 	var longTutorialFontSize =  0.04*bodyHeight;
-	var longBulbMarginTop =  0.033*bodyHeight;
+	var longBulbFont =  0.05*bodyHeight;
+	var longBulbMarginTop =  0.0166*bodyHeight;
 	modalFontSize = Math.round(modalFontSize * 100) / 100;
 	modalMarginTop = Math.round(modalMarginTop * 100) / 100;
 	strikeThroughMarginTop = Math.round(strikeThroughMarginTop * 100) / 100;
@@ -659,7 +660,7 @@ calculateStylesheetProperties = function(){
 	changecss(".modal-msg, .tutorial-top","font-size",tutorialFontSize+"px");
 	changecss(".long-msg .modal-msg","font-size",longTutorialFontSize+"px");
 	changecss(".modal-msg i","font-size", (tutorialFontSize+2)+"px");
-	changecss(".long-msg .modal-msg i","font-size", (longTutorialFontSize+2)+"px");
+	changecss(".long-msg .modal-msg i","font-size", longBulbFont+"px");
 	changecss(".modal-msg i","line-height", "1.3");
 	changecss(".modal-msg i","margin-top", "0px");
 	changecss(".long-msg .modal-msg i","margin-top", longBulbMarginTop+"px");
