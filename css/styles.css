@@ -213,8 +213,22 @@ a {
 	background-color: #000000;
 }
 
-.icon-four-key:before {
+.icon-four-key {
 	color: #0096DA;
+}
+
+.modal-msg .fa-smile-o {
+	color: rgb(0, 150, 218);
+	line-height: 1;
+}
+
+.modal-msg .icon-plus-key{
+	margin-left:1%;
+	color: rgb(0, 150, 218);
+}
+
+.fa-check-square-o{
+	color: rgb(0, 150, 218);
 }
 
 @font-face {
