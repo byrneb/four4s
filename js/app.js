@@ -3,7 +3,7 @@ var app = app || {};
 app.LevelManagementModel = Backbone.Model.extend({
 	
 	isTutorialsLastModal : function(){
-		return (this.get('level') === 2 && this.get('modal') === 1 && this.get('mode') === "tutorial") 
+		return (this.get('level') === 2 && this.get('modal') === 2 && this.get('mode') === "tutorial") 
 	},
 
 	isAnotherModal : function(){
@@ -12,6 +12,8 @@ app.LevelManagementModel = Backbone.Model.extend({
 		else if(this.get('level') === 0 && this.get('modal') === 1)
 			return true;
 		else if(this.get('level') === 1 && this.get('modal') === 1)
+			return true;
+		else if(this.get('level') === 2 && this.get('modal') === 1)
 			return true;
 		
 	},
@@ -49,22 +51,38 @@ app.LevelManagementModel = Backbone.Model.extend({
 			}
 			else if(this.get('level') === 1 && this.get('modal') === 1){
 				return new app.ModalModel({
-							'title'			: 'level 1',
-							'content' 		: 'modal 1',
+							'title'			: 'Tutorial 1',
+							'content' 		: '<div class="modal-msg">You have completed </div>'+
+											  '<div class="modal-msg">your first puzzle</div>'+
+											  '<div class="modal-msg"><i class="fa fa-smile-o"></i></div>',
 							'isTutorialMsg' : true 
 						});
 			}
 			else if(this.get('level') === 1 && this.get('modal') === 2){
 				return new app.ModalModel({
-							'title'			: 'level 1',
-							'content' 		: 'modal 2',
+							'title'			: 'Tutorial 2',
+							'content' 		: '<div class="modal-msg">Operators like <i class="icon-plus-key"></i>'+
+											  '<br>are great</div>'+
+											  '<div class="modal-msg">But not always'+
+											  '<br>needed!</div>',
 							'isTutorialMsg' : true 
 						});
 			}
 			else if(this.get('level') === 2 && this.get('modal') === 1){
 				return new app.ModalModel({
-							'title'			: 'level 2',
-							'content' 		: 'modal 1',
+							'title'			: 'Tutorial End',
+							'content' 		: '<div class="modal-msg">You have completed</div>'+
+											  '<div class="modal-msg">the tutorial</div>'+
+											  '<div class="modal-msg"><i class="fa fa-check-square-o"></i></div>',
+							'isTutorialMsg' : true 
+						});
+			}
+			else if(this.get('level') === 2 && this.get('modal') === 2){
+				return new app.ModalModel({
+							'title'			: 'Game On',
+							'content' 		: '<div class="modal-msg">For each puzzle</div>'+
+											  '<div class="modal-msg">solved the target</div>'+ 
+											  '<div class="modal-msg">will increase by 1</div>',
 							'isTutorialMsg' : true 
 						});
 			}
@@ -80,12 +98,16 @@ app.LevelManagementModel = Backbone.Model.extend({
 
 	getNextTarget: function(){
 		if(this.get("mode") === "tutorial" ){
-			if(this.get('level') === 1){
+			if(this.get('level') === 0){
 				return 16;
 			}
-			else if(this.get('level') === 2){
+			else if(this.get('level') === 1){
 				return 4444;
 			}
+			else if(this.get('level') === 2){
+				return 1;
+			}
+
 		}
 		else {
 			return this.get('level');
@@ -335,14 +357,17 @@ app.PlayScreenView = Backbone.View.extend({
 			this.model.incrementModal();
 			var modalModel = this.model.getNextModalModel();
 			this.modalView.setModel(modalModel);
+			var targetNumber = this.model.getNextTarget()
+			this.headerView.setTarget(targetNumber);
 		}
 		else{
 			//setup next modal
 			this.model.set('modal', 0);
 			this.model.incrementLevel();
-
-			var targetNumber = this.model.getNextTarget()
-			this.headerView.setTarget(targetNumber);
+			if(this.model.get('mode') != "tutorial"){
+				var targetNumber = this.model.getNextTarget()
+				this.headerView.setTarget(targetNumber);
+			}
 			this.solutionView.clearView();
 			this.modalView.close();
 		}
@@ -645,6 +670,9 @@ calculateStylesheetProperties = function(){
 	var longTutorialFontSize =  0.0375*bodyHeight;
 	var longBulbFont =  0.05*bodyHeight;
 	var longBulbMarginTop =  0.0166*bodyHeight;
+	var smileyFontSize =  0.09 * bodyHeight;
+	var completeFontSize =  0.11 * bodyHeight;
+	var plusFontSize =  0.05 * bodyHeight;
 	modalFontSize = Math.round(modalFontSize * 100) / 100;
 	modalMarginTop = Math.round(modalMarginTop * 100) / 100;
 	strikeThroughMarginTop = Math.round(strikeThroughMarginTop * 100) / 100;
@@ -664,6 +692,10 @@ calculateStylesheetProperties = function(){
 	changecss(".modal-msg i","line-height", "1.3");
 	changecss(".modal-msg i","margin-top", "0px");
 	changecss(".long-msg .modal-msg i","margin-top", longBulbMarginTop+"px");
+	changecss(".modal-msg .fa-smile-o", "font-size", smileyFontSize+"px");
+	changecss(".modal-msg .fa-check-square-o", "font-size", completeFontSize+"px");
+	changecss(".modal-msg .fa-check-square-o", "margin-top", -(tutorialTextMarginTop/2)+"px");
+	changecss(".modal-msg .icon-plus-key", "font-size", plusFontSize+"px");
 
 	/* Symbol */
 	var diameter = 0.1 * bodyHeight;
