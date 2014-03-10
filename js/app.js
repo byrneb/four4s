@@ -287,6 +287,21 @@ app.ModalView = Backbone.View.extend({
 
 });
 
+app.HintView = Backbone.View.extend({
+	tagName: "div",
+	id: "hint-container",
+	initialize: function(){
+		_.bindAll(this, "render");
+		this.template = _.template($("#hint-template").html());
+		this.model.set({hintText:""});
+	},
+
+	render: function(){
+		this.$el.html(this.template(this.model.toJSON()));
+		return this;
+	}
+});
+
 app.PlayScreenView = Backbone.View.extend({
 	tagName: "div",
 	id: "play-screen",
@@ -326,12 +341,14 @@ app.PlayScreenView = Backbone.View.extend({
 				"mode"	: "tutorial"
 			});
 		}
+		this.hintView = new app.HintView({model: this.model});
 	},
 
 	render: function(){
 		this.$el.empty();
 		this.$el.append(this.modalView.render().el,
 						this.headerView.render().el,
+						this.hintView.render().el,
 						this.solutionView.render().el,
 						this.buttonsView.render().el);
 		return this;
@@ -618,19 +635,14 @@ calculateStylesheetProperties = function(){
 
 	/* Header */
 	var homeOptionWidth = bodyHeight*0.14;
-	var hintOptionWidth = bodyHeight*0.13;
+	var hintOptionWidth = bodyHeight*0.135;
 	var headerFontSize = 0.35*bodyHeight*0.13;
 	var headerTotalWidth = bodyWidth - (2*bodyHeight*0.14);
-	var iconsmarginTop = bodyHeight*0.31*0.145;
-	homeOptionWidth = Math.round(homeOptionWidth * 100) / 100;
-	hintOptionWidth = Math.round(hintOptionWidth * 100) / 100;
-	headerTotalWidth = Math.round(headerTotalWidth * 100) / 100;
-	headerFontSize = Math.round(headerFontSize * 100) / 100;
-	iconsmarginTop = Math.round(iconsmarginTop * 100) / 100;
+	var lineHeight = bodyHeight*.14;
 	changecss("#hint","width",hintOptionWidth+"px");
 	changecss("#home","width",homeOptionWidth+"px");
 	changecss("#target","width",headerTotalWidth+"px");
-	changecss(".fa, #target","margin-top",iconsmarginTop+"px");
+	changecss("#header", "line-height",lineHeight+"px");
 	changecss("#home, #hint, #target","font-size",headerFontSize+"px");
 
 	/* Home Screen */
