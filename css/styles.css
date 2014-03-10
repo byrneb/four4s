@@ -55,6 +55,7 @@ a {
 	background: rgb(237, 242, 255);
 	top: 15.5%;
 	left: 27.5%;
+	box-shadow: #B3B3B2 1px 1px 1px;
 	color: rgb(0, 150, 218);
 }
 #above-target-filler{
