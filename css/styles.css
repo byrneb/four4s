@@ -52,10 +52,10 @@ a {
 	position: absolute;
 	width: 45%;
 	height: 8.5%;
-	background: rgb(242, 242, 255);
+	background: rgb(250, 250, 255);
 	top: 15.5%;
 	left: 27.5%;
-	box-shadow: #B3B3B2 1px 1px 1px;
+	box-shadow: inset 0 0 2px #B3B3B2;
 	color: rgb(0, 150, 218);
 	border-radius: 5px;
 }
