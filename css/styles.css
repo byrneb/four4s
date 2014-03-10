@@ -51,10 +51,10 @@ a {
 	position: absolute;
 	width: 45%;
 	height: 8.5%;
-	background: rgb(231, 237, 255);
+	background: rgb(194, 209, 255);
 	top: 15.5%;
 	left: 27.5%;
-	box-shadow: #B3B3B2 2px 2px 2px;
+	box-shadow: #B3B3B2 3px 3px 3px;
 }
 #above-target-filler{
 	height: 35%;
