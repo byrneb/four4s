@@ -48,13 +48,15 @@ a {
 	float: left;
 }
 #hint-container{
+	display: none;
 	position: absolute;
 	width: 45%;
 	height: 8.5%;
-	background: rgb(194, 209, 255);
+	background: rgb(237, 242, 255);
 	top: 15.5%;
 	left: 27.5%;
 	box-shadow: #B3B3B2 3px 3px 3px;
+	color: rgb(0, 150, 218);
 }
 #above-target-filler{
 	height: 35%;
