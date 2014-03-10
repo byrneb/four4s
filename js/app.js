@@ -293,7 +293,7 @@ app.HintView = Backbone.View.extend({
 	initialize: function(){
 		_.bindAll(this, "render");
 		this.template = _.template($("#hint-template").html());
-		this.model.set({hintText:""});
+		this.model.set({hintText:"4+4"});
 	},
 
 	render: function(){
@@ -716,6 +716,12 @@ calculateStylesheetProperties = function(){
 	marginTop = Math.round(marginTop * 100) / 100;
 	changecss(".button","font-size",diameter+"px");
 	changecss(".button","margin-top",marginTop+"px");
+
+	/* Hint */
+	var lineHeight = 0.085 * bodyHeight;
+	var fontSize = 0.06 * bodyHeight;
+	changecss("#hint-container","line-height",lineHeight+"px");
+	changecss("#hint-container","font-size",fontSize+"px");
 
 };
 
