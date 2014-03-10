@@ -441,9 +441,9 @@ app.HeaderView = Backbone.View.extend({
        if(e.style.display == 'block')
           e.style.display = 'none';
        else{
-          e.style.display = 'block';
+          //e.style.display = 'block';
           var heading = $("#hint-container");
-          heading.delay(3000).fadeOut(1500);
+          heading.fadeIn(1500).delay(3500).fadeOut(1500);
       }
 	}
 });
