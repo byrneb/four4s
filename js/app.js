@@ -398,7 +398,8 @@ app.HeaderView = Backbone.View.extend({
 	id: "header",
 
 	events: {
-		"click #home": "homeMenu"
+		"click #home": "homeMenu",
+		"click #hint": "hint"
 	},
 
 	initialize: function(){
@@ -433,6 +434,14 @@ app.HeaderView = Backbone.View.extend({
 	setTarget : function(newTarget){
 		this.model.set("target", newTarget);
 		localStorage.setItem( 'target', JSON.stringify(newTarget));
+	},
+
+	hint : function(){
+	   var e = document.getElementById("hint-container");
+       if(e.style.display != 'none')
+          e.style.display = 'none';
+       else
+          e.style.display = 'block';
 	}
 });
 
