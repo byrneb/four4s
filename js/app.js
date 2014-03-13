@@ -293,10 +293,13 @@ app.HintView = Backbone.View.extend({
 	initialize: function(){
 		_.bindAll(this, "render");
 		this.template = _.template($("#hint-template").html());
-		this.model.set({hintText:"4+4"});
+		this.model.on("change", this.render);
 	},
 
 	render: function(){
+		//todo tut hints
+		var hintIndex = this.model.get('level')-1;		
+		this.model.set({hintText:hints[hintIndex]});
 		this.$el.html(this.template(this.model.toJSON()));
 		return this;
 	}
@@ -447,7 +450,6 @@ app.HeaderView = Backbone.View.extend({
       }
 	}
 });
-
 app.SolutionView = Backbone.View.extend({
 
 	tagName: "div",
