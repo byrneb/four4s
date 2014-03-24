@@ -41,10 +41,10 @@ app.LevelManagementModel = Backbone.Model.extend({
 			if(this.get('level') === 0 && this.get('modal') === 2){
 				return new app.ModalModel({
 							'title'			: 'Tutorial 1',
-							'content' 		: '<div class="long-msg">'+
-											  '<div class="top modal-msg">Create the above target 16</div>'+
-											  '<div class="modal-msg">If you run into trouble <div>click '+
-											  'the hint button </div><i class="fa fa-lightbulb-o"></i></div>'+
+							'content' 		: '<div>'+
+											  '<div class="modal-msg">Create the above <br>target 16</div>'+
+											  '<div class="modal-msg">Need a hint?</div>'+
+											  '<div class="modal-msg"><i class="fa fa-lightbulb-o"></i></div>'+
 											  '</div>',
 							'isTutorialMsg' : true 
 						});
@@ -210,12 +210,10 @@ app.ModalView = Backbone.View.extend({
 		}
 		else{
 			this.model = new app.ModalModel({
-				'title'			: 'Welcome',
-				'content' 		: 	'<div class="tutorial-top">Rules:</div>'+
-									'<div class="rule modal-msg">1. Use the number <br><i class="icon-four-key"></i><br>four times!</div>'+
-									'<div class="rule modal-msg">2. Use the number <br><i class="icon-four-key"></i><br>four times!!</div>'+
-									'<div class="rule modal-msg">3. Use the number <br><i class="icon-four-key"></i><br>four times!!!</div>'+
-									'<div class="rule modal-msg">Simples.... right?</div>',
+				'title'			: 'Rules',
+				'content' 		: 	'<div class="modal-msg">Use the number</div>'+
+									'<div class="modal-msg">4 four times</div>'+
+									'<div class="modal-msg"><i class="icon-four-key"></i><i class="icon-four-key"></i><i class="icon-four-key"></i><i class="icon-four-key"></i></div>',
 				'isTutorialMsg' : true 
 			});
 		}
@@ -227,44 +225,11 @@ app.ModalView = Backbone.View.extend({
 		this.delegateEvents();
 
 		if(this.model.get("isTutorialMsg")){
-			this.$( "#modal-content" ).removeClass( "strikethrough" ).addClass( "info-message" );			
-			this.startMessageRelay();
+			this.$( "#modal-content" ).removeClass( "strikethrough" ).addClass( "info-message" );
 		}
 		else
 			this.$( "#modal-content" ).removeClass( "info-message" ).addClass( "strikethrough" );
 		return this;
-	},
-
-	startMessageRelay: function() {
-		var rules = this.$(".rule");
-		var heading = this.$(".tutorial-top");
-	    var ruleIndex = -1;
-	    
-	    function showNextRule() {
-	    	++ruleIndex;
-	        if(ruleIndex < rules.length-2)
-		        rules.eq(ruleIndex % rules.length)
-		    		.fadeIn(1500)
-		            .delay(1000)
-		            .fadeOut(1500, showNextRule);
-		    else if (ruleIndex === 2) {
-		    	rules.eq(ruleIndex % rules.length)
-		    		.fadeIn(1500)
-		            .delay(1000)
-		            .fadeOut(1500);
-		    	heading	
-		    		.delay(2500)	    		
-		            .fadeOut(1500, showNextRule);
-		        }
-	        else{
-	        	heading.css( "color", "white" );
-	        	heading.css( "display", "block" );
-		        rules.eq(ruleIndex % rules.length)
-	            	.fadeIn(2000);
-	        }
-    	}
-    
-    setTimeout(showNextRule, 1000);
 	},
 
 	close: function() {
@@ -297,9 +262,14 @@ app.HintView = Backbone.View.extend({
 	},
 
 	render: function(){
-		//todo tut hints
-		var hintIndex = this.model.get('level')-1;		
-		this.model.set({hintText:hints[hintIndex]});
+		var hintIndex = this.model.get('level')-1;
+
+		var mode = this.model.get('mode');
+		if(mode === 'tutorial')
+			this.model.set({hintText:tutHints[hintIndex]});
+		else
+			this.model.set({hintText:hints[hintIndex]});		
+		
 		this.$el.html(this.template(this.model.toJSON()));
 		return this;
 	}
@@ -718,9 +688,9 @@ calculateStylesheetProperties = function(){
 	changecss(".modal-msg i","line-height", "1.3");
 	changecss(".modal-msg i","margin-top", "0px");
 	changecss(".long-msg .modal-msg i","margin-top", longBulbMarginTop+"px");
-	changecss(".modal-msg .fa-smile-o", "font-size", smileyFontSize+"px");
+	changecss(".modal-msg .fa-smile-o ,.modal-msg .icon-four-key, .modal-msg .fa-lightbulb-o", "font-size", smileyFontSize+"px");
 	changecss(".modal-msg .fa-check-square-o", "font-size", completeFontSize+"px");
-	changecss(".modal-msg .fa-check-square-o", "margin-top", -(tutorialTextMarginTop/2)+"px");
+	changecss(".modal-msg .fa-check-square-o, .modal-msg .fa-lightbulb-o", "margin-top", -(tutorialTextMarginTop/2)+"px");
 	changecss(".modal-msg .icon-plus-key", "font-size", plusFontSize+"px");
 
 	/* Symbol */
