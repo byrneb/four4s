@@ -11,6 +11,8 @@ app.LevelManagementModel = Backbone.Model.extend({
 			return false;
 		else if(this.get('level') === 0 && this.get('modal') === 1)
 			return true;
+		else if(this.get('level') === 0 && this.get('modal') === 2)
+			return true;
 		else if(this.get('level') === 1 && this.get('modal') === 1)
 			return true;
 		else if(this.get('level') === 2 && this.get('modal') === 1)
@@ -42,8 +44,18 @@ app.LevelManagementModel = Backbone.Model.extend({
 				return new app.ModalModel({
 							'title'			: 'Tutorial 1',
 							'content' 		: '<div>'+
-											  '<div class="modal-msg">Create the above <br>target 16</div>'+
+											  '<div class="modal-msg">Create the above <br>target </div>'+
+											  '<div class="modal-msg target-text">16</div>'+
+											  '</div>',
+							'isTutorialMsg' : true 
+						});
+			}
+			else if(this.get('level') === 0 && this.get('modal') === 3){
+				return new app.ModalModel({
+							'title'			: 'Tutorial 1',
+							'content' 		: '<div>'+
 											  '<div class="modal-msg">Need a hint?</div>'+
+											  '<div class="modal-msg">Click the icon</div>'+
 											  '<div class="modal-msg"><i class="fa fa-lightbulb-o"></i></div>'+
 											  '</div>',
 							'isTutorialMsg' : true 
@@ -666,7 +678,7 @@ calculateStylesheetProperties = function(){
 	var longTutorialFontSize =  0.0375*bodyHeight;
 	var longBulbFont =  0.05*bodyHeight;
 	var longBulbMarginTop =  0.0166*bodyHeight;
-	var smileyFontSize =  0.09 * bodyHeight;
+	var smileyFontSize =  0.07 * bodyHeight;
 	var completeFontSize =  0.11 * bodyHeight;
 	var plusFontSize =  0.05 * bodyHeight;
 	modalFontSize = Math.round(modalFontSize * 100) / 100;
@@ -688,10 +700,14 @@ calculateStylesheetProperties = function(){
 	changecss(".modal-msg i","line-height", "1.3");
 	changecss(".modal-msg i","margin-top", "0px");
 	changecss(".long-msg .modal-msg i","margin-top", longBulbMarginTop+"px");
-	changecss(".modal-msg .fa-smile-o ,.modal-msg .icon-four-key, .modal-msg .fa-lightbulb-o", "font-size", smileyFontSize+"px");
+	changecss(".modal-msg .fa-smile-o , .modal-msg .icon-four-key" , "font-size", (smileyFontSize*1.4)+"px");
+	changecss(".modal-msg .icon-four-key" , "font-size", (smileyFontSize)+"px");
 	changecss(".modal-msg .fa-check-square-o", "font-size", completeFontSize+"px");
-	changecss(".modal-msg .fa-check-square-o, .modal-msg .fa-lightbulb-o", "margin-top", -(tutorialTextMarginTop/2)+"px");
+	changecss(".modal-msg .fa-check-square-o, .target-text", "margin-top", -(tutorialTextMarginTop/2)+"px");
 	changecss(".modal-msg .icon-plus-key", "font-size", plusFontSize+"px");
+	changecss(" .target-text", "font-size", (smileyFontSize*2)+"px");
+	changecss(" .modal-msg .fa-lightbulb-o", "font-size", (smileyFontSize*1.5)+"px");
+	changecss(".target-text", "margin-top", (tutorialTextMarginTop/2)+"px");
 
 	/* Symbol */
 	var diameter = 0.1 * bodyHeight;
