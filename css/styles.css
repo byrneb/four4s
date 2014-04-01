@@ -99,6 +99,9 @@ a {
 .icon-back-key{
 	color: rgb(207, 34, 41);
 }
+.target-text{	
+	color: rgb(0, 150, 218);
+}
 
 .gray {
 	color: gray;
