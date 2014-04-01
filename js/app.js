@@ -225,7 +225,7 @@ app.ModalView = Backbone.View.extend({
 				'title'			: 'Rules',
 				'content' 		: 	'<div class="modal-msg">Use the number</div>'+
 									'<div class="modal-msg">4 four times</div>'+
-									'<div class="modal-msg"><i class="icon-four-key"></i><i class="icon-four-key"></i><i class="icon-four-key"></i><i class="icon-four-key"></i></div>',
+									'<div class="modal-msg fours"><i class="icon-four-key"></i><i class="icon-four-key"></i><i class="icon-four-key"></i><i class="icon-four-key"></i></div>',
 				'isTutorialMsg' : true 
 			});
 		}
@@ -678,6 +678,7 @@ calculateStylesheetProperties = function(){
 	var longTutorialFontSize =  0.0375*bodyHeight;
 	var longBulbFont =  0.05*bodyHeight;
 	var longBulbMarginTop =  0.0166*bodyHeight;
+	var foursMarginTop =  0.045*bodyHeight;
 	var smileyFontSize =  0.07 * bodyHeight;
 	var completeFontSize =  0.11 * bodyHeight;
 	var plusFontSize =  0.05 * bodyHeight;
@@ -700,13 +701,14 @@ calculateStylesheetProperties = function(){
 	changecss(".modal-msg i","line-height", "1.3");
 	changecss(".modal-msg i","margin-top", "0px");
 	changecss(".long-msg .modal-msg i","margin-top", longBulbMarginTop+"px");
-	changecss(".modal-msg .fa-smile-o , .modal-msg .icon-four-key" , "font-size", (smileyFontSize*1.4)+"px");
-	changecss(".modal-msg .icon-four-key" , "font-size", (smileyFontSize)+"px");
+	changecss(".fours","margin-top", foursMarginTop+"px");
+	changecss(".modal-msg .fa-smile-o" , "font-size", (smileyFontSize*1.4)+"px");
+	changecss(".modal-msg .icon-four-key" , "font-size", (smileyFontSize*.9)+"px");
 	changecss(".modal-msg .fa-check-square-o", "font-size", completeFontSize+"px");
 	changecss(".modal-msg .fa-check-square-o, .target-text", "margin-top", -(tutorialTextMarginTop/2)+"px");
 	changecss(".modal-msg .icon-plus-key", "font-size", plusFontSize+"px");
-	changecss(" .target-text", "font-size", (smileyFontSize*2)+"px");
-	changecss(" .modal-msg .fa-lightbulb-o", "font-size", (smileyFontSize*1.5)+"px");
+	changecss(".target-text", "font-size", (smileyFontSize*2)+"px");
+	changecss(".modal-msg .fa-lightbulb-o", "font-size", (smileyFontSize*1.5)+"px");
 	changecss(".target-text", "margin-top", (tutorialTextMarginTop/2)+"px");
 
 	/* Symbol */
