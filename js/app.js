@@ -673,11 +673,6 @@ calculateStylesheetProperties = function(){
 	var strikeThroughFontSize = 0.27 * bodyHeight;
 	var tutorialTextMarginTop = 0.035 * bodyHeight;
 	var tutorialFontSize =  0.05*bodyHeight;
-	var longTutorialTextMarginTop1 = 0.066 * bodyHeight;
-	var longTutorialTextMarginTop2 = 0.026 * bodyHeight;
-	var longTutorialFontSize =  0.0375*bodyHeight;
-	var longBulbFont =  0.05*bodyHeight;
-	var longBulbMarginTop =  0.0166*bodyHeight;
 	var foursMarginTop =  0.045*bodyHeight;
 	var smileyFontSize =  0.07 * bodyHeight;
 	var completeFontSize =  0.11 * bodyHeight;
@@ -692,15 +687,10 @@ calculateStylesheetProperties = function(){
 	changecss(".strikethrough","margin-top",strikeThroughMarginTop+"px");
 	changecss(".strikethrough","font-size",strikeThroughFontSize+"px");
 	changecss(".modal-msg, .tutorial-top","margin-top",tutorialTextMarginTop+"px");
-	changecss(".long-msg .modal-msg ","margin-top",longTutorialTextMarginTop2+"px");
-	changecss(".long-msg .top ","margin-top",longTutorialTextMarginTop1+"px");
 	changecss(".modal-msg, .tutorial-top","font-size",tutorialFontSize+"px");
-	changecss(".long-msg .modal-msg","font-size",longTutorialFontSize+"px");
 	changecss(".modal-msg i","font-size", (tutorialFontSize+2)+"px");
-	changecss(".long-msg .modal-msg i","font-size", longBulbFont+"px");
 	changecss(".modal-msg i","line-height", "1.3");
 	changecss(".modal-msg i","margin-top", "0px");
-	changecss(".long-msg .modal-msg i","margin-top", longBulbMarginTop+"px");
 	changecss(".fours","margin-top", foursMarginTop+"px");
 	changecss(".modal-msg .fa-smile-o" , "font-size", (smileyFontSize*1.4)+"px");
 	changecss(".modal-msg .icon-four-key" , "font-size", (smileyFontSize*.9)+"px");
@@ -712,12 +702,15 @@ calculateStylesheetProperties = function(){
 	changecss(".target-text", "margin-top", (tutorialTextMarginTop/2)+"px");
 
 	/* Symbol */
-	var diameter = 0.1 * bodyHeight;
-	var marginTop = 0.04 * bodyHeight;
+	var diameter = 0.08 * bodyHeight;
+	var marginTop = 0.025 * bodyHeight;
 	diameter = Math.round(diameter * 100) / 100;
 	marginTop = Math.round(marginTop * 100) / 100;
+	var marginRowMarginLeft = ((0.8 * bodyWidth) - (3*diameter))/2;
 	changecss(".button","font-size",diameter+"px");
 	changecss(".button","margin-top",marginTop+"px");
+	changecss(".icon-plus-key, .icon-mutliply-key, .icon-right-bracket-key","margin-left",marginRowMarginLeft+"px");
+	changecss(".icon-plus-key, .icon-mutliply-key, .icon-right-bracket-key","margin-right",marginRowMarginLeft*.8+"px");
 
 	/* Hint */
 	var lineHeight = 0.085 * bodyHeight;
