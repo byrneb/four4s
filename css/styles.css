@@ -83,7 +83,6 @@ a {
 	margin: 0 auto;
 }
 .button{
-	width: 20%;
 	float: left;
 	border: 1px solid #FFF;
 	cursor: default;
@@ -93,9 +92,7 @@ a {
 	float: right;
 	margin-right: 0%;
 }
-.icon-plus-key, .icon-mutliply-key, .icon-right-bracket-key{
-  margin-left: 20%;
-}
+
 .icon-back-key{
 	color: rgb(207, 34, 41);
 }
