@@ -703,7 +703,7 @@ calculateStylesheetProperties = function(){
 
 	/* Symbol */
 	var diameter = 0.08 * bodyHeight;
-	var marginTop = 0.025 * bodyHeight;
+	var marginTop = 0.035 * bodyHeight;
 	diameter = Math.round(diameter * 100) / 100;
 	marginTop = Math.round(marginTop * 100) / 100;
 	var marginRowMarginLeft = ((0.8 * bodyWidth) - (3*diameter))/2;
