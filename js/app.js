@@ -709,8 +709,8 @@ calculateStylesheetProperties = function(){
 	var marginRowMarginLeft = ((0.8 * bodyWidth) - (3*diameter))/2;
 	changecss(".button","font-size",diameter+"px");
 	changecss(".button","margin-top",marginTop+"px");
-	changecss(".icon-plus-key, .icon-mutliply-key, .icon-right-bracket-key","margin-left",marginRowMarginLeft+"px");
-	changecss(".icon-plus-key, .icon-mutliply-key, .icon-right-bracket-key","margin-right",marginRowMarginLeft*.8+"px");
+	changecss(".icon-plus-key, .icon-mutliply-key, .icon-right-bracket-key, .icon-square-key","margin-left",marginRowMarginLeft+"px");
+	changecss(".icon-plus-key, .icon-mutliply-key, .icon-right-bracket-key, .icon-square-key","margin-right",marginRowMarginLeft*.85+"px");
 
 	/* Hint */
 	var lineHeight = 0.085 * bodyHeight;

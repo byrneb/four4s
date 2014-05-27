@@ -88,7 +88,7 @@ a {
 	cursor: default;
 	color: rgb(0, 150, 218);
 }
-.icon-minus-key, .icon-divide-key, .icon-back-key{
+.icon-minus-key, .icon-divide-key, .icon-back-key, .icon-power-key{
 	float: right;
 	margin-right: 0%;
 }
@@ -253,6 +253,7 @@ a {
 	font-weight: normal;
 	font-style: normal;
 }
+
 [class*="icon-"] {
 	font-family: 'icomoon';
 	speak: none;
@@ -268,6 +269,16 @@ a {
 }
 .button:active{
 	color: black;
+}
+
+.icon-power-key:before {
+	content: "\e60a";
+}
+.icon-square-key:before {
+	content: "\e60b";
+}
+.icon-factorial-key:before {
+	content: "\e60c";
 }
 .icon-right-bracket-key:before {
 	content: "\e600";
@@ -299,4 +310,3 @@ a {
 .icon-back-key:before {
 	content: "\e609";
 }
-
