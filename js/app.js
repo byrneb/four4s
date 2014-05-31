@@ -138,11 +138,16 @@ app.HeaderModel = Backbone.Model.extend({
 app.SolutionModel = Backbone.Model.extend({
 
 	addCharacter : function(newChar){
-		var updatedSolution = this.get("solution") + newChar;
-		this.set("solution", updatedSolution);
+		if(newChar === ')')
+			this.closeBracket();
+		else{
+			var updatedSolution = this.get("solution") + newChar;
+			this.set("solution", updatedSolution);
 
-		if(newChar === "4")
-			this.incrementFoursCount();
+			if(newChar === "4")
+				this.incrementFoursCount();
+		}
+		
 	},
 
 	removeLastCharacter : function(){
@@ -187,6 +192,8 @@ app.SolutionModel = Backbone.Model.extend({
 		this.result = original.replace(/·/g,".");
 		this.result = this.result.replace(/÷/g,"/");
 		this.result = this.result.replace(/×/g,"*");
+		this.result = this.result.replace(/<span class="brackets">/g,"");
+		this.result = this.result.replace(/<\/span>/g,"");
 		return this.result;
 	},
 
@@ -195,6 +202,29 @@ app.SolutionModel = Backbone.Model.extend({
 		this.set("total", 0);
 		this.set("foursCount", 0);
 		$( ".icon-four-key" ).removeClass( "gray" );
+	},
+
+	closeBracket: function(){
+		var solution = this.get("solution");
+		var index = solution.length-1;
+		for(index; index >= 0; index --){
+			if(solution.charAt(index) === '(' && !this.isClosingSpanBefore(index)){
+				solution = solution.substring(0, index) + ' <span class="brackets">' + solution.substring(index, solution.length) + ")</span>";
+				this.set("solution", solution);
+				return;
+			}
+		}
+	},
+
+	isClosingSpanBefore : function(indexOfBracket){
+		var matchString = '<span class="brackets">';
+		var matchstringlength = matchString.length;
+		if(indexOfBracket < matchstringlength)
+			return false;
+		var searchAgainstString = this.get("solution");
+		var initialIndex = indexOfBracket - matchstringlength;
+		searchAgainstString = searchAgainstString.substring(initialIndex, indexOfBracket);
+		return matchString === searchAgainstString;
 	}
 });
 
