@@ -137,25 +137,68 @@ app.HeaderModel = Backbone.Model.extend({
 
 app.SolutionModel = Backbone.Model.extend({
 
-	addCharacter : function(newChar){
-		if(newChar === ')')
-			this.closeBracket();
-		else{
-			var updatedSolution = this.get("solution") + newChar;
-			this.set("solution", updatedSolution);
 
-			if(newChar === "4")
-				this.incrementFoursCount();
+	pow4: "<sup>4</sup>",
+	pow44: "<sup>4<sup>4</sup></sup>",
+	pow444: "<sup>4<sup>4<sup>4</sup></sup></sup>",
+	pow4444: "<sup>4<sup>4<sup>4<sup>4</sup></sup></sup></sup>",
+
+	addCharacter : function(newChar){
+		var updatedSolution, supLength;
+		var solution = this.get("solution");
+		var solutionLength = solution.length;
+
+		if(newChar === "&radic;"){
+			updatedSolution = this.addSqrt();
+		}else if(newChar === this.pow4){
+			if(solution.endsWith(this.pow444)){
+				supLength = this.pow444.length;
+				updatedSolution = solution.substring(0, solutionLength-supLength) + this.pow4444;
+			}else if(solution.endsWith(this.pow44)){
+				supLength = this.pow44.length;
+				updatedSolution = solution.substring(0, solutionLength-supLength) + this.pow444;
+			}else if(solution.endsWith(this.pow4)){
+				supLength = this.pow4.length;
+				updatedSolution = solution.substring(0, solutionLength-supLength) + this.pow44;
+			}else{
+				updatedSolution = solution + newChar;
+			}
+		}else{
+			updatedSolution =  solution + newChar;
 		}
 		
+		this.set("solution", updatedSolution);
+		if(newChar === "4" || newChar === this.pow4)
+			this.incrementFoursCount();
+		console.log(this.get("foursCount"));		
 	},
 
 	removeLastCharacter : function(){
 		var solution = this.get("solution");
-		this.set("solution", solution.slice(0,-1));
+		var solutionLength = solution.length;
+		var lastChar = solution.charAt(solution.length-1);
+		var removedChar = lastChar;
+		var updatedSolution, supLength;
 
-		var removedChar = solution.charAt(solution.length-1);
-		if(removedChar === "4")
+		if(solution.endsWith(this.pow4444)){
+			supLength = this.pow4444.length;
+			updatedSolution = solution.substring(0, solutionLength-supLength) + this.pow444;
+		}else if(solution.endsWith(this.pow444)){
+			supLength = this.pow444.length;
+			updatedSolution = solution.substring(0, solutionLength-supLength) + this.pow44;
+		}else if(solution.endsWith(this.pow44)){
+			supLength = this.pow44.length;
+			updatedSolution = solution.substring(0, solutionLength-supLength) + this.pow4;
+		}else if(solution.endsWith(this.pow4)){
+			supLength = this.pow4.length;
+			updatedSolution = solution.substring(0, solutionLength-supLength);
+		}else if(lastChar === ';'){
+			updatedSolution = solution.slice(0,-"&radic;".length);
+		}else{
+			updatedSolution = solution.slice(0,-1);	
+		}
+		this.set("solution", updatedSolution);
+		if(removedChar === "4" || solution.endsWith("</sup>"))
 			this.decrementFoursCount();
 	},
 
@@ -183,18 +226,18 @@ app.SolutionModel = Backbone.Model.extend({
 		catch(e){
 			sum = 0;
 		}
-		this.set("total", (sum));
+		this.set("total", (sum || 0));
 	},
 
 	makeReadable : function(original){
 		if(original === "")
 			return 0;
-		this.result = original.replace(/·/g,".");
-		this.result = this.result.replace(/÷/g,"/");
-		this.result = this.result.replace(/×/g,"*");
-		this.result = this.result.replace(/<span class="brackets">/g,"");
-		this.result = this.result.replace(/<\/span>/g,"");
-		return this.result;
+		var result = original.replace(/Â·/g,".");
+		result = result.replace(/Ã·/g,"/");
+		result = result.replace(/Ã—/g,"*");
+		result = result.replace(/&radic;/g,"Math.sqrt");
+		result = this.replacePow(result);
+		return result;
 	},
 
 	cleanUp : function(){
@@ -204,27 +247,83 @@ app.SolutionModel = Backbone.Model.extend({
 		$( ".icon-four-key" ).removeClass( "gray" );
 	},
 
-	closeBracket: function(){
-		var solution = this.get("solution");
-		var index = solution.length-1;
-		for(index; index >= 0; index --){
-			if(solution.charAt(index) === '(' && !this.isClosingSpanBefore(index)){
-				solution = solution.substring(0, index) + ' <span class="brackets">' + solution.substring(index, solution.length) + ")</span>";
-				this.set("solution", solution);
-				return;
-			}
+	addSqrt : function(){
+		var curSolution = this.get("solution");
+		var lastChar = curSolution.slice(-1);
+		var insertAt;
+
+		if(lastChar === ')'){
+			insertAt = this.findOpenParen(curSolution, lastCharPos);
+			curSolution = curSolution.substring(0, insertAt) + "&radic;" + curSolution.substring(insertAt);
+		}else{	
+			var lastCharPos = curSolution.length - 1;
+			insertAt = lastCharPos - this.findNumsBeforePos(curSolution, lastCharPos);
+			curSolution = curSolution.substring(0, insertAt) + "&radic;(" + curSolution.substring(insertAt) + ")";
 		}
+
+		return curSolution;
 	},
 
-	isClosingSpanBefore : function(indexOfBracket){
-		var matchString = '<span class="brackets">';
-		var matchstringlength = matchString.length;
-		if(indexOfBracket < matchstringlength)
-			return false;
-		var searchAgainstString = this.get("solution");
-		var initialIndex = indexOfBracket - matchstringlength;
-		searchAgainstString = searchAgainstString.substring(initialIndex, indexOfBracket);
-		return matchString === searchAgainstString;
+	replacePow : function(expression){
+		if(expression.indexOf("<") === -1)
+			return expression;
+
+		var exponentStartPos, power, exponentEndPos;
+		if(expression.indexOf(this.pow444) !== -1){
+			power = 64;
+			exponentStartPos = expression.indexOf(this.pow444);
+			exponentEndPos = exponentStartPos + this.pow444.length;
+		}else if(expression.indexOf(this.pow44) !== -1){
+			power = 16;
+			exponentStartPos = expression.indexOf(this.pow44);
+			exponentEndPos = exponentStartPos + this.pow44.length;
+		}else{
+			power = 4;
+			exponentStartPos = expression.indexOf(this.pow4);
+			exponentEndPos = exponentStartPos + this.pow4.length;
+		}
+
+		var baseEndChar = expression.charAt(exponentStartPos-1);
+
+		var baseStartPos;
+		if(baseEndChar === ')'){
+			baseStartPos = this.findOpenParen(expression, exponentStartPos-1);
+		}else{
+			baseStartPos = exponentStartPos - this.findNumsBeforePos(expression, exponentStartPos);
+		}
+		var sum = expression.substring(baseStartPos, exponentStartPos);
+		var result = "Math.pow(" + sum + ", " + power + ")";
+		//expression = expression.substring(0,startPos) + expression.substring(endPos);
+		result = expression.substring(0, baseStartPos) + result + expression.substring(exponentEndPos);
+		return this.replacePow(result);
+	},
+
+	findOpenParen : function(expression, closePos){
+		var counter = 1;
+		for(var i=closePos-1; i>=0; i--){
+			var c = expression.charAt(i);
+	        if (c === '(')
+	            counter--;
+	        else if (c === ')')
+	            counter++;
+	        if(counter === 0)
+	        	return i;
+		}
+
+		return -1;
+	},
+
+	findNumsBeforePos : function(expression, pos){
+		var count = 0;
+		var c;
+		for(var i=pos-1; i>=0; i--){
+			c = expression.charAt(i);
+			if(c !== '4' && c !== '.'){
+				return count;
+			}
+			count++;
+		}
+		return count;
 	}
 });
 
@@ -489,6 +588,8 @@ app.SolutionView = Backbone.View.extend({
 			this.model.removeLastCharacter();
 		else if(keyPressed === "4" && this.model.isFour4sUsed())
 			return;
+		else if(keyPressed === "<sup>4</sup>" && this.model.isFour4sUsed())
+			return;
 		else
 			this.model.addCharacter(keyPressed);
 
@@ -541,13 +642,19 @@ app.ButtonsView = Backbone.View.extend({
 		else if(input.indexOf("dot") != -1)
 			return ".";
 		else if(input.indexOf("mutliply") != -1)
-			return "×";
+			return "Ã—";
 		else if(input.indexOf("divide") != -1)
-			return "÷";
+			return "Ã·";
 		else if(input.indexOf("left") != -1)
 			return "(";
 		else if(input.indexOf("right") != -1)
-			return ")";
+			return ")";		
+		else if(input.indexOf("factorial") != -1)
+			return "!";
+		else if(input.indexOf("power") != -1)
+			return "<sup>4</sup>";
+		else if(input.indexOf("square") != -1)
+			return "&radic;";
 		else if(input.indexOf("back") != -1)
 			return "<<";
 	}
@@ -759,6 +866,20 @@ $(function() {
 			}
 		});
 	})(Backbone.View);
+
+	if (!String.prototype.endsWith) {
+  		Object.defineProperty(String.prototype, 'endsWith', {
+    		enumerable: false,
+    		configurable: false,
+    		writable: false,
+    		value: function (searchString, position) {
+		      position = position || this.length;
+		      position = position - searchString.length;
+		      var lastIndex = this.lastIndexOf(searchString);
+		      return lastIndex !== -1 && lastIndex === position;
+    		}
+  	});
+}
 
 	window.addEventListener("load", function() {
 		FastClick.attach(document.body);
