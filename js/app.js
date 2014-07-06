@@ -1,4 +1,4 @@
-var app = app || {};
+﻿var app = app || {};
 
 app.LevelManagementModel = Backbone.Model.extend({
 	
@@ -236,7 +236,9 @@ app.SolutionModel = Backbone.Model.extend({
 		result = result.replace(/÷/g,"/");
 		result = result.replace(/×/g,"*");
 		result = result.replace(/&radic;/g,"Math.sqrt");
+		result = result.replace(/(Math.sqrt\([4.]\))/ig,"($1)");
 		result = this.replacePow(result);
+		result = this.replaceFactorial(result);
 		return result;
 	},
 
@@ -250,18 +252,26 @@ app.SolutionModel = Backbone.Model.extend({
 	addSqrt : function(){
 		var curSolution = this.get("solution");
 		var lastChar = curSolution.slice(-1);
+		var lastCharPos = curSolution.length - 1;
 		var insertAt;
 
 		if(lastChar === ')'){
 			insertAt = this.findOpenParen(curSolution, lastCharPos);
 			curSolution = curSolution.substring(0, insertAt) + "&radic;" + curSolution.substring(insertAt);
 		}else{	
-			var lastCharPos = curSolution.length - 1;
-			insertAt = lastCharPos - this.findNumsBeforePos(curSolution, lastCharPos);
+			if(lastChar === '>'){
+				var powOpenPos = this.findOpenTag(curSolution, lastCharPos - "</sup>".length);
+				if(curSolution.charAt(powOpenPos-1) === ')')
+					insertAt = this.findOpenParen(curSolution, powOpenPos-1);
+				else
+					insertAt = powOpenPos - this.findNumsBeforePos(curSolution, powOpenPos);
+			}else{
+				insertAt = lastCharPos - this.findNumsBeforePos(curSolution, lastCharPos);
+			}
 			curSolution = curSolution.substring(0, insertAt) + "&radic;(" + curSolution.substring(insertAt) + ")";
 		}
 
-		return curSolution;
+		return curSolution; 
 	},
 
 	replacePow : function(expression){
@@ -292,11 +302,41 @@ app.SolutionModel = Backbone.Model.extend({
 			baseStartPos = exponentStartPos - this.findNumsBeforePos(expression, exponentStartPos);
 		}
 		var sum = expression.substring(baseStartPos, exponentStartPos);
-		var result = "Math.pow(" + sum + ", " + power + ")";
+		var result = "(Math.pow(" + sum + ", " + power + "))";
 		//expression = expression.substring(0,startPos) + expression.substring(endPos);
 		result = expression.substring(0, baseStartPos) + result + expression.substring(exponentEndPos);
 		return this.replacePow(result);
 	},
+
+	replaceFactorial : function(expression){
+		var factorial, factorialEndPos;
+		var factorialStartPos = expression.indexOf("!");
+
+		if( factorialStartPos === -1)
+			return expression;
+
+		if(expression.indexOf("!!") !== -1){
+			factorial = 2;
+			factorialEndPos = factorialStartPos + 1;
+		}else{
+			factorial = 1;
+			factorialEndPos = factorialStartPos;
+		}
+
+		var baseEndChar = expression.charAt(factorialStartPos-1);
+		var baseStartPos;
+		if(baseEndChar === ')'){
+			baseStartPos = this.findOpenParen(expression, factorialStartPos-1);
+		}else{
+			baseStartPos = factorialStartPos - this.findNumsBeforePos(expression, factorialStartPos);
+		}
+		var sum = expression.substring(baseStartPos, factorialStartPos);
+		var result = "(factorial(" + sum + "))";
+		result = expression.substring(0, baseStartPos) + result + expression.substring(factorialEndPos+1);
+		return this.replaceFactorial(result);
+
+	},
+
 
 	findOpenParen : function(expression, closePos){
 		var counter = 1;
@@ -305,6 +345,23 @@ app.SolutionModel = Backbone.Model.extend({
 	        if (c === '(')
 	            counter--;
 	        else if (c === ')')
+	            counter++;
+	        if(counter === 0)
+	        	return i;
+		}
+
+		return -1;
+	},
+
+	findOpenTag : function(expression, closePos){
+		var counter = 1;
+		var openTag = '<sup>';
+		var closeTag = '</sup>';
+
+		for(var i=closePos-1; i>=0; i--){
+	        if (expression.substring(i, i+openTag.length) === openTag)
+	            counter--;
+	        else if (expression.substring(i, i+closeTag.length) === closeTag)
 	            counter++;
 	        if(counter === 0)
 	        	return i;
@@ -847,7 +904,7 @@ calculateStylesheetProperties = function(){
 	changecss(".button","font-size",diameter+"px");
 	changecss(".button","margin-top",marginTop+"px");
 	changecss(".icon-plus-key, .icon-mutliply-key, .icon-right-bracket-key, .icon-square-key","margin-left",marginRowMarginLeft+"px");
-	changecss(".icon-plus-key, .icon-mutliply-key, .icon-right-bracket-key, .icon-square-key","margin-right",marginRowMarginLeft*.85+"px");
+	changecss(".icon-plus-key, .icon-mutliply-key, .icon-right-bracket-key, .icon-square-key","margin-right",marginRowMarginLeft*.9+"px");
 
 	/* Hint */
 	var lineHeight = 0.085 * bodyHeight;
@@ -856,6 +913,29 @@ calculateStylesheetProperties = function(){
 	changecss("#hint-container","font-size",fontSize+"px");
 
 };
+
+gama = function(z) {
+
+	var g = 7;
+	var C = [0.99999999999980993, 676.5203681218851, -1259.1392167224028,771.32342877765313, 
+	-176.61502916214059, 12.507343278686905, -0.13857109526572012, 9.9843695780195716e-6, 1.5056327351493116e-7];
+
+    if (z < 0.5) return Math.PI / (Math.sin(Math.PI * z) * gamma(1 - z));
+    else {
+        z -= 1;
+
+        var x = C[0];
+        for (var i = 1; i < g + 2; i++)
+        x += C[i] / (z + i);
+
+        var t = z + g + 0.5;
+        return Math.sqrt(2 * Math.PI) * Math.pow(t, (z + 0.5)) * Math.exp(-t) * x;
+    }
+};
+
+factorial = function(input){
+	return gama(input+1);
+}
 
 $(function() {
 	Backbone.View = (function(View) {
