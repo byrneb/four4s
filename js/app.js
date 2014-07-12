@@ -902,15 +902,16 @@ calculateStylesheetProperties = function(){
 	changecss(".target-text", "margin-top", (tutorialTextMarginTop/2)+"px");
 
 	/* Symbol */
-	var diameter = 0.1 * bodyHeight;
+	var diameter = Math.floor(0.1 * bodyHeight);
+	var totalWidth = Math.ceil(0.8 * bodyWidth);
+	var padding = 2 * 1;  
+	var middleButtonMargin = Math.floor((totalWidth - (3*(diameter + padding)))/2);
 	var marginTop = 0.05 * bodyHeight;
-	diameter = Math.round(diameter * 100) / 100;
 	marginTop = Math.round(marginTop * 100) / 100;
-	var marginRowMarginLeft = ((0.8 * bodyWidth) - (3*diameter))/2;
 	changecss(".button","font-size",diameter+"px");
 	changecss(".button","margin-top",marginTop+"px");
-	changecss(".icon-plus-key, .icon-mutliply-key, .icon-right-bracket-key, .icon-square-key","margin-left",marginRowMarginLeft+"px");
-	changecss(".icon-plus-key, .icon-mutliply-key, .icon-right-bracket-key, .icon-square-key","margin-right",marginRowMarginLeft*.9+"px");
+	changecss(".icon-plus-key, .icon-mutliply-key, .icon-right-bracket-key, .icon-square-key","margin-left",middleButtonMargin+"px");
+	changecss(".icon-plus-key, .icon-mutliply-key, .icon-right-bracket-key, .icon-square-key","margin-right",middleButtonMargin+"px");
 
 	/* Hint */
 	var lineHeight = 0.085 * bodyHeight;
