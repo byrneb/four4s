@@ -910,6 +910,7 @@ calculateStylesheetProperties = function(){
 	marginTop = Math.round(marginTop * 100) / 100;
 	changecss(".button","font-size",diameter+"px");
 	changecss(".button","margin-top",marginTop+"px");
+	changecss("#buttons","width",totalWidth+"px");
 	changecss(".icon-plus-key, .icon-mutliply-key, .icon-right-bracket-key, .icon-square-key","margin-left",middleButtonMargin+"px");
 	changecss(".icon-plus-key, .icon-mutliply-key, .icon-right-bracket-key, .icon-square-key","margin-right",middleButtonMargin+"px");
 
