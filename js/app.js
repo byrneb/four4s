@@ -309,7 +309,7 @@ app.SolutionModel = Backbone.Model.extend({
 	},
 
 	replaceFactorial : function(expression){
-		var factorial, factorialEndPos;
+		var factorial, factorialEndPos, isDoubleFactorial, result;
 		var factorialStartPos = expression.indexOf("!");
 
 		if( factorialStartPos === -1)
@@ -318,9 +318,11 @@ app.SolutionModel = Backbone.Model.extend({
 		if(expression.indexOf("!!") !== -1){
 			factorial = 2;
 			factorialEndPos = factorialStartPos + 1;
+			isDoubleFactorial = true;
 		}else{
 			factorial = 1;
 			factorialEndPos = factorialStartPos;
+			isDoubleFactorial = false;
 		}
 
 		var baseEndChar = expression.charAt(factorialStartPos-1);
@@ -331,7 +333,11 @@ app.SolutionModel = Backbone.Model.extend({
 			baseStartPos = factorialStartPos - this.findNumsBeforePos(expression, factorialStartPos);
 		}
 		var sum = expression.substring(baseStartPos, factorialStartPos);
-		var result = "(factorial(" + sum + "))";
+		if(isDoubleFactorial){
+			result = "(doubleFactorial(" + sum + "))";
+		}else{
+			result = "(factorial(" + sum + "))";
+		}
 		result = expression.substring(0, baseStartPos) + result + expression.substring(factorialEndPos+1);
 		return this.replaceFactorial(result);
 
@@ -935,6 +941,13 @@ gama = function(z) {
 
 factorial = function(input){
 	return gama(input+1);
+},
+
+doubleFactorial  = function(input){
+	var a = Math.pow(2,(input/2));
+	var b =  Math.pow(Math.PI/2,((1/4) * (Math.cos(Math.PI * input) - 1)));
+	var g = gama(input/2 + 1);
+	return (a * b * g);
 }
 
 $(function() {
