@@ -227,7 +227,7 @@ a {
 	color: #0096DA;
 }
 
-.modal-msg .fa-smile-o, .modal-msg .icon-four-key,.modal-msg .fa-lightbulb-o {
+.modal-msg .fa-smile-o, .modal-msg .icon-four-key,.modal-msg .fa-lightbulb-o, .modal-msg .icon-factorial-key, .modal-msg .icon-square-key, .modal-msg .icon-power-key  {
 	color: rgb(0, 150, 218);
 	line-height: 1;
 }

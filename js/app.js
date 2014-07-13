@@ -169,8 +169,7 @@ app.SolutionModel = Backbone.Model.extend({
 		
 		this.set("solution", updatedSolution);
 		if(newChar === "4" || newChar === this.pow4)
-			this.incrementFoursCount();
-		console.log(this.get("foursCount"));		
+			this.incrementFoursCount();		
 	},
 
 	removeLastCharacter : function(){
@@ -414,10 +413,9 @@ app.ModalView = Backbone.View.extend({
 		}
 		else{
 			this.model = new app.ModalModel({
-				'title'			: 'Rules',
-				'content' 		: 	'<div class="modal-msg">Use the number</div>'+
-									'<div class="modal-msg">4 four times</div>'+
-									'<div class="modal-msg fours"><i class="icon-four-key"></i><i class="icon-four-key"></i><i class="icon-four-key"></i><i class="icon-four-key"></i></div>',
+				'title'			: 'New Symbol',
+				'content' 		: 	'<div class="modal-msg new-symbol"><i class="icon-factorial-key"></i></div>'+
+									'<div class="modal-msg symbol-explain">4! = 4×3×2×1</div>',
 				'isTutorialMsg' : true 
 			});
 		}
@@ -558,6 +556,9 @@ app.PlayScreenView = Backbone.View.extend({
 			//setup next modal
 			this.model.set('modal', 0);
 			this.model.incrementLevel();
+			if(this.model.get('level') === 22){
+				this.buttonsView.showExtraButtons();
+			}
 			if(this.model.get('mode') != "tutorial"){
 				var targetNumber = this.model.getNextTarget()
 				this.headerView.setTarget(targetNumber);
@@ -894,6 +895,9 @@ calculateStylesheetProperties = function(){
 	var smileyFontSize =  0.07 * bodyHeight;
 	var completeFontSize =  0.11 * bodyHeight;
 	var plusFontSize =  0.05 * bodyHeight;
+	var newSymbolFontSize = 0.175*bodyHeight;
+	var explainMarginTop = 0.04*bodyHeight;
+	var newSymbolMarginTop = 0.05625*bodyHeight;
 	modalFontSize = Math.round(modalFontSize * 100) / 100;
 	modalMarginTop = Math.round(modalMarginTop * 100) / 100;
 	strikeThroughMarginTop = Math.round(strikeThroughMarginTop * 100) / 100;
@@ -917,6 +921,10 @@ calculateStylesheetProperties = function(){
 	changecss(".target-text", "font-size", (smileyFontSize*2)+"px");
 	changecss(".modal-msg .fa-lightbulb-o", "font-size", (smileyFontSize*1.5)+"px");
 	changecss(".target-text", "margin-top", (tutorialTextMarginTop/2)+"px");
+	changecss(".new-symbol i","font-size",newSymbolFontSize+"px");
+	changecss(".new-symbol","margin-top",newSymbolMarginTop+"px");
+	changecss(".symbol-explain","margin-top",explainMarginTop+"px");
+	
 
 	/* Symbol */
 	var diameter = Math.floor(0.1 * bodyHeight);
@@ -928,8 +936,8 @@ calculateStylesheetProperties = function(){
 	changecss(".button","font-size",diameter+"px");
 	changecss(".button","margin-top",marginTop+"px");
 	changecss("#buttons","width",totalWidth+"px");
-	changecss(".icon-plus-key, .icon-mutliply-key, .icon-right-bracket-key, .icon-square-key","margin-left",middleButtonMargin+"px");
-	changecss(".icon-plus-key, .icon-mutliply-key, .icon-right-bracket-key, .icon-square-key","margin-right",middleButtonMargin+"px");
+	changecss(".button.icon-plus-key, .button.icon-mutliply-key, .button.icon-right-bracket-key, .button.icon-square-key","margin-left",middleButtonMargin+"px");
+	changecss(".button.icon-plus-key, .button.icon-mutliply-key, .button.icon-right-bracket-key, .button.icon-square-key","margin-right",middleButtonMargin+"px");
 
 	/* Hint */
 	var lineHeight = 0.085 * bodyHeight;
