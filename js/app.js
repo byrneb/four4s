@@ -1,4 +1,4 @@
-﻿var app = app || {};
+var app = app || {};
 
 app.LevelManagementModel = Backbone.Model.extend({
 	
@@ -7,8 +7,11 @@ app.LevelManagementModel = Backbone.Model.extend({
 	},
 
 	isAnotherModal : function(){
-		if (this.get('mode') === "puzzle")
+		if (this.get('mode') === "puzzle"){
+			if(this.get('level') === 21 && this.get('modal') === 1)
+
 			return false;
+		}			
 		else if(this.get('level') === 0 && this.get('modal') === 1)
 			return true;
 		else if(this.get('level') === 0 && this.get('modal') === 2)
@@ -98,6 +101,38 @@ app.LevelManagementModel = Backbone.Model.extend({
 							'isTutorialMsg' : true 
 						});
 			}
+		}	
+		else if(this.get('level' ) === 21 && this.get('modal') === 1){
+			this.model = new app.ModalModel({
+				'title'			: 'New Symbol',
+				'content' 		: 	"<div class='modal-msg'>You're making good <br> progress!!</div>"+
+									'<div class="modal-msg">You now have some <br> extra operators to <br> help you </div>',
+				'isTutorialMsg' : true 
+			});
+		}
+		else if(this.get('level' ) === 21 && this.get('modal') === 2){
+			this.model = new app.ModalModel({
+				'title'			: 'New Symbol',
+				'content' 		: 	'<div class="modal-msg new-symbol"><i class="icon-factorial-key"></i></div>'+
+									'<div class="modal-msg symbol-explain">4! = 4×3×2×1</div>',
+				'isTutorialMsg' : true 
+			});
+		}
+		else if(this.get('level' ) === 21 && this.get('modal') === 3){
+			this.model = new app.ModalModel({
+				'title'			: 'New Symbol',
+				'content' 		: 	'<div class="modal-msg new-symbol"><i class="icon-factorial-key"></i></div>'+
+									'<div class="modal-msg symbol-explain">4! = 4×3×2×1</div>',
+				'isTutorialMsg' : true 
+			});
+		}
+		else if(this.get('level' ) === 21 && this.get('modal') === 4){
+			this.model = new app.ModalModel({
+				'title'			: 'New Symbol',
+				'content' 		: 	'<div class="modal-msg new-symbol"><i class="icon-factorial-key"></i></div>'+
+									'<div class="modal-msg symbol-explain">4! = 4×3×2×1</div>',
+				'isTutorialMsg' : true 
+			});
 		}
 		else {
 			return new app.ModalModel({
@@ -106,6 +141,7 @@ app.LevelManagementModel = Backbone.Model.extend({
 							'isTutorialMsg' : false 
 						});
 		}
+
 	},
 
 	getNextTarget: function(){
@@ -414,8 +450,8 @@ app.ModalView = Backbone.View.extend({
 		else{
 			this.model = new app.ModalModel({
 				'title'			: 'New Symbol',
-				'content' 		: 	'<div class="modal-msg new-symbol"><i class="icon-factorial-key"></i></div>'+
-									'<div class="modal-msg symbol-explain">4! = 4×3×2×1</div>',
+				'content' 		: 	"<div class='modal-msg'>You're making good <br> progress!!</div>"+
+									'<div class="modal-msg">You now have some <br> extra operators to <br> help you </div>',
 				'isTutorialMsg' : true 
 			});
 		}
@@ -923,7 +959,6 @@ calculateStylesheetProperties = function(){
 	changecss(".target-text", "margin-top", (tutorialTextMarginTop/2)+"px");
 	changecss(".new-symbol i","font-size",newSymbolFontSize+"px");
 	changecss(".new-symbol","margin-top",newSymbolMarginTop+"px");
-	changecss(".symbol-explain","margin-top",explainMarginTop+"px");
 	
 
 	/* Symbol */
