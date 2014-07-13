@@ -1,4 +1,4 @@
-var app = app || {};
+﻿var app = app || {};
 
 app.LevelManagementModel = Backbone.Model.extend({
 	
@@ -8,8 +8,8 @@ app.LevelManagementModel = Backbone.Model.extend({
 
 	isAnotherModal : function(){
 		if (this.get('mode') === "puzzle"){
-			if(this.get('level') === 21 && this.get('modal') === 1)
-
+			if(this.get('level') === 21 && this.get('modal') < 5)
+				return true;
 			return false;
 		}			
 		else if(this.get('level') === 0 && this.get('modal') === 1)
@@ -102,35 +102,35 @@ app.LevelManagementModel = Backbone.Model.extend({
 						});
 			}
 		}	
-		else if(this.get('level' ) === 21 && this.get('modal') === 1){
-			this.model = new app.ModalModel({
-				'title'			: 'New Symbol',
-				'content' 		: 	"<div class='modal-msg'>You're making good <br> progress!!</div>"+
-									'<div class="modal-msg">You now have some <br> extra operators to <br> help you </div>',
-				'isTutorialMsg' : true 
-			});
-		}
 		else if(this.get('level' ) === 21 && this.get('modal') === 2){
-			this.model = new app.ModalModel({
-				'title'			: 'New Symbol',
-				'content' 		: 	'<div class="modal-msg new-symbol"><i class="icon-factorial-key"></i></div>'+
-									'<div class="modal-msg symbol-explain">4! = 4×3×2×1</div>',
+			return new app.ModalModel({
+				'title'			: 'New Operators',
+				'content' 		: '<div class="modal-msg">You now have some <br> extra operators to <br> help you!!</div>' +
+								  '<div class="modal-msg new-symbols"><i class="icon-factorial-key"></i><i class="icon-power-key"></i><i class="icon-square-key"></i></div>',
 				'isTutorialMsg' : true 
 			});
 		}
 		else if(this.get('level' ) === 21 && this.get('modal') === 3){
-			this.model = new app.ModalModel({
-				'title'			: 'New Symbol',
+			return new app.ModalModel({
+				'title'			: 'New Operator',
 				'content' 		: 	'<div class="modal-msg new-symbol"><i class="icon-factorial-key"></i></div>'+
 									'<div class="modal-msg symbol-explain">4! = 4×3×2×1</div>',
 				'isTutorialMsg' : true 
 			});
 		}
 		else if(this.get('level' ) === 21 && this.get('modal') === 4){
-			this.model = new app.ModalModel({
-				'title'			: 'New Symbol',
-				'content' 		: 	'<div class="modal-msg new-symbol"><i class="icon-factorial-key"></i></div>'+
-									'<div class="modal-msg symbol-explain">4! = 4×3×2×1</div>',
+			return new app.ModalModel({
+				'title'			: 'New Operator',
+				'content' 		: 	'<div class="modal-msg new-symbol"><i class="icon-power-key"></i></div>'+
+									'<div class="modal-msg symbol-explain">4<sup>4</sup> = 4×4×4×4</div>',
+				'isTutorialMsg' : true 
+			});
+		}
+		else if(this.get('level' ) === 21 && this.get('modal') === 5){
+			return new app.ModalModel({
+				'title'			: 'New Operator',
+				'content' 		: 	'<div class="modal-msg new-symbol"><i class="icon-square-key"></i></div>'+
+									'<div class="modal-msg symbol-explain">&radic;4 = 2</div>',
 				'isTutorialMsg' : true 
 			});
 		}
@@ -351,6 +351,7 @@ app.SolutionModel = Backbone.Model.extend({
 			return expression;
 
 		if(expression.indexOf("!!") !== -1){
+			factorialStartPos = expression.indexOf("!!");
 			factorial = 2;
 			factorialEndPos = factorialStartPos + 1;
 			isDoubleFactorial = true;
@@ -449,9 +450,10 @@ app.ModalView = Backbone.View.extend({
 		}
 		else{
 			this.model = new app.ModalModel({
-				'title'			: 'New Symbol',
-				'content' 		: 	"<div class='modal-msg'>You're making good <br> progress!!</div>"+
-									'<div class="modal-msg">You now have some <br> extra operators to <br> help you </div>',
+				'title'			: 'Rules',
+				'content' 		: 	'<div class="modal-msg">Use the number</div>'+
+									'<div class="modal-msg">4 four times</div>'+
+									'<div class="modal-msg fours"><i class="icon-four-key"></i><i class="icon-four-key"></i><i class="icon-four-key"></i><i class="icon-four-key"></i></div>',
 				'isTutorialMsg' : true 
 			});
 		}
@@ -772,8 +774,8 @@ app.ButtonsView = Backbone.View.extend({
 		marginTop = Math.round(marginTop * 100) / 100;
 		changecss(".button","font-size",diameter+"px");
 		changecss(".button","margin-top",marginTop+"px");
-		changecss(".icon-plus-key, .icon-mutliply-key, .icon-right-bracket-key, .icon-square-key","margin-left",middleButtonMargin+"px");
-		changecss(".icon-plus-key, .icon-mutliply-key, .icon-right-bracket-key, .icon-square-key","margin-right",middleButtonMargin+"px");
+		changecss(".button.icon-plus-key, .button.icon-mutliply-key, .button.icon-right-bracket-key, .button.icon-square-key","margin-left",middleButtonMargin+"px");
+		changecss(".button.icon-plus-key, .button.icon-mutliply-key, .button.icon-right-bracket-key, .button.icon-square-key","margin-right",middleButtonMargin+"px");
 	}
 });
 

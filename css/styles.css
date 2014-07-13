@@ -88,9 +88,8 @@ a {
 	cursor: default;
 	color: rgb(0, 150, 218);
 }
-.icon-minus-key, .icon-divide-key, .icon-back-key, .icon-power-key{
-	float: right;
-	margin-right: 0%;
+.new-symbols i{
+	margin-right: 5%;
 }
 
 .icon-back-key{
