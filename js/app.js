@@ -114,7 +114,7 @@ app.LevelManagementModel = Backbone.Model.extend({
 			return new app.ModalModel({
 				'title'			: 'New Operator',
 				'content' 		: 	'<div class="modal-msg new-symbol"><i class="icon-factorial-key"></i></div>'+
-									'<div class="modal-msg symbol-explain">4! = 4×3×2×1</div>',
+									'<div class="modal-msg symbol-explain extra-modal-msg">4! = 4×3×2×1 <br>4!! = 8×6×4×2</div>',
 				'isTutorialMsg' : true 
 			});
 		}
@@ -719,7 +719,11 @@ app.ButtonsView = Backbone.View.extend({
 
 	initialize : function(){
 		_.bindAll(this, "render");
-		this.template = _.template($("#buttons-template").html());
+		var target = JSON.parse( localStorage.getItem( 'target' ));
+		if(target<22)
+			this.template = _.template($("#buttons-template").html());
+		else			
+			this.showExtraButtons();
 	},
 
 	render : function(){
@@ -929,6 +933,7 @@ calculateStylesheetProperties = function(){
 	var strikeThroughFontSize = 0.27 * bodyHeight;
 	var tutorialTextMarginTop = 0.035 * bodyHeight;
 	var tutorialFontSize =  0.05*bodyHeight;
+	var smallTutorialFontSize =  0.0375*bodyHeight;
 	var foursMarginTop =  0.045*bodyHeight;
 	var smileyFontSize =  0.07 * bodyHeight;
 	var completeFontSize =  0.11 * bodyHeight;
@@ -947,6 +952,7 @@ calculateStylesheetProperties = function(){
 	changecss(".strikethrough","font-size",strikeThroughFontSize+"px");
 	changecss(".modal-msg, .tutorial-top","margin-top",tutorialTextMarginTop+"px");
 	changecss(".modal-msg, .tutorial-top","font-size",tutorialFontSize+"px");
+	changecss(".extra-modal-msg","font-size",smallTutorialFontSize+"px");
 	changecss(".modal-msg i","font-size", (tutorialFontSize+2)+"px");
 	changecss(".modal-msg i","line-height", "1.3");
 	changecss(".modal-msg i","margin-top", "0px");
