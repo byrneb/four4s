@@ -1,4 +1,4 @@
-﻿var app = app || {};
+var app = app || {};
 
 app.LevelManagementModel = Backbone.Model.extend({
 	
@@ -614,15 +614,13 @@ app.HeaderView = Backbone.View.extend({
 	},
 
 	hint : function(){
-	   var e = document.getElementById("hint-container");
-       if(e.style.display == 'block')
-          e.style.display = 'none';
-       else{
-          //e.style.display = 'block';
-          var heading = $("#hint-container");
-          heading.fadeIn(1500).delay(4500).fadeOut(1500);
-      }
-	}
+       	var heading = $("#hint-container");
+       	if(heading.css('display') == 'block'){
+          	heading.stop(true, true);
+          	heading.css({ display: 'none'});
+      	}
+        heading.fadeIn(1500).delay(4500).fadeOut(1500);
+  	}
 });
 app.SolutionView = Backbone.View.extend({
 
@@ -720,23 +718,6 @@ app.ButtonsView = Backbone.View.extend({
 			return "&radic;";
 		else if(input.indexOf("back") != -1)
 			return "<<";
-	},
-
-	showExtraButtons : function(){
-		this.template = _.template($("#plus-21-buttons-template").html());
-		this.render();
-		var bodyHeight = $("body").height();
-		var bodyWidth = $("body").width();
-		var diameter = Math.floor(0.08 * bodyHeight);
-		var totalWidth = Math.ceil(0.8 * bodyWidth);
-		var padding = 2 * 1;  
-		var middleButtonMargin = Math.floor((totalWidth - (3*(diameter + padding)))/2);
-		var marginTop = 0.035 * bodyHeight;
-		marginTop = Math.round(marginTop * 100) / 100;
-		changecss(".button","font-size",diameter+"px");
-		changecss(".button","margin-top",marginTop+"px");
-		changecss(".icon-plus-key, .icon-mutliply-key, .icon-right-bracket-key, .icon-square-key","margin-left",middleButtonMargin+"px");
-		changecss(".icon-plus-key, .icon-mutliply-key, .icon-right-bracket-key, .icon-square-key","margin-right",middleButtonMargin+"px");
 	}
 });
 
