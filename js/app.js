@@ -7,8 +7,11 @@ app.LevelManagementModel = Backbone.Model.extend({
 	},
 
 	isAnotherModal : function(){
-		if (this.get('mode') === "puzzle")
+		if (this.get('mode') === "puzzle"){
+			if(this.get('level') === 21 && this.get('modal') < 5)
+				return true;
 			return false;
+		}			
 		else if(this.get('level') === 0 && this.get('modal') === 1)
 			return true;
 		else if(this.get('level') === 0 && this.get('modal') === 2)
@@ -98,6 +101,38 @@ app.LevelManagementModel = Backbone.Model.extend({
 							'isTutorialMsg' : true 
 						});
 			}
+		}	
+		else if(this.get('level' ) === 21 && this.get('modal') === 2){
+			return new app.ModalModel({
+				'title'			: 'New Operators',
+				'content' 		: '<div class="modal-msg">You now have some <br> extra operators to <br> help you!!</div>' +
+								  '<div class="modal-msg new-symbols"><i class="icon-factorial-key"></i><i class="icon-power-key"></i><i class="icon-square-key"></i></div>',
+				'isTutorialMsg' : true 
+			});
+		}
+		else if(this.get('level' ) === 21 && this.get('modal') === 3){
+			return new app.ModalModel({
+				'title'			: 'New Operator',
+				'content' 		: 	'<div class="modal-msg new-symbol"><i class="icon-factorial-key"></i></div>'+
+									'<div class="modal-msg symbol-explain extra-modal-msg">4! = 4×3×2×1 <br>4!! = 8×6×4×2</div>',
+				'isTutorialMsg' : true 
+			});
+		}
+		else if(this.get('level' ) === 21 && this.get('modal') === 4){
+			return new app.ModalModel({
+				'title'			: 'New Operator',
+				'content' 		: 	'<div class="modal-msg new-symbol"><i class="icon-power-key"></i></div>'+
+									'<div class="modal-msg symbol-explain">4<sup>4</sup> = 4×4×4×4</div>',
+				'isTutorialMsg' : true 
+			});
+		}
+		else if(this.get('level' ) === 21 && this.get('modal') === 5){
+			return new app.ModalModel({
+				'title'			: 'New Operator',
+				'content' 		: 	'<div class="modal-msg new-symbol"><i class="icon-square-key"></i></div>'+
+									'<div class="modal-msg symbol-explain">&radic;4 = 2</div>',
+				'isTutorialMsg' : true 
+			});
 		}
 		else {
 			return new app.ModalModel({
@@ -106,6 +141,7 @@ app.LevelManagementModel = Backbone.Model.extend({
 							'isTutorialMsg' : false 
 						});
 		}
+
 	},
 
 	getNextTarget: function(){
@@ -169,8 +205,7 @@ app.SolutionModel = Backbone.Model.extend({
 		
 		this.set("solution", updatedSolution);
 		if(newChar === "4" || newChar === this.pow4)
-			this.incrementFoursCount();
-		console.log(this.get("foursCount"));		
+			this.incrementFoursCount();		
 	},
 
 	removeLastCharacter : function(){
@@ -316,6 +351,7 @@ app.SolutionModel = Backbone.Model.extend({
 			return expression;
 
 		if(expression.indexOf("!!") !== -1){
+			factorialStartPos = expression.indexOf("!!");
 			factorial = 2;
 			factorialEndPos = factorialStartPos + 1;
 			isDoubleFactorial = true;
@@ -558,6 +594,9 @@ app.PlayScreenView = Backbone.View.extend({
 			//setup next modal
 			this.model.set('modal', 0);
 			this.model.incrementLevel();
+			if(this.model.get('level') === 22){
+				this.buttonsView.showExtraButtons();
+			}
 			if(this.model.get('mode') != "tutorial"){
 				var targetNumber = this.model.getNextTarget()
 				this.headerView.setTarget(targetNumber);
@@ -678,7 +717,11 @@ app.ButtonsView = Backbone.View.extend({
 
 	initialize : function(){
 		_.bindAll(this, "render");
-		this.template = _.template($("#buttons-template").html());
+		var target = JSON.parse( localStorage.getItem( 'target' ));
+		if(target<22)
+			this.template = _.template($("#buttons-template").html());
+		else			
+			this.showExtraButtons();
 	},
 
 	render : function(){
@@ -718,6 +761,23 @@ app.ButtonsView = Backbone.View.extend({
 			return "&radic;";
 		else if(input.indexOf("back") != -1)
 			return "<<";
+	},
+
+	showExtraButtons : function(){
+		this.template = _.template($("#plus-21-buttons-template").html());
+		this.render();
+		var bodyHeight = $("body").height();
+		var bodyWidth = $("body").width();
+		var diameter = Math.floor(0.08 * bodyHeight);
+		var totalWidth = Math.ceil(0.8 * bodyWidth);
+		var padding = 2 * 1;  
+		var middleButtonMargin = Math.floor((totalWidth - (3*(diameter + padding)))/2);
+		var marginTop = 0.035 * bodyHeight;
+		marginTop = Math.round(marginTop * 100) / 100;
+		changecss(".button","font-size",diameter+"px");
+		changecss(".button","margin-top",marginTop+"px");
+		changecss(".button.icon-plus-key, .button.icon-mutliply-key, .button.icon-right-bracket-key, .button.icon-square-key","margin-left",middleButtonMargin+"px");
+		changecss(".button.icon-plus-key, .button.icon-mutliply-key, .button.icon-right-bracket-key, .button.icon-square-key","margin-right",middleButtonMargin+"px");
 	}
 });
 
@@ -871,10 +931,14 @@ calculateStylesheetProperties = function(){
 	var strikeThroughFontSize = 0.27 * bodyHeight;
 	var tutorialTextMarginTop = 0.035 * bodyHeight;
 	var tutorialFontSize =  0.05*bodyHeight;
+	var smallTutorialFontSize =  0.0375*bodyHeight;
 	var foursMarginTop =  0.045*bodyHeight;
 	var smileyFontSize =  0.07 * bodyHeight;
 	var completeFontSize =  0.11 * bodyHeight;
 	var plusFontSize =  0.05 * bodyHeight;
+	var newSymbolFontSize = 0.175*bodyHeight;
+	var explainMarginTop = 0.04*bodyHeight;
+	var newSymbolMarginTop = 0.05625*bodyHeight;
 	modalFontSize = Math.round(modalFontSize * 100) / 100;
 	modalMarginTop = Math.round(modalMarginTop * 100) / 100;
 	strikeThroughMarginTop = Math.round(strikeThroughMarginTop * 100) / 100;
@@ -886,6 +950,7 @@ calculateStylesheetProperties = function(){
 	changecss(".strikethrough","font-size",strikeThroughFontSize+"px");
 	changecss(".modal-msg, .tutorial-top","margin-top",tutorialTextMarginTop+"px");
 	changecss(".modal-msg, .tutorial-top","font-size",tutorialFontSize+"px");
+	changecss(".extra-modal-msg","font-size",smallTutorialFontSize+"px");
 	changecss(".modal-msg i","font-size", (tutorialFontSize+2)+"px");
 	changecss(".modal-msg i","line-height", "1.3");
 	changecss(".modal-msg i","margin-top", "0px");
@@ -898,6 +963,9 @@ calculateStylesheetProperties = function(){
 	changecss(".target-text", "font-size", (smileyFontSize*2)+"px");
 	changecss(".modal-msg .fa-lightbulb-o", "font-size", (smileyFontSize*1.5)+"px");
 	changecss(".target-text", "margin-top", (tutorialTextMarginTop/2)+"px");
+	changecss(".new-symbol i","font-size",newSymbolFontSize+"px");
+	changecss(".new-symbol","margin-top",newSymbolMarginTop+"px");
+	
 
 	/* Symbol */
 	var diameter = Math.floor(0.1 * bodyHeight);
@@ -909,8 +977,8 @@ calculateStylesheetProperties = function(){
 	changecss(".button","font-size",diameter+"px");
 	changecss(".button","margin-top",marginTop+"px");
 	changecss("#buttons","width",totalWidth+"px");
-	changecss(".icon-plus-key, .icon-mutliply-key, .icon-right-bracket-key, .icon-square-key","margin-left",middleButtonMargin+"px");
-	changecss(".icon-plus-key, .icon-mutliply-key, .icon-right-bracket-key, .icon-square-key","margin-right",middleButtonMargin+"px");
+	changecss(".button.icon-plus-key, .button.icon-mutliply-key, .button.icon-right-bracket-key, .button.icon-square-key","margin-left",middleButtonMargin+"px");
+	changecss(".button.icon-plus-key, .button.icon-mutliply-key, .button.icon-right-bracket-key, .button.icon-square-key","margin-right",middleButtonMargin+"px");
 
 	/* Hint */
 	var lineHeight = 0.085 * bodyHeight;
