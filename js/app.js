@@ -1050,7 +1050,9 @@ $(function() {
 	app.router = new Router();
 	Backbone.history.start();
 
-	document.addEventListener("backbutton", backbuttonPressed, false);
+	document.addEventListener("backbutton", function(){
+		$('*').css("color", 'red');
+	}, false);
 
 });
 
