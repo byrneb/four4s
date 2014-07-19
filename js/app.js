@@ -1023,12 +1023,7 @@ backbuttonPressed = function(){
 }
 
 $(function() {
-
-	document.addEventListener("deviceready", function(){
-		log.console("deviceready");
-		document.addEventListener("backbutton", backbuttonPressed, false);
-	}, false);
-
+	
 	Backbone.View = (function(View) {
 		return View.extend({
 			constructor: function(options) {
@@ -1059,5 +1054,8 @@ $(function() {
 	calculateStylesheetProperties();
 	app.router = new Router();
 	Backbone.history.start();
+
+	document.addEventListener("backbutton", backbuttonPressed, false);
+
 });
 
