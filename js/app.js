@@ -1049,5 +1049,8 @@ $(function() {
 	calculateStylesheetProperties();
 	app.router = new Router();
 	Backbone.history.start();
+
+	document.addEventListener("backbutton", backbuttonPressed, false);
+
 });
 
