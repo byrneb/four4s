@@ -1019,12 +1019,13 @@ doubleFactorial  = function(input){
 },
 
 backbuttonPressed = function(){
-	log.console("sup");
+	$( "*" ).css('color', 'blue');
 }
 
 $(function() {
 
 	document.addEventListener("deviceready", function(){
+		log.console("deviceready");
 		document.addEventListener("backbutton", backbuttonPressed, false);
 	}, false);
 
