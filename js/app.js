@@ -1016,19 +1016,9 @@ doubleFactorial  = function(input){
 	var b =  Math.pow(Math.PI/2,((1/4) * (Math.cos(Math.PI * input) - 1)));
 	var g = gama(input/2 + 1);
 	return (a * b * g);
-},
-
-backbuttonPressed = function(){
-	$( "*" ).css('color', 'blue');
 }
 
 $(function() {
-
-	document.addEventListener("deviceready", function(){
-		log.console("deviceready");
-		document.addEventListener("backbutton", backbuttonPressed, false);
-	}, false);
-
 	Backbone.View = (function(View) {
 		return View.extend({
 			constructor: function(options) {
