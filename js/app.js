@@ -1,4 +1,4 @@
-var app = app || {};
+﻿var app = app || {};
 
 app.LevelManagementModel = Backbone.Model.extend({
 	
@@ -43,7 +43,17 @@ app.LevelManagementModel = Backbone.Model.extend({
 
 	getNextModalModel : function(){
 		if(this.get("mode") === "tutorial" ){
-			if(this.get('level') === 0 && this.get('modal') === 2){
+			if(this.get('level') === 0 && this.get('modal') === 1){
+							return new app.ModalModel({
+							'title'			: 'Rules',
+							'content' 		: 	'<div class="modal-msg">Use the number</div>'+
+												'<div class="modal-msg">4 four times</div>'+
+												'<div class="modal-msg fours"><i class="icon-four-key"></i><i class="icon-four-key"></i><i class="icon-four-key"></i><i class="icon-four-key"></i></div>',
+							'isTutorialMsg' : true 
+						});
+			}
+
+			else if(this.get('level') === 0 && this.get('modal') === 2){
 				return new app.ModalModel({
 							'title'			: 'Tutorial 1',
 							'content' 		: '<div>'+
@@ -102,6 +112,13 @@ app.LevelManagementModel = Backbone.Model.extend({
 						});
 			}
 		}	
+		else if(this.get('level' ) === 21 && this.get('modal') === 1){
+			return new app.ModalModel({
+				'title'			: 'Success',
+				'content' 		: 21,
+				'isTutorialMsg' : false 
+			});
+		}
 		else if(this.get('level' ) === 21 && this.get('modal') === 2){
 			return new app.ModalModel({
 				'title'			: 'New Operators',
@@ -1051,7 +1068,13 @@ $(function() {
 	Backbone.history.start();
 
 	document.addEventListener("backbutton", function(){
-		$('*').css("color", 'red');
+		console.log("sup")
+		if(app.router.playScreenView.model.get('modal') > 1){
+			var modal = app.router.playScreenView.model.get('modal');
+			app.router.playScreenView.model.set('modal',modal-1);
+			var nextmodal = app.router.playScreenView.model.getNextModalModel();
+			app.router.playScreenView.modalView.setModel(nextmodal);
+		}
 	}, false);
 
 });
