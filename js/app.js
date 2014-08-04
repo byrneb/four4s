@@ -311,7 +311,7 @@ app.SolutionModel = Backbone.Model.extend({
 
 		if(lastChar === ')'){
 			insertAt = this.findOpenParen(curSolution, lastCharPos);
-			curSolution = curSolution.substring(0, insertAt) + "<span class='root'>&radic;<span class='sum'>" + curSolution.substring(insertAt) + "</span></span>";
+			curSolution = curSolution.substring(0, insertAt) + "<math><msqrt><mn>(" + curSolution.substring(insertAt) + "</mn></msqrt></math>";
 		}else{	
 			if(lastChar === '>'){
 				var powOpenPos = this.findOpenTag(curSolution, lastCharPos - "</sup>".length);
