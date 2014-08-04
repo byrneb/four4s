@@ -7,7 +7,6 @@ html,body {
 	text-align: center;
 	outline: none;
     -webkit-tap-highlight-color: rgba(255, 255, 255, 0);	
-    font-family: "Times New Roman"
 	
 	-webkit-user-select: none;
 	-khtml-user-select: none;
@@ -74,7 +73,7 @@ a {
     height: 25%;
 }
 .sum {
-	text-decoration:overline;
+	border-top: 2px solid;
 	margin-left:-3.35px;
 }
 #total{

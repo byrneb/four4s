@@ -223,6 +223,8 @@ app.SolutionModel = Backbone.Model.extend({
 		this.set("solution", updatedSolution);
 		if(newChar === "4" || newChar === this.pow4)
 			this.incrementFoursCount();		
+	
+		MathJax.Hub.Queue(["Typeset",MathJax.Hub, "solution"]);
 	},
 
 	removeLastCharacter : function(){
@@ -320,7 +322,7 @@ app.SolutionModel = Backbone.Model.extend({
 			}else{
 				insertAt = lastCharPos - this.findNumsBeforePos(curSolution, lastCharPos);
 			}
-			curSolution = curSolution.substring(0, insertAt) + "<span style='white-space: nowrap;'>&radic;<span style='text-decoration:overline;'>&nbsp;(" + curSolution.substring(insertAt) + ")&nbsp;</span></span>";
+			curSolution = curSolution.substring(0, insertAt) + "<math><msqrt><mn>(" + curSolution.substring(insertAt) + ")</mn></msqrt></math>";
 		}
 
 		return curSolution; 
