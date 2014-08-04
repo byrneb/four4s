@@ -73,12 +73,9 @@ a {
     height: 25%;
 }
 .sum {
-	border-top: 2px solid;
+	text-decoration:overline;
 	margin-left:-3.35px;
 }
-.root{
-	line-height: 1.1;
-} 
 #total{
 	width: 100%;
     height: 59%;
