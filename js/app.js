@@ -320,7 +320,7 @@ app.SolutionModel = Backbone.Model.extend({
 			}else{
 				insertAt = lastCharPos - this.findNumsBeforePos(curSolution, lastCharPos);
 			}
-			curSolution = curSolution.substring(0, insertAt) + "<span class='root'>&radic;<span class='sum'>(" + curSolution.substring(insertAt) + ")</span></span>";
+			curSolution = curSolution.substring(0, insertAt) + "<span style='white-space: nowrap;'>&radic;<span style='text-decoration:overline;'>&nbsp;(" + curSolution.substring(insertAt) + ")&nbsp;</span></span>";
 		}
 
 		return curSolution; 
