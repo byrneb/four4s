@@ -223,8 +223,6 @@ app.SolutionModel = Backbone.Model.extend({
 		this.set("solution", updatedSolution);
 		if(newChar === "4" || newChar === this.pow4)
 			this.incrementFoursCount();		
-	
-		MathJax.Hub.Queue(["Typeset",MathJax.Hub, "solution"]);
 	},
 
 	removeLastCharacter : function(){
@@ -311,7 +309,7 @@ app.SolutionModel = Backbone.Model.extend({
 
 		if(lastChar === ')'){
 			insertAt = this.findOpenParen(curSolution, lastCharPos);
-			curSolution = curSolution.substring(0, insertAt) + "<math><msqrt><mn>(" + curSolution.substring(insertAt) + "</mn></msqrt></math>";
+			curSolution = curSolution.substring(0, insertAt) + "<span class='root'>&radic;<span class='sum'>" + curSolution.substring(insertAt) + "</span></span>";
 		}else{	
 			if(lastChar === '>'){
 				var powOpenPos = this.findOpenTag(curSolution, lastCharPos - "</sup>".length);
@@ -322,7 +320,7 @@ app.SolutionModel = Backbone.Model.extend({
 			}else{
 				insertAt = lastCharPos - this.findNumsBeforePos(curSolution, lastCharPos);
 			}
-			curSolution = curSolution.substring(0, insertAt) + "<math><msqrt><mn>(" + curSolution.substring(insertAt) + ")</mn></msqrt></math>";
+			curSolution = curSolution.substring(0, insertAt) + "<span class='root'>&radic;<span class='sum'>(" + curSolution.substring(insertAt) + ")</span></span>";
 		}
 
 		return curSolution; 
