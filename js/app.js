@@ -939,6 +939,8 @@ calculateStylesheetProperties = function(){
 	changecss("#solution","margin-bottom",marginBottom+"px");
 	changecss("#solution","font-size",solutionFontSize+"px");
 	changecss("#total","font-size",totalFontSize+"px");
+	changecss(".sum","font-size",(0.85*solutionFontSize)+"px");
+	
 
 
 	/* Modal */        
