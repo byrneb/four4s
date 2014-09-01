@@ -309,7 +309,7 @@ app.SolutionModel = Backbone.Model.extend({
 
 		if(lastChar === ')'){
 			insertAt = this.findOpenParen(curSolution, lastCharPos);
-			curSolution = curSolution.substring(0, insertAt) + "<span class='root'>&radic;<span class='sum'>" + curSolution.substring(insertAt) + "</span></span>";
+			curSolution = curSolution.substring(0, insertAt) + "&radic;" + curSolution.substring(insertAt);
 		}else{	
 			if(lastChar === '>'){
 				var powOpenPos = this.findOpenTag(curSolution, lastCharPos - "</sup>".length);
@@ -320,7 +320,7 @@ app.SolutionModel = Backbone.Model.extend({
 			}else{
 				insertAt = lastCharPos - this.findNumsBeforePos(curSolution, lastCharPos);
 			}
-			curSolution = curSolution.substring(0, insertAt) + "<span class='root'>&radic;<span class='sum'>(" + curSolution.substring(insertAt) + ")</span></span>";
+			curSolution = curSolution.substring(0, insertAt) + "&radic;(" + curSolution.substring(insertAt) + ")";
 		}
 
 		return curSolution; 
@@ -939,8 +939,6 @@ calculateStylesheetProperties = function(){
 	changecss("#solution","margin-bottom",marginBottom+"px");
 	changecss("#solution","font-size",solutionFontSize+"px");
 	changecss("#total","font-size",totalFontSize+"px");
-	changecss(".sum","font-size",(0.85*solutionFontSize)+"px");
-	
 
 
 	/* Modal */        
@@ -1035,6 +1033,40 @@ doubleFactorial  = function(input){
 	var b =  Math.pow(Math.PI/2,((1/4) * (Math.cos(Math.PI * input) - 1)));
 	var g = gama(input/2 + 1);
 	return (a * b * g);
+},
+
+backbuttonPressed = function(){
+	console.log("sup");
+	var model = app.router.playScreenView.model;
+	var modalNum = model.get('modal');
+	var level = model.get('level');
+	var mode = model.get('mode');
+	var modal = app.router.playScreenView.model.get('modal');
+
+	if( modalNum > 1){
+		model.set('modal',modal-1);
+		var nextmodal = model.getNextModalModel();
+		app.router.playScreenView.modalView.setModel(nextmodal);
+	}else if(modalNum === 0){
+		if(mode === "tutorial" && level === 1){
+			model.set('modal',3);
+			model.set('level',0);
+		}else if(mode === "tutorial" && level === 2){
+			model.set('modal',2);
+			model.set('level',1);
+		}else if(mode === "puzzle" && level === 1){
+			model.set('modal',2);
+			model.set('level',2);
+			model.set('mode',"tutorial");
+		}else if(mode === "puzzle" && level === 22){
+			model.set('modal',5);
+			model.set('level',21);	
+		}else
+			return;
+		var nextmodal = model.getNextModalModel();
+		app.router.playScreenView.modalView.setModel(nextmodal);
+		app.router.playScreenView.modalView.open();
+	}
 }
 
 $(function() {
@@ -1069,15 +1101,6 @@ $(function() {
 	app.router = new Router();
 	Backbone.history.start();
 
-	document.addEventListener("backbutton", function(){
-		console.log("sup")
-		if(app.router.playScreenView.model.get('modal') > 1){
-			var modal = app.router.playScreenView.model.get('modal');
-			app.router.playScreenView.model.set('modal',modal-1);
-			var nextmodal = app.router.playScreenView.model.getNextModalModel();
-			app.router.playScreenView.modalView.setModel(nextmodal);
-		}
-	}, false);
+	document.addEventListener("backbutton", backbuttonPressed, false);
 
 });
-

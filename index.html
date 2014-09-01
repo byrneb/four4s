@@ -4,25 +4,6 @@
 	<title>Four4s</title>
 	<link rel="stylesheet" href="css/styles.css" />
 	<link rel="stylesheet" href="css/font-awesome.min.css" />
-	<style>
-			#container {
-			font-family: Georgia;
-				font-size: 70px;
-			}
-
-			#navi, 
-			#infoi {
-				width: 100%;
-				height: 100%;
-				position: absolute;
-				top: 0;
-				left: 0;
-			}
-
-			#infoi {
-				z-index: 10;
-			}	
-		</style>
 </head>
 
 	<body>
@@ -47,10 +28,7 @@
 		</script>
 
 		<script type="text/template" id="sol-template">
-			<div id="solution"><div id="container">
-			<div id="navi">&radic;4+4</div>
-			<div id="infoi">&radic;&macr;&macr;&macr;&macr;</div>
-		</div><%= solution %></div>
+			<div id="solution"><%= solution %></div>
 			<div id="total"><%= total %></div>
 		</script>
 
