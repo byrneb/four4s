@@ -295,7 +295,7 @@ a {
 .icon-dot-key:before {
 	content: "\e602";
 }
-.icon-factorial:before {
+.icon-factorial-key:before {
 	content: "\e603";
 }
 .icon-four-key:before {
@@ -316,13 +316,13 @@ a {
 .icon-pluss-key:before {
 	content: "\e609";
 }
-.icon-power:before {
+.icon-power-key:before {
 	content: "\e60a";
 }
 .icon-right-bracket-key:before {
 	content: "\e60b";
 }
-.icon-square:before {
+.icon-square-key:before {
 	content: "\e60c";
 }
 .icon-drawing:before {
