@@ -69,7 +69,7 @@ app.LevelManagementModel = Backbone.Model.extend({
 							'content' 		: '<div>'+
 											  '<div class="modal-msg">Need a hint?</div>'+
 											  '<div class="modal-msg">Click the icon</div>'+
-											  '<div class="modal-msg"><i class="fa fa-lightbulb-o"></i></div>'+
+											  '<div class="modal-msg"><i class="icon-lightbuilb"></i></div>'+
 											  '</div>',
 							'isTutorialMsg' : true 
 						});
@@ -79,7 +79,7 @@ app.LevelManagementModel = Backbone.Model.extend({
 							'title'			: 'Tutorial 1',
 							'content' 		: '<div class="modal-msg">You have completed </div>'+
 											  '<div class="modal-msg">your first puzzle</div>'+
-											  '<div class="modal-msg"><i class="fa fa-smile-o"></i></div>',
+											  '<div class="modal-msg"><i class="icon-smile"></i></div>',
 							'isTutorialMsg' : true 
 						});
 			}
@@ -98,7 +98,7 @@ app.LevelManagementModel = Backbone.Model.extend({
 							'title'			: 'Tutorial End',
 							'content' 		: '<div class="modal-msg">You have completed</div>'+
 											  '<div class="modal-msg">the tutorial</div>'+
-											  '<div class="modal-msg"><i class="fa fa-check-square-o"></i></div>',
+											  '<div class="modal-msg"><i class="icon-check"></i></div>',
 							'isTutorialMsg' : true 
 						});
 			}
@@ -906,9 +906,9 @@ calculateStylesheetProperties = function(){
 
 	/* Header */
 	var homeOptionWidth = bodyHeight*0.14;
-	var hintOptionWidth = bodyHeight*0.135;
+	var hintOptionWidth = bodyHeight*0.14;
 	var headerFontSize = 0.35*bodyHeight*0.13;
-	var headerTotalWidth = bodyWidth - (2*bodyHeight*0.14);
+	var headerTotalWidth = bodyWidth - (2*bodyHeight*0.14)-2;
 	var lineHeight = bodyHeight*.14;
 	changecss("#hint","width",hintOptionWidth+"px");
 	changecss("#home","width",homeOptionWidth+"px");
@@ -972,13 +972,13 @@ calculateStylesheetProperties = function(){
 	changecss(".modal-msg i","line-height", "1.3");
 	changecss(".modal-msg i","margin-top", "0px");
 	changecss(".fours","margin-top", foursMarginTop+"px");
-	changecss(".modal-msg .fa-smile-o" , "font-size", (smileyFontSize*1.4)+"px");
+	changecss(".modal-msg .icon-smile" , "font-size", (smileyFontSize*1.4)+"px");
 	changecss(".modal-msg .icon-four-key" , "font-size", (smileyFontSize*.9)+"px");
-	changecss(".modal-msg .fa-check-square-o", "font-size", completeFontSize+"px");
-	changecss(".modal-msg .fa-check-square-o, .target-text", "margin-top", -(tutorialTextMarginTop/2)+"px");
+	changecss(".modal-msg .icon-check", "font-size", completeFontSize+"px");
+	changecss(".modal-msg .icon-check, .target-text", "margin-top", -(tutorialTextMarginTop/2)+"px");
 	changecss(".modal-msg .icon-plus-key", "font-size", plusFontSize+"px");
 	changecss(".target-text", "font-size", (smileyFontSize*2)+"px");
-	changecss(".modal-msg .fa-lightbulb-o", "font-size", (smileyFontSize*1.5)+"px");
+	changecss(".modal-msg .icon-lightbuilb", "font-size", (smileyFontSize*1.5)+"px");
 	changecss(".target-text", "margin-top", (tutorialTextMarginTop/2)+"px");
 	changecss(".new-symbol i","font-size",newSymbolFontSize+"px");
 	changecss(".new-symbol","margin-top",newSymbolMarginTop+"px");
