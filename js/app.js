@@ -1,4 +1,5 @@
-﻿var app = app || {};
+var app = app || {};
+var rootIcon = '<span class="icon-drawing"></span>';
 
 app.LevelManagementModel = Backbone.Model.extend({
 	
@@ -147,7 +148,7 @@ app.LevelManagementModel = Backbone.Model.extend({
 			return new app.ModalModel({
 				'title'			: 'New Operator',
 				'content' 		: 	'<div class="modal-msg new-symbol"><i class="icon-square-key"></i></div>'+
-									'<div class="modal-msg symbol-explain">&radic;4 = 2</div>',
+									'<div class="modal-msg symbol-explain">'+rootIcon+'4 = 2</div>',
 				'isTutorialMsg' : true 
 			});
 		}
@@ -201,7 +202,7 @@ app.SolutionModel = Backbone.Model.extend({
 		var solution = this.get("solution");
 		var solutionLength = solution.length;
 
-		if(newChar === "&radic;"){
+		if(newChar === rootIcon){
 			updatedSolution = this.addSqrt();
 		}else if(newChar === this.pow4){
 			if(solution.endsWith(this.pow444)){
@@ -244,8 +245,8 @@ app.SolutionModel = Backbone.Model.extend({
 		}else if(solution.endsWith(this.pow4)){
 			supLength = this.pow4.length;
 			updatedSolution = solution.substring(0, solutionLength-supLength);
-		}else if(lastChar === ';'){
-			updatedSolution = solution.slice(0,-"&radic;".length);
+		}else if(solution.endsWith(rootIcon)){
+			updatedSolution = solution.slice(0,-rootIcon.length);
 		}else{
 			updatedSolution = solution.slice(0,-1);	
 		}
@@ -287,7 +288,7 @@ app.SolutionModel = Backbone.Model.extend({
 		var result = original.replace(/·/g,".");
 		result = result.replace(/÷/g,"/");
 		result = result.replace(/×/g,"*");
-		result = result.replace(/&radic;/g,"Math.sqrt");
+		result = result.replace(/<span class="icon-drawing font-size-"><\/span>/g,"Math.sqrt");
 		result = result.replace(/(Math.sqrt\([4.]\))/ig,"($1)");
 		result = this.replacePow(result);
 		result = this.replaceFactorial(result);
@@ -309,7 +310,7 @@ app.SolutionModel = Backbone.Model.extend({
 
 		if(lastChar === ')'){
 			insertAt = this.findOpenParen(curSolution, lastCharPos);
-			curSolution = curSolution.substring(0, insertAt) + "&radic;" + curSolution.substring(insertAt);
+			curSolution = curSolution.substring(0, insertAt) + rootIcon + curSolution.substring(insertAt);
 		}else{	
 			if(lastChar === '>'){
 				var powOpenPos = this.findOpenTag(curSolution, lastCharPos - "</sup>".length);
@@ -320,7 +321,7 @@ app.SolutionModel = Backbone.Model.extend({
 			}else{
 				insertAt = lastCharPos - this.findNumsBeforePos(curSolution, lastCharPos);
 			}
-			curSolution = curSolution.substring(0, insertAt) + "&radic;(" + curSolution.substring(insertAt) + ")";
+			curSolution = curSolution.substring(0, insertAt) + rootIcon + "(" + curSolution.substring(insertAt) + ")";
 		}
 
 		return curSolution; 
@@ -440,6 +441,77 @@ app.SolutionModel = Backbone.Model.extend({
 			count++;
 		}
 		return count;
+	},
+
+	createRootFormatedSolution : function(){
+		var solution = this.get("solution");
+		solution = this.addOverlineSpans(solution);
+		solution = this.setOverlineFontSize(solution);
+
+		var result = new app.SolutionModel({
+			"solution" : solution,
+			"foursCount" : 0,
+			"total" : this.get("total")
+		});
+
+		return result;
+	},
+
+	addOverlineSpans : function(expression){
+		var indexOfLeftBracket = expression.indexOf(rootIcon + "(") + rootIcon.length;
+		var indexOfRightBracket = this.findCloseParen(expression, indexOfLeftBracket);
+		if(indexOfLeftBracket === 0 || indexOfRightBracket === -1)
+			return expression;
+		expression = this.addOverlineSpan(expression, indexOfLeftBracket, indexOfRightBracket);
+		return this.addOverlineSpans(expression);
+	},
+
+	addOverlineSpan : function(expression, indexOfLeftBracket, indexOfRightBracket){
+		var leftSpan = '<span class="overline">';
+		var rightSpan = '</span>';
+		expression = [expression.slice(0, indexOfRightBracket+1), rightSpan, expression.slice(indexOfRightBracket+1)].join('');
+		return	[expression.slice(0, indexOfLeftBracket), leftSpan, expression.slice(indexOfLeftBracket)].join('');
+	},
+
+	findCloseParen : function(expression, openPos){
+			var counter = 1;
+			for(var i=openPos+1; i<expression.length; i++){
+				var c = expression.charAt(i);
+		        if (c === '(')
+		            counter++;
+		        else if (c === ')')
+		            counter--;
+		        if(counter === 0)
+		        	return i;
+			}
+
+			return -1;
+	},
+
+	setOverlineFontSize : function(expression){
+		var overlineClass = 'class="overline">';
+		var spanIndex = expression.indexOf(overlineClass);
+		if(spanIndex === -1)
+			return expression;
+		var leftBracketIndex = spanIndex + overlineClass.length;
+		var depth = this.findRootDepth(expression, leftBracketIndex);
+		var insertAt = leftBracketIndex - 2;
+		expression = [expression.slice(0, insertAt), (' font-size-' +depth), expression.slice(insertAt)].join('');
+		insertAt = spanIndex - 15;
+		expression = [expression.slice(0, insertAt), (' font-size-' +depth), expression.slice(insertAt)].join('');
+		return this.setOverlineFontSize(expression);
+	},
+
+	findRootDepth : function(eq, pos){
+		var spanOpenTag = '<span class="overline';
+		var spanCloseTag = '</span>';
+
+		var preRootString = eq.substring(0, pos);
+
+		var openSpanTagCount = (preRootString.match(new RegExp(spanOpenTag, "g")) || []).length;
+		var closeSpanTagCount = (preRootString.match(new RegExp(spanCloseTag, "g")) || []).length;
+
+		return (openSpanTagCount - closeSpanTagCount);
 	}
 });
 
@@ -695,7 +767,8 @@ app.SolutionView = Backbone.View.extend({
 	},
 
 	render: function (){
-		var renderedContent = this.template(this.model.toJSON());
+
+		var renderedContent = this.template(this.model.createRootFormatedSolution().toJSON());
 		$(this.el).html(renderedContent);
 		return this;
 	},
@@ -775,7 +848,7 @@ app.ButtonsView = Backbone.View.extend({
 		else if(input.indexOf("power") != -1)
 			return "<sup>4</sup>";
 		else if(input.indexOf("square") != -1)
-			return "&radic;";
+			return rootIcon;
 		else if(input.indexOf("back") != -1)
 			return "<<";
 	},
@@ -908,7 +981,7 @@ calculateStylesheetProperties = function(){
 	var homeOptionWidth = bodyHeight*0.14;
 	var hintOptionWidth = bodyHeight*0.14;
 	var headerFontSize = 0.35*bodyHeight*0.13;
-	var headerTotalWidth = bodyWidth - (2*bodyHeight*0.14)-2;
+	var headerTotalWidth = bodyWidth - (2*bodyHeight*0.14)-3;
 	var lineHeight = bodyHeight*.14;
 	changecss("#hint","width",hintOptionWidth+"px");
 	changecss("#home","width",homeOptionWidth+"px");
@@ -1036,7 +1109,6 @@ doubleFactorial  = function(input){
 },
 
 backbuttonPressed = function(){
-	console.log("sup");
 	var model = app.router.playScreenView.model;
 	var modalNum = model.get('modal');
 	var level = model.get('level');
