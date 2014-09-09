@@ -1,4 +1,4 @@
-var app = app || {};
+﻿var app = app || {};
 var rootIcon = '<span class="icon-drawing"></span>';
 
 app.LevelManagementModel = Backbone.Model.extend({
