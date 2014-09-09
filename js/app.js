@@ -290,6 +290,7 @@ app.SolutionModel = Backbone.Model.extend({
 		result = result.replace(/×/g,"*");
 		result = result.replace(/<span class="icon-drawing font-size-"><\/span>/g,"Math.sqrt");
 		result = result.replace(/(Math.sqrt\([4.]\))/ig,"($1)");
+		result = result.replace(/(<([^>]+)>)/ig,"");
 		result = this.replacePow(result);
 		result = this.replaceFactorial(result);
 		return result;
