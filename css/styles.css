@@ -334,4 +334,5 @@ a {
 }
 .icon-drawing:before {
 	content: "\e60d";
+	margin-right: -1px;
 }
