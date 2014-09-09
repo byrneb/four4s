@@ -288,7 +288,7 @@ app.SolutionModel = Backbone.Model.extend({
 		var result = original.replace(/·/g,".");
 		result = result.replace(/÷/g,"/");
 		result = result.replace(/×/g,"*");
-		result = result.replace(/<span class="icon-drawing font-size-"><\/span>/g,"Math.sqrt");
+		result = result.replace(/<span class="icon-drawing"><\/span>/g,"Math.sqrt");
 		result = result.replace(/(Math.sqrt\([4.]\))/ig,"($1)");
 		result = result.replace(/(<([^>]+)>)/ig,"");
 		result = this.replacePow(result);
@@ -310,8 +310,12 @@ app.SolutionModel = Backbone.Model.extend({
 		var insertAt;
 
 		if(lastChar === ')'){
-			insertAt = this.findOpenParen(curSolution, lastCharPos);
-			curSolution = curSolution.substring(0, insertAt) + rootIcon + curSolution.substring(insertAt);
+			var leftBracketIndex = this.findOpenParen(curSolution, lastCharPos);
+			if(curSolution.substring(leftBracketIndex - rootIcon.length, leftBracketIndex) === rootIcon){
+				curSolution = curSolution.substring(0, leftBracketIndex - rootIcon.length) + rootIcon + "(" + curSolution.substring(leftBracketIndex - rootIcon.length)+ ")";
+			}
+			else
+				curSolution = curSolution.substring(0, leftBracketIndex) + rootIcon + curSolution.substring(leftBracketIndex);
 		}else{	
 			if(lastChar === '>'){
 				var powOpenPos = this.findOpenTag(curSolution, lastCharPos - "</sup>".length);
@@ -458,10 +462,12 @@ app.SolutionModel = Backbone.Model.extend({
 		return result;
 	},
 
+
 	addOverlineSpans : function(expression){
-		var indexOfLeftBracket = expression.indexOf(rootIcon + "(") + rootIcon.length;
+		var rootIndex = expression.indexOf(rootIcon + "(");
+		var indexOfLeftBracket = rootIndex + rootIcon.length;
 		var indexOfRightBracket = this.findCloseParen(expression, indexOfLeftBracket);
-		if(indexOfLeftBracket === 0 || indexOfRightBracket === -1)
+		if(rootIndex === -1 || indexOfRightBracket === -1)
 			return expression;
 		expression = this.addOverlineSpan(expression, indexOfLeftBracket, indexOfRightBracket);
 		return this.addOverlineSpans(expression);
@@ -504,7 +510,7 @@ app.SolutionModel = Backbone.Model.extend({
 	},
 
 	findRootDepth : function(eq, pos){
-		var spanOpenTag = '<span class="overline';
+		var spanOpenTag = '<span class';
 		var spanCloseTag = '</span>';
 
 		var preRootString = eq.substring(0, pos);
@@ -1012,6 +1018,10 @@ calculateStylesheetProperties = function(){
 	changecss("#sol-container","margin-top",marginTop+"px");
 	changecss("#solution","margin-bottom",marginBottom+"px");
 	changecss("#solution","font-size",solutionFontSize+"px");
+	changecss(".font-size-2","font-size",solutionFontSize*.9+"px");
+	changecss(".font-size-3","font-size",solutionFontSize*.8+"px");
+	changecss(".font-size-4","font-size",solutionFontSize*.7+"px");
+	changecss(".font-size-5","font-size",solutionFontSize*.6+"px");
 	changecss("#total","font-size",totalFontSize+"px");
 
 
