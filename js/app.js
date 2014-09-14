@@ -440,7 +440,7 @@ app.SolutionModel = Backbone.Model.extend({
 		var c;
 		for(var i=pos-1; i>=0; i--){
 			c = expression.charAt(i);
-			if(c !== '4' && c !== '.'){
+			if(c !== '4' && c !== '.' && c !== '!'){
 				return count;
 			}
 			count++;
@@ -610,6 +610,42 @@ app.HintView = Backbone.View.extend({
 		return this;
 	}
 });
+
+app.LevelChooserView = Backbone.View.extend({
+	tagName: "div",
+	id: "level-chooser-page",
+
+	initialize: function(){
+		_.bindAll(this, "render");
+		this.model = new Backbone.Model({ level: 1 });
+		this.template = _.template($("#level-manager-template").html());
+	},
+
+	render: function (){
+	    var model = this.model;
+	    var that = this;
+
+
+		var renderedContent = this.template(this.model.toJSON());
+		$(this.el).html(renderedContent);
+
+		this.$("#level-chooser").swipe( {
+		
+	        //Generic swipe handler for all directions
+	        swipeLeft:function(event, direction, distance, duration, fingerCount) {
+       		    var currentLevel = model.get('level') + 1;
+				model.set('level', currentLevel);
+				console.log("sup");
+				that.render();
+
+	        },
+	        //Default is 75px, set to 0 for demo so any distance triggers swipe
+	        threshold:0
+	      });
+
+		return this;
+	}
+})
 
 app.PlayScreenView = Backbone.View.extend({
 	tagName: "div",
@@ -884,7 +920,8 @@ app.HomeScreenView  = Backbone.View.extend({
 	id: 'home-screen',
 	events: {
 		"click #exit": "exit",
-		"click #option-play": "play"
+		"click #option-play": "play",
+		"click #option-play-level": "levelChooser"
 	},
 
 	initialize: function(){
@@ -903,6 +940,10 @@ app.HomeScreenView  = Backbone.View.extend({
 
 	play: function (){
 		app.router.navigate("play", true);
+	},
+
+	levelChooser: function(){
+		app.router.navigate("level-chooser", true);
 	}
 });
 
@@ -911,11 +952,13 @@ Router = Backbone.Router.extend({
 	initialize: function(){
 		this.playScreenView = new app.PlayScreenView();
 		this.homeScreenView = new app.HomeScreenView();
+		this.levelChooserView = new app.LevelChooserView();
 	},
 
 	routes: {
 		"" : "home",
-		"play" : "play"
+		"play" : "play",
+		"level-chooser" : "levelChooser"
 	},
 
 	home:function() {
@@ -932,6 +975,13 @@ Router = Backbone.Router.extend({
 		content.empty();
 		content.append(this.playScreenView.render().el);
 		this.homeScreenView.delegateEvents();
+	},
+
+	levelChooser:function(){
+		var content = $("#four4sApp");
+		content.empty();
+		content.append(this.levelChooserView.render().el);
+		//this.levelChooserView.delegateEvents();
 	}
 });
 
@@ -1185,5 +1235,14 @@ $(function() {
 	Backbone.history.start();
 
 	document.addEventListener("backbutton", backbuttonPressed, false);
+
+	$("#test").swipe( {
+        //Generic swipe handler for all directions
+        swipe:function(event, direction, distance, duration, fingerCount, fingerData) {
+          $(this).text("You swiped " + direction );  
+        },
+        //Default is 75px, set to 0 for demo so any distance triggers swipe
+         threshold:0
+      });
 
 });
