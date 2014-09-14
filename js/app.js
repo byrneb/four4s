@@ -645,9 +645,9 @@ app.LevelChooserView = Backbone.View.extend({
 	        swipeUp:function(event, direction, distance, duration, fingerCount) {
 	        	var decrement = 1;
 	        	if(distance > 150)
-	        		increment = 4;
+	        		increment = 8;
 	        	else if(distance > 100)
-	        		increment = 2;	        	
+	        		increment = 4;	        	
        		    var currentLevel = model.get('level') - decrement;
        		    console.log(duration + " " + distance);
 				model.set('level', currentLevel);
