@@ -1018,10 +1018,10 @@ calculateStylesheetProperties = function(){
 	changecss("#sol-container","margin-top",marginTop+"px");
 	changecss("#solution","margin-bottom",marginBottom+"px");
 	changecss("#solution","font-size",solutionFontSize+"px");
-	changecss(".font-size-2","font-size",solutionFontSize*.8+"px");
-	changecss(".font-size-3","font-size",solutionFontSize*.6+"px");
-	changecss(".font-size-4","font-size",solutionFontSize*.4+"px");
-	changecss(".font-size-5","font-size",solutionFontSize*.2+"px");
+	changecss(".font-size-1","font-size",solutionFontSize*.8+"px");
+	changecss(".font-size-2","font-size",solutionFontSize*.6+"px");
+	changecss(".font-size-3","font-size",solutionFontSize*.4+"px");
+	changecss(".font-size-4","font-size",solutionFontSize*.2+"px");
 	changecss("#total","font-size",totalFontSize+"px");
 
 
