@@ -336,3 +336,11 @@ a {
 	content: "\e60d";
 	margin-right: -1px;
 }
+.icon-arrow-up:before {
+	color: rgb(0, 150, 218);
+	content: "\e612";
+}
+.icon-arrow-down:before {
+	color: rgb(0, 150, 218);
+	content: "\e613";
+}

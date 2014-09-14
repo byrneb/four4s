@@ -640,7 +640,8 @@ app.LevelChooserView = Backbone.View.extend({
 
 	        },
 	        //Default is 75px, set to 0 for demo so any distance triggers swipe
-	        threshold:0
+	        threshold:0,
+	        longTapThreshold:0
 	      });
 
 		return this;
@@ -1136,6 +1137,12 @@ calculateStylesheetProperties = function(){
 	var fontSize = 0.06 * bodyHeight;
 	changecss("#hint-container","line-height",lineHeight+"px");
 	changecss("#hint-container","font-size",fontSize+"px");
+
+	/* Level Select */
+	var fontSize = 0.12 * bodyHeight;
+	var marginTop = 0.3 * bodyHeight;
+	changecss("#level-chooser-page","font-size",fontSize+"px");
+	changecss("#level-chooser-page","margin-top",marginTop+"px");
 
 };
 
