@@ -630,16 +630,19 @@ app.LevelChooserView = Backbone.View.extend({
 		$(this.el).html(renderedContent);
 
 		this.$("#level-chooser").swipe( {
-		
-	        //Generic swipe handler for all directions
-	        swipeLeft:function(event, direction, distance, duration, fingerCount) {
+
+	        swipeDown:function(event, direction, distance, duration, fingerCount) {
        		    var currentLevel = model.get('level') + 1;
 				model.set('level', currentLevel);
-				console.log("sup");
 				that.render();
 
 	        },
-	        //Default is 75px, set to 0 for demo so any distance triggers swipe
+	        swipeUp:function(event, direction, distance, duration, fingerCount) {
+       		    var currentLevel = model.get('level') - 1;
+				model.set('level', currentLevel);
+				that.render();
+
+	        },
 	        threshold:0,
 	        longTapThreshold:0
 	      });
