@@ -658,7 +658,6 @@ app.LevelChooserView = Backbone.View.extend({
         to = setTimeout(function () {
             lint = setInterval(function () {
                 temp++;
-        		console.log('dblclick');
                 $("#level-chooser").html(temp);
             }, 75);
         }, 500);
