@@ -648,7 +648,6 @@ app.LevelChooserView = Backbone.View.extend({
 	upArrowOnmouseup: function() {
         clearTimeout(to);
         clearInterval(lint);
-        console.log("Sup");
         this.model.set('level', temp);
     },    
     upArrowOndblclick: function() {
@@ -661,7 +660,7 @@ app.LevelChooserView = Backbone.View.extend({
         $("#level-chooser").html(temp);
         to = setTimeout(function () {
             lint = setInterval(function () {
-                temp++;
+                temp+=2;
                 $("#level-chooser").html(temp);
             }, 75);
         }, 500);
@@ -683,9 +682,8 @@ app.LevelChooserView = Backbone.View.extend({
         $("#level-chooser").html(temp);
         to2 = setTimeout(function () {
             lint2 = setInterval(function () {
-            	if( temp > 1 )
-                	temp--;
-        		console.log('dblclick');
+            	if( temp > 2 )
+                	temp-=2;
                 $("#level-chooser").html(temp);
             }, 75);
         }, 500);
