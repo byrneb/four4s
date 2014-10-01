@@ -632,7 +632,11 @@ app.LevelChooserView = Backbone.View.extend({
         'mouseup .icon-arrow-up': 'upArrowOnmouseup',
         'mousedown .icon-arrow-up': 'upArrowOndblclick',
         'mouseup .icon-arrow-down': 'downArrowOnmouseup',
-        'mousedown .icon-arrow-down': 'downArrowOndblclick'
+        'mousedown .icon-arrow-down': 'downArrowOndblclick',
+        'touchend .icon-arrow-up': 'upArrowOnmouseup',
+        'touchstart .icon-arrow-up': 'upArrowOndblclick',
+        'touchend .icon-arrow-down': 'downArrowOnmouseup',
+        'touchstart .icon-arrow-down': 'downArrowOndblclick'
     },
 
 	initialize: function(){
@@ -689,41 +693,8 @@ app.LevelChooserView = Backbone.View.extend({
 
 	render: function (){
 	    var model = this.model;
-	    var that = this;
-
-
 		var renderedContent = this.template(this.model.toJSON());
 		$(this.el).html(renderedContent);
-
-		this.$("#level-container").swipe( {
-
-	        swipeDown:function(event, direction, distance, duration, fingerCount) {
-	        	var increment = 1;
-	        	if(distance > 150)
-	        		increment =  4;
-	        	else if(distance > 100)
-	        		increment = 2;	  
-       		    var currentLevel = model.get('level') + increment;
-				model.set('level', currentLevel);
-				that.render();
-
-	        },
-	        swipeUp:function(event, direction, distance, duration, fingerCount) {
-	        	var decrement = 1;
-	        	if(distance > 150)
-	        		increment = 8;
-	        	else if(distance > 100)
-	        		increment = 4;	        	
-       		    var currentLevel = model.get('level') - decrement;
-       		    console.log(duration + " " + distance);
-				model.set('level', currentLevel);
-				that.render();
-
-	        },
-	        threshold:0,
-	        longTapThreshold:0
-	      });
-
 		return this;
 	}
 })
