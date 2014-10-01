@@ -189,6 +189,19 @@ app.HeaderModel = Backbone.Model.extend({
 
 });
 
+app.LocalStorageModel = Backbone.Model.extend({
+
+	read : function(key){
+		var mode = this.get('mode');
+		return JSON.parse( localStorage.getItem(mode +'-' + key));
+	},
+
+	write : function(key, model){
+		var mode = this.get('mode');
+		localStorage.setItem( mode +'-' + key, JSON.stringify(model));
+	}
+})
+
 app.SolutionModel = Backbone.Model.extend({
 
 
@@ -532,12 +545,12 @@ app.ModalView = Backbone.View.extend({
 		"click" : "triggerEventOnParentView"
 	},
 
-	initialize: function() {
+	initialize: function(options) {
 		_.bindAll(this, "render");
+		this.localStore = options.localstore;
 		this.template = _.template($("#modal-template").html());
-
-		if(localStorage.getItem( 'modal' ) !== null){
-			var modal = JSON.parse( localStorage.getItem( 'modal' ));
+		var modal = this.localStore.read( 'modal' );
+		if(modal !== null){
 			this.model = new app.ModalModel({
 				'title'			: modal.title,
 				'content' 		: modal.content,
@@ -582,7 +595,7 @@ app.ModalView = Backbone.View.extend({
 
 	setModel: function(model){
 		this.model = model;
-		localStorage.setItem( 'modal', JSON.stringify(this.model));
+		this.localStore.write('modal', this.model);
 		this.render();
 	}
 
@@ -615,11 +628,65 @@ app.LevelChooserView = Backbone.View.extend({
 	tagName: "div",
 	id: "level-chooser-page",
 
+	 events: {
+        'mouseup .icon-arrow-up': 'upArrowOnmouseup',
+        'mousedown .icon-arrow-up': 'upArrowOndblclick',
+        'mouseup .icon-arrow-down': 'downArrowOnmouseup',
+        'mousedown .icon-arrow-down': 'downArrowOndblclick'
+    },
+
 	initialize: function(){
 		_.bindAll(this, "render");
 		this.model = new Backbone.Model({ level: 1 });
 		this.template = _.template($("#level-manager-template").html());
 	},
+
+	upArrowOnmouseup: function() {
+        clearTimeout(to);
+        clearInterval(lint);
+        console.log("Sup");
+        this.model.set('level', temp);
+    },    
+    upArrowOndblclick: function() {
+    	var that = this;
+    	temp = this.model.get('level');
+    	to = null;
+    	lint = null;
+
+    	temp++;
+        $("#level-chooser").html(temp);
+        to = setTimeout(function () {
+            lint = setInterval(function () {
+                temp++;
+        		console.log('dblclick');
+                $("#level-chooser").html(temp);
+            }, 75);
+        }, 500);
+    },
+
+    downArrowOnmouseup: function() {
+        clearTimeout(to2);
+        clearInterval(lint2);
+        this.model.set('level', temp);
+    },    
+    downArrowOndblclick: function() {
+    	var that = this;
+    	temp = this.model.get('level');
+    	to2 = null;
+    	lint2 = null;
+
+    	if( temp > 1 )
+    		temp--;
+        $("#level-chooser").html(temp);
+        to2 = setTimeout(function () {
+            lint2 = setInterval(function () {
+            	if( temp > 1 )
+                	temp--;
+        		console.log('dblclick');
+                $("#level-chooser").html(temp);
+            }, 75);
+        }, 500);
+    },
 
 	render: function (){
 	    var model = this.model;
@@ -666,25 +733,26 @@ app.PlayScreenView = Backbone.View.extend({
 	tagName: "div",
 	id: "play-screen",
 
-	initialize: function(){
+	initialize: function(options){
 		_.bindAll(this, "render");
-		this.template = _.template($("#sol-template").html());
+		this.template = _.template($("#sol-template").html());		
+		this.localStore = new app.LocalStorageModel({mode : options.mode});
 
-		this.buttonsView = new app.ButtonsView();
+		this.buttonsView = new app.ButtonsView({localstore : this.localStore});
 
-		this.modalView = new app.ModalView();
+		this.modalView = new app.ModalView({localstore : this.localStore});
 		this.listenTo(this.modalView, "clicked:modal", this.onModalClickedSetNextState);
 
 		this.solutionView = new app.SolutionView();
 		this.solutionView.listenTo(this.buttonsView, "clicked:button", this.solutionView.onButtonClickUpdateSolution);
 
-		this.headerView = new app.HeaderView();
+		this.headerView = new app.HeaderView({localstore : this.localStore});
 		this.headerView.listenTo(this.solutionView, "change:total", this.headerView.onTotalChangeCheckSolved);
 
 		this.listenTo(this.headerView, "solved:puzzle", this.onPuzzleSolvedSetNextState);
 
-		if(localStorage.getItem( 'levelManagementModel' ) !== null){
-			var levelManagementModel = JSON.parse( localStorage.getItem( 'levelManagementModel' ));
+		var  levelManagementModel = this.localStore.read( 'levelManagementModel' );
+		if(levelManagementModel !== null){
 			this.model = new app.LevelManagementModel({
 				"level" : levelManagementModel.level,
 				"modal" : levelManagementModel.modal,
@@ -718,12 +786,15 @@ app.PlayScreenView = Backbone.View.extend({
 		this.model.set('modal', 1);
 		var modalModel = this.model.getNextModalModel();
 		this.modalView.setModel(modalModel);
-		localStorage.setItem( 'levelManagementModel', JSON.stringify(this.model));
+		this.localStore.write('levelManagementModel', this.model);
 		this.modalView.open();
 	},
 
 	onModalClickedSetNextState: function(){
-		if(this.model.isTutorialsLastModal()){
+		if(this.localStore.get('mode') != 'play'){
+			app.router.navigate("", true);
+		}
+		else if(this.model.isTutorialsLastModal()){
 			this.model.finishTutorial();
 
 			this.headerView.setTarget(1);
@@ -751,7 +822,7 @@ app.PlayScreenView = Backbone.View.extend({
 			this.solutionView.clearView();
 			this.modalView.close();
 		}
-		localStorage.setItem( 'levelManagementModel', JSON.stringify(this.model));
+		this.localStore.write('levelManagementModel', this.model);
 	}
 });
 
@@ -765,10 +836,11 @@ app.HeaderView = Backbone.View.extend({
 		"click #hint": "hint"
 	},
 
-	initialize: function(){
+	initialize: function(options){
 		_.bindAll(this, "render");
-		if(localStorage.getItem( 'target' ) !== null){
-			var target = JSON.parse( localStorage.getItem( 'target' ));
+		this.localStore = options.localstore;
+		var target = this.localStore.read('target');
+		if( target !== null){
 			this.model = new app.HeaderModel({"target": target});
 		}
 		else
@@ -796,7 +868,7 @@ app.HeaderView = Backbone.View.extend({
 
 	setTarget : function(newTarget){
 		this.model.set("target", newTarget);
-		localStorage.setItem( 'target', JSON.stringify(newTarget));
+		this.localStore.write('target', newTarget);
 	},
 
 	hint : function(){
@@ -863,9 +935,9 @@ app.ButtonsView = Backbone.View.extend({
 		"click .button": "onButtonClickPassKey"
 	},
 
-	initialize : function(){
+	initialize : function(options){
 		_.bindAll(this, "render");
-		var target = JSON.parse( localStorage.getItem( 'target' ));
+		var target = options.localstore.read('target');
 		if(target<22)
 			this.template = _.template($("#buttons-template").html());
 		else			
@@ -965,7 +1037,8 @@ app.HomeScreenView  = Backbone.View.extend({
 Router = Backbone.Router.extend({
 
 	initialize: function(){
-		this.playScreenView = new app.PlayScreenView();
+		this.playScreenView = new app.PlayScreenView({mode : 'play'});
+		this.singlePlayView = new app.PlayScreenView({mode : 'single-play'});
 		this.homeScreenView = new app.HomeScreenView();
 		this.levelChooserView = new app.LevelChooserView();
 	},
@@ -973,6 +1046,7 @@ Router = Backbone.Router.extend({
 	routes: {
 		"" : "home",
 		"play" : "play",
+		"single-play" : "singlePlay",
 		"level-chooser" : "levelChooser"
 	},
 
@@ -982,14 +1056,21 @@ Router = Backbone.Router.extend({
 		content.empty();
 
 		content.append(this.homeScreenView.render().el);
-		this.playScreenView.delegateEvents();
+		this.homeScreenView.delegateEvents();
 	},
 
 	play:function(){
 		var content = $("#four4sApp");
 		content.empty();
 		content.append(this.playScreenView.render().el);
-		this.homeScreenView.delegateEvents();
+		this.playScreenView.delegateEvents();
+	},
+
+	singlePlay:function(){
+		var content = $("#four4sApp");
+		content.empty();
+		content.append(this.singlePlayView.render().el);
+		this.singlePlayView.delegateEvents();
 	},
 
 	levelChooser:function(){
