@@ -249,6 +249,34 @@ a {
 	color: rgb(0, 150, 218);
 }
 
+#choose-level{
+	width: 80%;
+	margin-left: 10%;
+	background: white;
+	margin-top: 10%;
+}
+
+#level-chooser-page{
+	background-color: rgb(238, 238, 238);
+	height: 100%;
+}
+
+#level-chooser-home{
+	float: left;
+	margin: 10px;
+	margin-bottom: 12%;
+	padding: 10px;
+	background: white;
+	color: rgb(0, 150, 218);
+}
+#level-chooser-info{
+	margin-bottom: 30px;
+}
+#level-container{
+	clear: both;
+	margin-top: 10%;
+}
+
 .icon-check{
 	color: rgb(0, 150, 218);
 }

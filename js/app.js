@@ -636,10 +636,13 @@ app.LevelChooserView = Backbone.View.extend({
         'touchend .icon-arrow-up': 'upArrowOnmouseup',
         'touchstart .icon-arrow-up': 'upArrowOndblclick',
         'touchend .icon-arrow-down': 'downArrowOnmouseup',
-        'touchstart .icon-arrow-down': 'downArrowOndblclick'
+        'touchstart .icon-arrow-down': 'downArrowOndblclick',
+        'touchend #choose-level': 'upChooselevel',
+        'mouseup #choose-level': 'upChooselevel',
+        "click .icon-home": "homeMenu"
     },
 
-	initialize: function(){
+	initialize: function(options){
 		_.bindAll(this, "render");
 		this.model = new Backbone.Model({ level: 1 });
 		this.template = _.template($("#level-manager-template").html());
@@ -689,11 +692,19 @@ app.LevelChooserView = Backbone.View.extend({
         }, 500);
     },
 
+    upChooselevel: function(){
+    	app.router.navigate("single-play", true);
+    },
+
 	render: function (){
 	    var model = this.model;
 		var renderedContent = this.template(this.model.toJSON());
 		$(this.el).html(renderedContent);
 		return this;
+	},
+
+	homeMenu: function (){
+		app.router.navigate("", true);
 	}
 })
 
@@ -760,7 +771,7 @@ app.PlayScreenView = Backbone.View.extend({
 
 	onModalClickedSetNextState: function(){
 		if(this.localStore.get('mode') != 'play'){
-			app.router.navigate("", true);
+			app.router.navigate("level-chooser", true);
 		}
 		else if(this.model.isTutorialsLastModal()){
 			this.model.finishTutorial();
@@ -791,6 +802,25 @@ app.PlayScreenView = Backbone.View.extend({
 			this.modalView.close();
 		}
 		this.localStore.write('levelManagementModel', this.model);
+	},
+
+	setupSingleLevel: function(level){
+		this.model = new app.LevelManagementModel({
+				"level" : level,
+				"modal" : 0,
+				"mode"	: "single-play"
+			});
+
+		this.headerView.setTarget(level);
+		this.modalView.close();
+		this.hintView = new app.HintView({model: this.model});
+
+		this.buttonsView = new app.ButtonsView({localstore : this.localStore});
+		this.solutionView.listenTo(this.buttonsView, "clicked:button", this.solutionView.onButtonClickUpdateSolution);
+		this.solutionView.model.cleanUp();
+		calculateStylesheetProperties();
+		if( level > 21 )
+			this.buttonsView.showExtraButtons();
 	}
 });
 
@@ -848,6 +878,7 @@ app.HeaderView = Backbone.View.extend({
         heading.fadeIn(1500).delay(4500).fadeOut(1500);
   	}
 });
+
 app.SolutionView = Backbone.View.extend({
 
 	tagName: "div",
@@ -1008,7 +1039,7 @@ Router = Backbone.Router.extend({
 		this.playScreenView = new app.PlayScreenView({mode : 'play'});
 		this.singlePlayView = new app.PlayScreenView({mode : 'single-play'});
 		this.homeScreenView = new app.HomeScreenView();
-		this.levelChooserView = new app.LevelChooserView();
+		this.levelChooserView = new app.LevelChooserView({singlePlayView : this.singlePlayView});
 	},
 
 	routes: {
@@ -1035,6 +1066,9 @@ Router = Backbone.Router.extend({
 	},
 
 	singlePlay:function(){
+		var	level = this.levelChooserView.model.get("level");
+		this.singlePlayView.setupSingleLevel(level);
+
 		var content = $("#four4sApp");
 		content.empty();
 		content.append(this.singlePlayView.render().el);
@@ -1045,7 +1079,7 @@ Router = Backbone.Router.extend({
 		var content = $("#four4sApp");
 		content.empty();
 		content.append(this.levelChooserView.render().el);
-		//this.levelChooserView.delegateEvents();
+		this.levelChooserView.delegateEvents();
 	}
 });
 
@@ -1202,10 +1236,14 @@ calculateStylesheetProperties = function(){
 	changecss("#hint-container","font-size",fontSize+"px");
 
 	/* Level Select */
-	var fontSize = 0.12 * bodyHeight;
-	var marginTop = 0.3 * bodyHeight;
-	changecss("#level-chooser-page","font-size",fontSize+"px");
-	changecss("#level-chooser-page","margin-top",marginTop+"px");
+	var fontSize = 0.10 * bodyHeight;
+	var marginTop = 0.2 * bodyHeight;
+	changecss("#level-chooser-page","font-size",fontSize*1.2+"px");
+	changecss("#level-chooser-info","font-size",fontSize*.6+"px");
+	changecss("#level-chooser-home","font-size",fontSize*.6+"px");
+	changecss("#choose-level","font-size",fontSize+"px");
+	//changecss("#level-chooser-page","margin-top",marginTop+"px");
+	
 
 };
 
