@@ -758,6 +758,12 @@ app.PlayScreenView = Backbone.View.extend({
 						this.hintView.render().el,
 						this.solutionView.render().el,
 						this.buttonsView.render().el);
+
+		if( this.model.get('level') > 21 )
+			this.buttonsView.showExtraButtons();
+		else
+			calculateStylesheetProperties();
+
 		return this;
 	},
 
@@ -818,9 +824,11 @@ app.PlayScreenView = Backbone.View.extend({
 		this.buttonsView = new app.ButtonsView({localstore : this.localStore});
 		this.solutionView.listenTo(this.buttonsView, "clicked:button", this.solutionView.onButtonClickUpdateSolution);
 		this.solutionView.model.cleanUp();
-		calculateStylesheetProperties();
+		
 		if( level > 21 )
 			this.buttonsView.showExtraButtons();
+		else
+			calculateStylesheetProperties();
 	}
 });
 
