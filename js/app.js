@@ -824,7 +824,7 @@ app.PlayScreenView = Backbone.View.extend({
 		this.buttonsView = new app.ButtonsView({localstore : this.localStore});
 		this.solutionView.listenTo(this.buttonsView, "clicked:button", this.solutionView.onButtonClickUpdateSolution);
 		this.solutionView.model.cleanUp();
-		
+
 		if( level > 21 )
 			this.buttonsView.showExtraButtons();
 		else
@@ -1249,7 +1249,7 @@ calculateStylesheetProperties = function(){
 	changecss("#level-chooser-page","font-size",fontSize*1.2+"px");
 	changecss("#level-chooser-info","font-size",fontSize*.6+"px");
 	changecss("#level-chooser-home","font-size",fontSize*.6+"px");
-	changecss("#choose-level","font-size",fontSize+"px");
+	changecss("#choose-level","font-size",fontSize*.8+"px");
 	//changecss("#level-chooser-page","margin-top",marginTop+"px");
 	
 

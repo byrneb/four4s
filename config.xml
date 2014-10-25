@@ -16,6 +16,8 @@
         Brian Byrne
     </author>
 
+	<icon src="lib/icon.png" />
+	
     <!--
         Enable individual API permissions by defining each here.
         The 'device' permission is required for the 'deviceready' event.
