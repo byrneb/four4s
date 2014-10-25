@@ -249,22 +249,18 @@ a {
 	color: rgb(0, 150, 218);
 }
 
-#choose-level{
-	width: 70%;
-	margin-left: 15%;
-	background: white;
-	margin-top: 10%;
-}
-
 #level-chooser-page{
-	background-color: rgb(238, 238, 238);
+	background: rgb(238, 238, 238);
+	height: 100%;	
+    padding: 0px;
+    overflow:auto;
+}
+#choose-level{
 	height: 100%;
 }
-
 #level-chooser-home{
 	float: left;
 	margin: 10px;
-	margin-bottom: 12%;
 	padding: 10px;
 	background: white;
 	color: rgb(0, 150, 218);
@@ -274,7 +270,6 @@ a {
 }
 #level-container{
 	clear: both;
-	margin-top: 10%;
 }
 
 .icon-check{
