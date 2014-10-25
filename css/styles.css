@@ -253,7 +253,7 @@ a {
 	background: rgb(238, 238, 238);
 	height: 100%;	
     padding: 0px;
-    overflow-x: hidden; 
+    overflow:auto;
 }
 
 #level-chooser-home{
