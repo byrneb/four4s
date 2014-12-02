@@ -251,12 +251,8 @@ a {
 
 #level-chooser-page{
 	height: 100%;	
-    padding: 0px;
-    overflow:auto;
+	width: 100%;	
 	background: rgb(238, 238, 238);
-}
-#choose-level{
-	height: 100%;
 }
 #level-chooser-home{
 	float: left;
