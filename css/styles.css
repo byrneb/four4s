@@ -252,7 +252,7 @@ a {
 #level-chooser-page{
 	height: 100%;	
 	width: 100%;	
-	background: rgb(238, 238, 238);
+	background-color: rgb(238, 238, 238);
 }
 #level-chooser-home{
 	float: left;
