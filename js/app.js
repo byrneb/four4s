@@ -1249,7 +1249,7 @@ calculateStylesheetProperties = function(){
 	changecss("#level-chooser-page","font-size",fontSize*.8+"px");
 	changecss("#level-chooser-selector","font-size",fontSize*1.1+"px");
 	changecss("#level-chooser-selector","margin",selectorMargin+"px");
-	changecss("#level-chooser-page","font-size","100%");
+	changecss("#level-chooser-page","height","100%");
 	
 
 };
