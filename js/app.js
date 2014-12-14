@@ -1246,10 +1246,8 @@ calculateStylesheetProperties = function(){
 	/* Level Select */
 	var fontSize = 0.10 * bodyHeight;
 	var marginTop = 0.2 * bodyHeight;
-	changecss("#level-chooser-title","font-size",fontSize*.6+"px");
-	changecss("#level-chooser-head .icon-home","font-size",fontSize*.6+"px");
-	changecss("#choose-level","font-size",fontSize*.8+"px");
-	changecss("#level-container","margin-bottom",bodyHeight*.06+"px");
+	changecss("#level-chooser-page","font-size",fontSize*.6+"px");
+	changecss("#level-chooser-selector","font-size",fontSize*.9+"px");
 	//changecss("#level-chooser-page","margin-top",marginTop+"px");
 	
 

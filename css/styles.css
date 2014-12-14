@@ -255,6 +255,9 @@ a {
 	background: white;
 	color: rgb(0, 150, 218);
 }
+#level-chooser-selector{
+	margin: 150px;
+}
 
 .icon-check{
 	color: rgb(0, 150, 218);
