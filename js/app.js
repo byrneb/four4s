@@ -630,13 +630,11 @@ app.LevelChooserView = Backbone.View.extend({
 
 	initialize: function(options){
 		_.bindAll(this, "render");
-		this.model = new Backbone.Model({ level: 1 });
 		this.template = _.template($("#level-manager-template").html());
 	},
 
 	render: function (){
-	    var model = this.model;
-		var renderedContent = this.template(this.model.toJSON());
+		var renderedContent = this.template();
 		$(this.el).html(renderedContent);
 		return this;
 	}
