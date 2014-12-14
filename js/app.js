@@ -1245,9 +1245,9 @@ calculateStylesheetProperties = function(){
 
 	/* Level Select */
 	var fontSize = 0.10 * bodyHeight;
-	var selectorMargin = 0.1 * bodyHeight;
+	var selectorMargin = 0.085 * bodyHeight;
 	changecss("#level-chooser-page","font-size",fontSize*.8+"px");
-	changecss("#level-chooser-selector","font-size",fontSize*1.2+"px");
+	changecss("#level-chooser-selector","font-size",fontSize*1.1+"px");
 	changecss("#level-chooser-selector","margin",selectorMargin+"px");
 	
 
