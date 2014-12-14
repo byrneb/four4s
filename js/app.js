@@ -626,7 +626,7 @@ app.HintView = Backbone.View.extend({
 
 app.LevelChooserView = Backbone.View.extend({
 	tagName: "div",
-	id: "level-chooser-page",
+	id: "age",
 
 	initialize: function(options){
 		_.bindAll(this, "render");
