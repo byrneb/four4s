@@ -628,20 +628,6 @@ app.LevelChooserView = Backbone.View.extend({
 	tagName: "div",
 	id: "level-chooser-page",
 
-	 events: {
-        'mouseup .icon-arrow-up': 'upArrowOnmouseup',
-        'mousedown .icon-arrow-up': 'upArrowOndblclick',
-        'mouseup .icon-arrow-down': 'downArrowOnmouseup',
-        'mousedown .icon-arrow-down': 'downArrowOndblclick',
-        'touchend .icon-arrow-up': 'upArrowOnmouseup',
-        'touchstart .icon-arrow-up': 'upArrowOndblclick',
-        'touchend .icon-arrow-down': 'downArrowOnmouseup',
-        'touchstart .icon-arrow-down': 'downArrowOndblclick',
-        'touchend #choose-level': 'upChooselevel',
-        'mouseup #choose-level': 'upChooselevel',
-        "click .icon-home": "homeMenu"
-    },
-
 	initialize: function(options){
 		_.bindAll(this, "render");
 		this.model = new Backbone.Model({ level: 1 });
