@@ -838,8 +838,8 @@ app.HeaderView = Backbone.View.extend({
 	id: "header",
 
 	events: {
-		"click #home": "homeMenu",
-		"click #hint": "hint"
+		"click .icon-home": "homeMenu",
+		"click .icon-lightbuilb": "hint"
 	},
 
 	initialize: function(options){
@@ -1141,16 +1141,11 @@ calculateStylesheetProperties = function(){
 	var bodyWidth = $("body").width();
 
 	/* Header */
-	var homeOptionWidth = bodyHeight*0.14;
-	var hintOptionWidth = bodyHeight*0.14;
-	var headerFontSize = 0.35*bodyHeight*0.13;
-	var headerTotalWidth = bodyWidth - (2*bodyHeight*0.14)-3;
-	var lineHeight = bodyHeight*.14;
-	changecss("#hint","width",hintOptionWidth+"px");
-	changecss("#home","width",homeOptionWidth+"px");
-	changecss("#target","width",headerTotalWidth+"px");
-	changecss("#header", "line-height",lineHeight+"px");
-	changecss("#home, #hint, #target","font-size",headerFontSize+"px");
+	var padding = bodyHeight*0.04;
+	var headerFontSize = bodyHeight*0.04;
+	changecss("#header .icon-home, #header .icon-lightbuilb, #target","padding-top",padding+"px");
+	changecss("#header .icon-home, #header .icon-lightbuilb, #target","padding-bottom",padding+"px");
+	changecss("#header","font-size",headerFontSize+"px");
 
 	/* Home Screen */
 	var menuOptionHeight = $("body").height()*0.08;
@@ -1249,7 +1244,6 @@ calculateStylesheetProperties = function(){
 	changecss("#level-chooser-page","font-size",fontSize*.8+"px");
 	changecss("#level-chooser-selector","font-size",fontSize*1.1+"px");
 	changecss("#level-chooser-selector","margin",selectorMargin+"px");
-	changecss("#level-chooser-page","height",bodyHeight+"px");
 	
 
 };

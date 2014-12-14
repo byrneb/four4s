@@ -1,44 +1,42 @@
-html,body {
-    width: 100%;
+* {
+   margin: 0px;
+   padding: 0px;
+   text-align: center;
+}
+html,body,#four4sApp,#play-screen {
     height: 100%;
-    margin: 0px;
-    padding: 0px;
-    overflow-x: hidden; 
-	text-align: center;
-	outline: none;
 }
 a {
   color: white;
   text-decoration: none; /* no underline */
 }
-#four4sApp, #play-screen{
-	width: 100%;
+#four4sApp{
     height: 100%;
-    margin: 0px;
-    padding: 0px;
-    overflow-x: hidden; 
+    background: rgb(238, 238, 238);
+}
+#play-screen {
+	background: white;
 }
 #header{
 	width: 100%;
-    height: 14%;
 	border-bottom:2px solid rgb(181, 184, 185);
 	color: white;
+	text-align: left;
 	background-color: rgb(0, 150, 218);
 }
 
-#home{
-	height: 100%;
+#header .icon-home, #header .icon-lightbuilb, #target{
+	display: inline-block;
+}
+#header .icon-home, #header .icon-lightbuilb{
+	width:22%;	
+}
+#target{	
 	border-right: 1px solid rgb(255, 255, 255);
-	float: left;
-}
-#hint{	
-	height: 100%;
 	border-left: 1px solid rgb(255, 255, 255);
-	float: left;
+	width:55%;
 }
-#target{
-	float: left;
-}
+
 #hint-container{
 	display: none;
 	position: absolute;
@@ -241,9 +239,6 @@ a {
 	color: rgb(0, 150, 218);
 }
 
-#level-chooser-page{
-	background: rgb(238, 238, 238);
-}
 #level-chooser-head{
 	text-align: left;
 }
