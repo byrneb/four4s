@@ -6,14 +6,6 @@ html,body {
     overflow-x: hidden; 
 	text-align: center;
 	outline: none;
-    -webkit-tap-highlight-color: rgba(255, 255, 255, 0);	
-	
-	-webkit-user-select: none;
-	-khtml-user-select: none;
-	-moz-user-select: none;
-	-o-user-select: none;
-	user-select: none; 
-	border-bottom:1px solid rgb(0, 0, 0);
 }
 a {
   color: white;
@@ -248,21 +240,28 @@ a {
 	margin-left:1%;
 	color: rgb(0, 150, 218);
 }
-
-#level-chooser-page{
-	height: 100%;	
-	width: 100%;	
-	background-color: rgb(238, 238, 238);
+#level-chooser-head{
+	width: 100%;
 }
-#level-chooser-home{
-	float: left;
-	margin: 10px;
-	padding: 10px;
+#level-chooser-head .icon-home{
 	background: white;
+	padding: 10px;
+	text-align: left;
 	color: rgb(0, 150, 218);
 }
+#level-chooser-page{
+	background: rgb(238, 238, 238);
+	height: 100%;
+}
+#choose-level{
+	height: 100%;
+}
+
 #level-chooser-info{
 	margin-bottom: 30px;
+}
+#level-container{
+	clear: both;
 }
 
 .icon-check{

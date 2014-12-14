@@ -1248,9 +1248,8 @@ calculateStylesheetProperties = function(){
 	var marginTop = 0.2 * bodyHeight;
 	changecss("#level-chooser-page","font-size",fontSize*1.2+"px");
 	changecss("#level-chooser-info","font-size",fontSize*.6+"px");
-	changecss("#level-chooser-home","font-size",fontSize*.6+"px");
+	changecss("#level-chooser-head .icon-home","font-size",fontSize*.6+"px");
 	changecss("#choose-level","font-size",fontSize*.8+"px");
-	changecss("#level-chooser-home","margin-bottom",bodyHeight*.08+"px");
 	changecss("#level-container","margin-bottom",bodyHeight*.06+"px");
 	//changecss("#level-chooser-page","margin-top",marginTop+"px");
 	
