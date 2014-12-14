@@ -3,17 +3,17 @@
    padding: 0px;
    text-align: center;
 }
-html,body,#four4sApp,#play-screen {
+html,body,#four4sApp {
     height: 100%;
+    background: rgb(238, 238, 238);
 }
 a {
   color: white;
   text-decoration: none; /* no underline */
 }
-#four4sApp{
-    background: rgb(238, 238, 238);
-}
+
 #play-screen {
+    height: 100%;
 	background: white;
 }
 #header{
