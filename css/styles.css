@@ -242,11 +242,6 @@ a {
 }
 
 #level-chooser-page{
-	width: 100%;
-    height: 100%;
-    margin: 0px;
-    padding: 0px;
-    overflow-x: hidden; 
 	background: rgb(238, 238, 238);
 }
 #level-chooser-head{
@@ -258,6 +253,9 @@ a {
 	margin: 10px;
 	background: white;
 	color: rgb(0, 150, 218);
+}
+#level-chooser-selector{
+	margin: 150px;
 }
 
 .icon-check{
