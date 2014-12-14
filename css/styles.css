@@ -243,7 +243,6 @@ a {
 
 #level-chooser-page{
 	background: rgb(238, 238, 238);
-	height: 100%;
 }
 #level-chooser-head{
 	text-align: left;
@@ -254,9 +253,6 @@ a {
 	margin: 10px;
 	background: white;
 	color: rgb(0, 150, 218);
-}
-#level-chooser-selector{
-	margin: 150px;
 }
 
 .icon-check{

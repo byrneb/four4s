@@ -626,7 +626,7 @@ app.HintView = Backbone.View.extend({
 
 app.LevelChooserView = Backbone.View.extend({
 	tagName: "div",
-	id: "age",
+	id: "level-chooser-page",
 
 	initialize: function(options){
 		_.bindAll(this, "render");
@@ -1176,12 +1176,6 @@ calculateStylesheetProperties = function(){
 	changecss("#hint-container","font-size",fontSize+"px");
 
 	/* Level Select */
-	var fontSize = 0.10 * bodyHeight;
-	var selectorMargin = 0.085 * bodyHeight;
-	changecss("#level-chooser-page","font-size",fontSize*.8+"px");
-	changecss("#level-chooser-selector","font-size",fontSize*1.1+"px");
-	changecss("#level-chooser-selector","margin",selectorMargin+"px");
-	
 
 };
 
