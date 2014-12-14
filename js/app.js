@@ -634,63 +634,11 @@ app.LevelChooserView = Backbone.View.extend({
 		this.template = _.template($("#level-manager-template").html());
 	},
 
-	upArrowOnmouseup: function() {
-        clearTimeout(to);
-        clearInterval(lint);
-        this.model.set('level', temp);
-    },    
-    upArrowOndblclick: function() {
-    	var that = this;
-    	temp = this.model.get('level');
-    	to = null;
-    	lint = null;
-
-    	temp++;
-        $("#level-chooser").html(temp);
-        to = setTimeout(function () {
-            lint = setInterval(function () {
-                temp+=2;
-                $("#level-chooser").html(temp);
-            }, 75);
-        }, 500);
-    },
-
-    downArrowOnmouseup: function() {
-        clearTimeout(to2);
-        clearInterval(lint2);
-        this.model.set('level', temp);
-    },    
-    downArrowOndblclick: function() {
-    	var that = this;
-    	temp = this.model.get('level');
-    	to2 = null;
-    	lint2 = null;
-
-    	if( temp > 1 )
-    		temp--;
-        $("#level-chooser").html(temp);
-        to2 = setTimeout(function () {
-            lint2 = setInterval(function () {
-            	if( temp > 2 )
-                	temp-=2;
-                $("#level-chooser").html(temp);
-            }, 75);
-        }, 500);
-    },
-
-    upChooselevel: function(){
-    	app.router.navigate("single-play", true);
-    },
-
 	render: function (){
 	    var model = this.model;
 		var renderedContent = this.template(this.model.toJSON());
 		$(this.el).html(renderedContent);
 		return this;
-	},
-
-	homeMenu: function (){
-		app.router.navigate("", true);
 	}
 })
 
