@@ -759,7 +759,7 @@ app.PlayScreenView = Backbone.View.extend({
 						this.solutionView.render().el,
 						this.buttonsView.render().el);
 
-		if( this.model.get('level') > 21 )
+		if( this.model.get('level') > 21  && this.model.get('mode') != "tutorial")
 			this.buttonsView.showExtraButtons();
 		else
 			calculateStylesheetProperties();
@@ -945,7 +945,8 @@ app.ButtonsView = Backbone.View.extend({
 	initialize : function(options){
 		_.bindAll(this, "render");
 		var target = options.localstore.read('target');
-		if(target<22)
+		var model = options.localstore.read("levelManagementModel");
+		if(target<22 || model == null || model.mode == 'tutorial')
 			this.template = _.template($("#buttons-template").html());
 		else			
 			this.showExtraButtons();
