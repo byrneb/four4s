@@ -240,28 +240,20 @@ a {
 	margin-left:1%;
 	color: rgb(0, 150, 218);
 }
-#level-chooser-head{
-	width: 100%;
-}
-#level-chooser-head .icon-home{
-	background: white;
-	padding: 10px;
-	text-align: left;
-	color: rgb(0, 150, 218);
-}
+
 #level-chooser-page{
 	background: rgb(238, 238, 238);
 	height: 100%;
 }
-#choose-level{
-	height: 100%;
+#level-chooser-head{
+	text-align: left;
 }
-
-#level-chooser-info{
-	margin-bottom: 30px;
-}
-#level-container{
-	clear: both;
+#level-chooser-head .icon-home{
+	display: inline-block;
+	padding: 10px;
+	margin: 10px;
+	background: white;
+	color: rgb(0, 150, 218);
 }
 
 .icon-check{
