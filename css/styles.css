@@ -242,6 +242,7 @@ a {
 }
 
 #level-chooser-page{
+	height: 99.9%;
 	background: rgb(238, 238, 238);
 }
 #level-chooser-head{
