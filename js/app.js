@@ -1143,81 +1143,69 @@ calculateStylesheetProperties = function(){
 
 	/* Header */
 	var padding = bodyHeight*0.04;
-	var headerFontSize = bodyHeight*0.04;
 	changecss("#header .icon-home, #header .icon-lightbuilb, #target","padding-top",padding+"px");
 	changecss("#header .icon-home, #header .icon-lightbuilb, #target","padding-bottom",padding+"px");
-	changecss("#header","font-size",headerFontSize+"px");
+	///
+	changecss("#header","font-size","4vh");
 
 	/* Home Screen */
 	var menuOptionHeight = $("body").height()*0.08;
-	var menuOptionFontSize = $("body").height()*0.033;
 	menuOptionHeight = Math.round(menuOptionHeight * 100) / 100;
-	menuOptionFontSize = Math.round(menuOptionFontSize * 100) / 100;
 	changecss(".leftside-edge, .rightside-edge","width",menuOptionHeight+"px");
 	changecss(".menu-option","margin-left",(-menuOptionHeight/2)+"px");
 	changecss(".menu-option","margin-right",(-menuOptionHeight/2)+"px");
-	changecss(".menu-option","font-size",menuOptionFontSize+"px");
+	///
+	changecss(".menu-option","font-size","3.3vh");
 
 	/* Solution */
 	var marginTop = bodyHeight*0.1;
 	var marginBottom = bodyHeight*0.025;
-	var solutionFontSize = bodyHeight*0.055;
-	var totalFontSize = bodyHeight*0.13;
 	marginTop = Math.round(marginTop * 100) / 100;
 	marginBottom = Math.round(marginBottom * 100) / 100;
-	solutionFontSize = Math.round(solutionFontSize * 100) / 100;
-	totalFontSize = Math.round(totalFontSize * 100) / 100;
 	changecss("#sol-container","margin-top",marginTop+"px");
 	changecss("#solution","margin-bottom",marginBottom+"px");
-	changecss("#solution","font-size",solutionFontSize+"px");
-	changecss(".font-size-1","font-size",solutionFontSize*.8+"px");
-	changecss(".font-size-2","font-size",solutionFontSize*.6+"px");
-	changecss(".font-size-3","font-size",solutionFontSize*.4+"px");
-	changecss(".font-size-4","font-size",solutionFontSize*.2+"px");
-	changecss("#total","font-size",totalFontSize+"px");
+	///
+	changecss("#solution","font-size","5.5vh");
+	changecss(".font-size-1","font-size","4.4vh");
+	changecss(".font-size-2","font-size","3.3vh");
+	changecss(".font-size-3","font-size","2.2vh");
+	changecss(".font-size-4","font-size","1.1vh");
+	changecss("#total","font-size","13vh");
 
 
-	/* Modal */        
-	var modalFontSize = 0.07*bodyHeight;
+	/* Modal */
 	var modalMarginTop = 0.04 * bodyHeight;
 	var strikeThroughMarginTop = 0.085 * bodyHeight;
-	var strikeThroughFontSize = 0.27 * bodyHeight;
 	var tutorialTextMarginTop = 0.035 * bodyHeight;
-	var tutorialFontSize =  0.05*bodyHeight;
-	var smallTutorialFontSize =  0.0375*bodyHeight;
 	var foursMarginTop =  0.045*bodyHeight;
-	var smileyFontSize =  0.07 * bodyHeight;
-	var completeFontSize =  0.11 * bodyHeight;
-	var plusFontSize =  0.05 * bodyHeight;
-	var newSymbolFontSize = 0.175*bodyHeight;
 	var explainMarginTop = 0.04*bodyHeight;
 	var newSymbolMarginTop = 0.05625*bodyHeight;
-	modalFontSize = Math.round(modalFontSize * 100) / 100;
 	modalMarginTop = Math.round(modalMarginTop * 100) / 100;
 	strikeThroughMarginTop = Math.round(strikeThroughMarginTop * 100) / 100;
-	strikeThroughFontSize = Math.round(strikeThroughFontSize * 100) / 100;
 
-	changecss(".modal-header","font-size",modalFontSize+"px");
 	changecss(".modal-header","margin-top",modalMarginTop+"px");
 	changecss(".strikethrough","margin-top",strikeThroughMarginTop+"px");
-	changecss(".strikethrough","font-size",strikeThroughFontSize+"px");
-	changecss(".modal-msg, .tutorial-top","margin-top",tutorialTextMarginTop+"px");
-	changecss(".modal-msg, .tutorial-top","font-size",tutorialFontSize+"px");
-	changecss(".extra-modal-msg","font-size",smallTutorialFontSize+"px");
-	changecss(".modal-msg i","font-size", (tutorialFontSize+2)+"px");
+	changecss(".new-symbol","margin-top",newSymbolMarginTop+"px");
+	changecss(".modal-msg .icon-check, .target-text", "margin-top", -(tutorialTextMarginTop/2)+"px");
+	changecss(".target-text", "margin-top", (tutorialTextMarginTop/2)+"px");
+	changecss(".modal-msg","margin-top",tutorialTextMarginTop+"px");
 	changecss(".modal-msg i","line-height", "1.3");
 	changecss(".modal-msg i","margin-top", "0px");
 	changecss(".fours","margin-top", foursMarginTop+"px");
-	changecss(".modal-msg .icon-smile" , "font-size", (smileyFontSize*1.4)+"px");
-	changecss(".modal-msg .icon-four-key" , "font-size", (smileyFontSize*.9)+"px");
-	changecss(".modal-msg .icon-check", "font-size", completeFontSize+"px");
-	changecss(".modal-msg .icon-check, .target-text", "margin-top", -(tutorialTextMarginTop/2)+"px");
-	changecss(".modal-msg .icon-plus-key", "font-size", plusFontSize+"px");
-	changecss(".target-text", "font-size", (smileyFontSize*2)+"px");
-	changecss(".modal-msg .icon-lightbuilb", "font-size", (smileyFontSize*1.5)+"px");
-	changecss(".target-text", "margin-top", (tutorialTextMarginTop/2)+"px");
-	changecss(".new-symbol i","font-size",newSymbolFontSize+"px");
-	changecss(".new-symbol","margin-top",newSymbolMarginTop+"px");
+
+	///
+	changecss(".extra-modal-msg","font-size","3.75vh");
+	changecss(".modal-msg .icon-check", "font-size", "11vh");
+	changecss(".modal-msg .icon-plus-key", "font-size", "5vh");
+	changecss(".modal-msg .icon-smile" , "font-size", "9.8vh");
+	changecss(".modal-msg .icon-four-key" , "font-size", "6.3vh");
+	changecss(".modal-msg.target-text", "font-size", "14vh");
+	changecss(".modal-msg .icon-lightbuilb", "font-size", "10.5vh");
+	changecss(".new-symbol i","font-size","17.5vh");
+	changecss(".strikethrough","font-size","27vh");
+	changecss(".modal-msg","font-size","5vh");
+	changecss(".modal-header","font-size","6vh");
+	changecss(".modal-msg.new-symbols","font-size","8vh");
 	
 
 	/* Symbol */
@@ -1227,23 +1215,23 @@ calculateStylesheetProperties = function(){
 	var middleButtonMargin = Math.floor((totalWidth - (3*(diameter + padding)))/2);
 	var marginTop = 0.05 * bodyHeight;
 	marginTop = Math.round(marginTop * 100) / 100;
-	changecss(".button","font-size",diameter+"px");
 	changecss(".button","margin-top",marginTop+"px");
 	changecss("#buttons","width",totalWidth+"px");
 	changecss(".button.icon-plus-key, .button.icon-mutliply-key, .button.icon-right-bracket-key, .button.icon-square-key","margin-left",middleButtonMargin+"px");
 	changecss(".button.icon-plus-key, .button.icon-mutliply-key, .button.icon-right-bracket-key, .button.icon-square-key","margin-right",middleButtonMargin+"px");
+	///
+	changecss(".button","font-size","10vh");
 
 	/* Hint */
 	var lineHeight = 0.085 * bodyHeight;
-	var fontSize = 0.06 * bodyHeight;
 	changecss("#hint-container","line-height",lineHeight+"px");
-	changecss("#hint-container","font-size",fontSize+"px");
+	changecss("#hint-container","font-size","6vh");
 
 	/* Level Select */
 	var fontSize = 0.10 * bodyHeight;
 	var selectorMargin = 0.085 * bodyHeight;
-	changecss("#level-chooser-page","font-size",fontSize*.8+"px");
-	changecss("#level-chooser-selector","font-size",fontSize*1.1+"px");
+	changecss("#level-chooser-page","font-size","8vh");
+	changecss("#level-chooser-selector","font-size","11vh");
 	changecss("#level-chooser-selector","margin",selectorMargin+"px");
 	
 
@@ -1345,14 +1333,4 @@ $(function() {
 	Backbone.history.start();
 
 	document.addEventListener("backbutton", backbuttonPressed, false);
-
-	$("#test").swipe( {
-        //Generic swipe handler for all directions
-        swipe:function(event, direction, distance, duration, fingerCount, fingerData) {
-          $(this).text("You swiped " + direction );  
-        },
-        //Default is 75px, set to 0 for demo so any distance triggers swipe
-         threshold:0
-      });
-
 });
