@@ -1200,8 +1200,7 @@ calculateStylesheetProperties = function(){
 	/* Symbol */
 	var diameter = Math.floor(0.1 * bodyHeight);
 	var totalWidth = Math.ceil(0.8 * bodyWidth);
-	var padding = 2 * 1;  
-	var middleButtonMargin = Math.floor((totalWidth - (3*(diameter + padding)))/2);
+	var middleButtonMargin = Math.floor((totalWidth - (3*(diameter + 2)))/2);
 	var marginTop = 0.05 * bodyHeight;
 	marginTop = Math.round(marginTop * 100) / 100;
 	changecss(".button","margin-top",marginTop+"px");
@@ -1212,13 +1211,9 @@ calculateStylesheetProperties = function(){
 	/* Hint */
 	var lineHeight = 0.085 * bodyHeight;
 	changecss("#hint-container","line-height",lineHeight+"px");
-	changecss("#hint-container","font-size","6vh");
 
 	/* Level Select */
-	var fontSize = 0.10 * bodyHeight;
 	var selectorMargin = 0.085 * bodyHeight;
-	changecss("#level-chooser-page","font-size","8vh");
-	changecss("#level-chooser-selector","font-size","11vh");
 	changecss("#level-chooser-selector","margin",selectorMargin+"px");
 	
 

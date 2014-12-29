@@ -40,6 +40,7 @@ a {
 	box-shadow: inset 0 0 2px #B3B3B2;
 	color: rgb(0, 150, 218);
 	border-radius: 5px;
+	font-size: 6vh;
 }
 #above-target-filler{
 	height: 35%;
@@ -88,9 +89,6 @@ a {
 	cursor: default;
 	color: rgb(0, 150, 218);
 	font-size: 10vh;
-	
-	/* IE9 and 10 */
-  	content: 'viewport-units-buggyfill; font-size: 10vh;';
 }
 .new-symbols i{
 	margin-right: 5%;
@@ -250,6 +248,7 @@ a {
 }
 #level-chooser-page{
 	background-color: rgb(229, 230, 230);
+	font-size: 8vh;
 }
 #level-chooser-head{
 	text-align: left;
@@ -263,6 +262,7 @@ a {
 }
 #level-chooser-selector{
 	margin: 150px;
+	font-size: 11vh;
 }
 
 .icon-check{
