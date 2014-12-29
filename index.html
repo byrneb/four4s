@@ -2,28 +2,20 @@
 <html>
 <head>
 	<title>Four4s</title>
-	<!-- 
-      This is the base buggyfill. 
--->
-<script src="lib/viewport-units-buggyfill.js"></script>
 
-<!--
-      This is the hacks plugin needed for contentHacks to work correctly 
-      (see below).
--->
-<script src="lib/viewport-units-buggyfill.hacks.js"></script>
-<script>window.viewportUnitsBuggyfill.init({
-
-    // milliseconds to delay between updates of viewport-units
-    // caused by orientationchange, pageshow, resize events
-    refreshDebounceWait: 250,
-
-    // provide hacks plugin to make the contentHack property work correctly.
-    hacks: window.viewportUnitsBuggyfillHacks
-
-});</script>
 	<link rel="stylesheet" href="css/styles.css" />
 	<link rel="stylesheet" href="css/font-awesome.min.css" />
+	<!-- 
+	      This is the base buggyfill. 
+	-->
+	<script src="lib/viewport-units-buggyfill.js"></script>
+
+	<!--
+	      This is the hacks plugin needed for contentHacks to work correctly 
+	      (see below).
+	-->
+	<script src="lib/viewport-units-buggyfill.hacks.js"></script>
+	<script>window.viewportUnitsBuggyfill.init({hacks: window.viewportUnitsBuggyfillHacks});</script>
 </head>
 
 	<body>
