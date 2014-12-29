@@ -1145,8 +1145,6 @@ calculateStylesheetProperties = function(){
 	var padding = bodyHeight*0.04;
 	changecss("#header .icon-home, #header .icon-lightbuilb, #target","padding-top",padding+"px");
 	changecss("#header .icon-home, #header .icon-lightbuilb, #target","padding-bottom",padding+"px");
-	///
-	changecss("#header","font-size","4vh");
 
 	/* Home Screen */
 	var menuOptionHeight = $("body").height()*0.08;
@@ -1154,8 +1152,6 @@ calculateStylesheetProperties = function(){
 	changecss(".leftside-edge, .rightside-edge","width",menuOptionHeight+"px");
 	changecss(".menu-option","margin-left",(-menuOptionHeight/2)+"px");
 	changecss(".menu-option","margin-right",(-menuOptionHeight/2)+"px");
-	///
-	changecss(".menu-option","font-size","3.3vh");
 
 	/* Solution */
 	var marginTop = bodyHeight*0.1;
@@ -1164,13 +1160,6 @@ calculateStylesheetProperties = function(){
 	marginBottom = Math.round(marginBottom * 100) / 100;
 	changecss("#sol-container","margin-top",marginTop+"px");
 	changecss("#solution","margin-bottom",marginBottom+"px");
-	///
-	changecss("#solution","font-size","5.5vh");
-	changecss(".font-size-1","font-size","4.4vh");
-	changecss(".font-size-2","font-size","3.3vh");
-	changecss(".font-size-3","font-size","2.2vh");
-	changecss(".font-size-4","font-size","1.1vh");
-	changecss("#total","font-size","13vh");
 
 
 	/* Modal */
@@ -1219,8 +1208,6 @@ calculateStylesheetProperties = function(){
 	changecss("#buttons","width",totalWidth+"px");
 	changecss(".button.icon-plus-key, .button.icon-mutliply-key, .button.icon-right-bracket-key, .button.icon-square-key","margin-left",middleButtonMargin+"px");
 	changecss(".button.icon-plus-key, .button.icon-mutliply-key, .button.icon-right-bracket-key, .button.icon-square-key","margin-right",middleButtonMargin+"px");
-	///
-	changecss(".button","font-size","10vh");
 
 	/* Hint */
 	var lineHeight = 0.085 * bodyHeight;
