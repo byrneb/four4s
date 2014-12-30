@@ -15,6 +15,7 @@ a {
 	color: white;
 	background-color: rgb(0, 150, 218);
 	font-size: 4vh;
+	content: 'viewport-units-buggyfill; font-size: 4vh;';
 }
 
 #header .icon-home, #header .icon-lightbuilb, #target{
@@ -41,6 +42,7 @@ a {
 	color: rgb(0, 150, 218);
 	border-radius: 5px;
 	font-size: 6vh;
+	content: 'viewport-units-buggyfill; font-size: 6vh;';
 }
 #above-target-filler{
 	height: 35%;
@@ -55,18 +57,23 @@ a {
 	width: 100%;
     height: 25%;
     font-size: 5.5vh;
+    content: 'viewport-units-buggyfill; font-size: 5.5vh;';
 }
 .font-size-1{
 	font-size: 4.4vh;
+    content: 'viewport-units-buggyfill; font-size: 4.4vh;';
 }
 .font-size-2{
 	font-size: 3.3vh;
+    content: 'viewport-units-buggyfill; font-size: 3.3vh;';
 }
 .font-size-3{
 	font-size: 2.2vh;
+    content: 'viewport-units-buggyfill; font-size: 2.2vh;';
 }
 .font-size-4{
 	font-size: 1.1vh;
+    content: 'viewport-units-buggyfill; font-size: 1.1vh;';
 }
 .sum {
 	border-top: 2px solid;
@@ -77,6 +84,7 @@ a {
     height: 59%;
 	position: relative;
 	font-size: 13vh;
+	content: 'viewport-units-buggyfill; font-size: 13vh;';
 }
 #buttons{
 	width: 80%;
@@ -122,9 +130,10 @@ a {
 #menu-title{
 	width: 85%;
 	margin-left: 7.5%;
-	font-size: 10vh;
 	background: white;
 	font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+	font-size: 10vh;
+	content: 'viewport-units-buggyfill; font-size: 10vh;';
 }
 
 #menu-header{
@@ -139,12 +148,13 @@ a {
 .menu-option{
 	width: 50%;
 	height: 8%;
-	font-size: 3.3vh;
 	color: white;
 	background: rgb(0, 150, 218);
 	float: left;
 	margin-left: -3%;
 	line-height: 100%;
+	font-size: 3.3vh;
+	content: 'viewport-units-buggyfill; font-size: 3.3vh;';
 }
 .menu-option-leading{
 	height: 30%;
@@ -195,8 +205,9 @@ a {
 .modal-header {
 	height: 22%;
 	border-bottom: 1px solid #eee;
-	font-size: 6vh;
 	color: rgb(82, 80, 80);
+	font-size: 6vh;
+	content: 'viewport-units-buggyfill; font-size: 6vh;';
 }
 .rule {display: none;}
 .strikethrough {
@@ -237,6 +248,7 @@ a {
 
 .modal-msg{
 	font-size: 5vh;
+	content: 'viewport-units-buggyfill; font-size: 5vh;';
 }
 .modal-msg .icon-smile, .modal-msg .icon-four-key,.modal-msg .icon-lightbuilb, .modal-msg .icon-factorial-key, .modal-msg .icon-square-key, .modal-msg .icon-power-key  {
 	color: rgb(0, 150, 218);
@@ -245,36 +257,46 @@ a {
 .modal-msg .icon-four-key {
 	margin-left:2%;
 	font-size: 6.3vh;
+	content: 'viewport-units-buggyfill; font-size: 6.3vh;';
 }
 .modal-msg .icon-check{
 	font-size: 11vh;
+	content: 'viewport-units-buggyfill; font-size: 11vh;';
 }
 .modal-msg .icon-smile {
 	font-size: 9.8vh;
+	content: 'viewport-units-buggyfill; font-size: 9.8vh;';
 }
 .modal-msg .icon-lightbuilb {
 	font-size: 10.5vh;
+	content: 'viewport-units-buggyfill; font-size: 10.5vh;';
 }
 .modal-msg .icon-plus-key{
 	margin-left:1%;
 	color: rgb(0, 150, 218);
 	font-size: 5vh;
+	content: 'viewport-units-buggyfill; font-size: 5vh;';
 }
 .modal-msg.target-text{
 	font-size: 14vh;
+	content: 'viewport-units-buggyfill; font-size: 14vh;';
 }
 .modal-msg.new-symbols{
 	font-size: 8vh;
+	content: 'viewport-units-buggyfill; font-size: 8vh;';
 }
 .extra-modal-msg{
 	font-size: 3.75vh;
+	content: 'viewport-units-buggyfill; font-size: 3.75vh;';
 }
 .new-symbol i{
 	font-size: 17.5vh;
+	content: 'viewport-units-buggyfill; font-size: 17.75vh;';
 }
 #level-chooser-page{
 	background-color: rgb(229, 230, 230);
 	font-size: 8vh;
+	content: 'viewport-units-buggyfill; font-size: 8vh;';
 }
 #level-chooser-head{
 	text-align: left;
@@ -289,6 +311,7 @@ a {
 #level-chooser-selector{
 	margin: 150px;
 	font-size: 11vh;
+	content: 'viewport-units-buggyfill; font-size: 11vh;';
 }
 
 .icon-check{
