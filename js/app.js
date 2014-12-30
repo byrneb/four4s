@@ -1183,18 +1183,7 @@ calculateStylesheetProperties = function(){
 	changecss(".fours","margin-top", foursMarginTop+"px");
 
 	///
-	changecss(".extra-modal-msg","font-size","3.75vh");
-	changecss(".modal-msg .icon-check", "font-size", "11vh");
-	changecss(".modal-msg .icon-plus-key", "font-size", "5vh");
-	changecss(".modal-msg .icon-smile" , "font-size", "9.8vh");
-	changecss(".modal-msg .icon-four-key" , "font-size", "6.3vh");
-	changecss(".modal-msg.target-text", "font-size", "14vh");
-	changecss(".modal-msg .icon-lightbuilb", "font-size", "10.5vh");
-	changecss(".new-symbol i","font-size","17.5vh");
-	changecss(".strikethrough","font-size","27vh");
-	changecss(".modal-msg","font-size","5vh");
 	changecss(".modal-header","font-size","6vh");
-	changecss(".modal-msg.new-symbols","font-size","8vh");
 	
 
 	/* Symbol */
