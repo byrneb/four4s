@@ -761,8 +761,6 @@ app.PlayScreenView = Backbone.View.extend({
 
 		if( this.model.get('level') > 21  && this.model.get('mode') != "tutorial")
 			this.buttonsView.showExtraButtons();
-		else
-			calculateStylesheetProperties();
 
 		return this;
 	},
@@ -1080,93 +1078,6 @@ Router = Backbone.Router.extend({
 	}
 });
 
-changecss = function (theClass,element,value) {
-    //http://www.shawnolson.net/a/503/altering-css-class-attributes-with-javascript.html
-    var cssRules;
-
-
-    for (var S = 0; S < document.styleSheets.length; S++){
-
-
-    	try{
-    		document.styleSheets[S].insertRule(theClass+" { "+element+": "+value+"; }",document.styleSheets[S][cssRules].length);
-
-    	} catch(err){
-    		try{document.styleSheets[S].addRule(theClass,element+": "+value+";");
-
-	    	}catch(err){
-
-	    		try{
-	    			if (document.styleSheets[S]["rules"]) {
-	    				cssRules = "rules";
-	    			} else if (document.styleSheets[S]["cssRules"]) {
-	    				cssRules = "cssRules";
-	    			} else {
-	                                      //no rules found... browser unknown
-	                                  }
-
-	              	for (var R = 0; R < document.styleSheets[S][cssRules].length; R++) {
-	              		if (document.styleSheets[S][cssRules][R].selectorText == theClass) {
-	              			if(document.styleSheets[S][cssRules][R].style[element]){
-	              				document.styleSheets[S][cssRules][R].style[element] = value;
-	              				break;
-	              			}
-	              		}
-	              	}
-	          		} catch (err){}
-
-
-
-      		}
-
-		}
-
-
-  	}
-};
-
-calculateStylesheetProperties = function(){
-	var bodyHeight = $("body").height();
-	var bodyWidth = $("body").width();
-
-	/* Header */
-	var padding = bodyHeight*0.04;
-	changecss("#header .icon-home, #header .icon-lightbuilb, #target","padding-top",padding+"px");
-	changecss("#header .icon-home, #header .icon-lightbuilb, #target","padding-bottom",padding+"px");
-
-	/* Home Screen */
-	var menuOptionHeight = $("body").height()*0.08;
-	menuOptionHeight = Math.round(menuOptionHeight * 100) / 100;
-	changecss(".leftside-edge, .rightside-edge","width",menuOptionHeight+"px");
-	changecss(".menu-option","margin-left",(-menuOptionHeight/2)+"px");
-	changecss(".menu-option","margin-right",(-menuOptionHeight/2)+"px");
-
-	/* Modal */
-	var modalMarginTop = 0.04 * bodyHeight;
-	var strikeThroughMarginTop = 0.085 * bodyHeight;
-	var tutorialTextMarginTop = 0.035 * bodyHeight;
-	var foursMarginTop =  0.045*bodyHeight;
-	var explainMarginTop = 0.04*bodyHeight;
-	var newSymbolMarginTop = 0.05625*bodyHeight;
-	modalMarginTop = Math.round(modalMarginTop * 100) / 100;
-	strikeThroughMarginTop = Math.round(strikeThroughMarginTop * 100) / 100;
-	changecss(".modal-header","margin-top",modalMarginTop+"px");
-	changecss(".strikethrough","margin-top",strikeThroughMarginTop+"px");
-	changecss(".new-symbol","margin-top",newSymbolMarginTop+"px");
-	changecss(".modal-msg .icon-check, .target-text", "margin-top", -(tutorialTextMarginTop/2)+"px");
-	changecss(".target-text", "margin-top", (tutorialTextMarginTop/2)+"px");
-	changecss(".modal-msg","margin-top",tutorialTextMarginTop+"px");
-	changecss(".modal-msg i","line-height", "1.3");
-	changecss(".modal-msg i","margin-top", "0px");
-	changecss(".fours","margin-top", foursMarginTop+"px");
-
-	/* Level Select */
-	var selectorMargin = 0.085 * bodyHeight;
-	changecss("#level-chooser-selector","margin",selectorMargin+"px");
-	
-
-};
-
 gama = function(z) {
 
 	var g = 7;
@@ -1258,7 +1169,6 @@ $(function() {
 		FastClick.attach(document.body);
 	}, false);
 
-	calculateStylesheetProperties();
 	app.router = new Router();
 	Backbone.history.start();
 

@@ -20,6 +20,9 @@ a {
 
 #header .icon-home, #header .icon-lightbuilb, #target{
 	display: inline-block;
+	padding-top: 4vh;
+	padding-bottom: 4vh;
+	content: 'viewport-units-buggyfill; padding-bottom: 4vh;padding-top: 4vh;';
 }
 #header .icon-home, #header .icon-lightbuilb{
 	width:22%;	
@@ -160,10 +163,11 @@ a {
 	color: white;
 	background: rgb(0, 150, 218);
 	float: left;
-	margin-left: -3%;
+	margin-left: -4vh;
+	margin-right: -4vh;
 	line-height: 100%;
 	font-size: 3.3vh;
-	content: 'viewport-units-buggyfill; font-size: 3.3vh;';
+	content: 'viewport-units-buggyfill; font-size: 3.3vh;margin-left: -4vh;margin-right: -4vh;';
 }
 .menu-option-leading{
 	height: 30%;
@@ -175,20 +179,16 @@ a {
 	float: left;
 }
 .leftside-edge{
-	width: 8%;
 	margin-left: 20%;
-	height: 8%;
-	background: rgb(0, 150, 218);
-	float: left;
-	border-radius: 50%;
 }
 
-.rightside-edge{
-	width: 8%;
-	height: 8%;
+.rightside-edge, .leftside-edge{
+	width: 8vh;
+	height: 8vh;
 	background: rgb(0, 150, 218);
 	float: left;
 	border-radius: 50%;
+	content: 'viewport-units-buggyfill; width: 8vh;height: 8vh;';
 }
 
 .modal-view {
@@ -216,7 +216,8 @@ a {
 	border-bottom: 1px solid #eee;
 	color: rgb(82, 80, 80);
 	font-size: 6vh;
-	content: 'viewport-units-buggyfill; font-size: 6vh;';
+	margin-top: 4vh;
+	content: 'viewport-units-buggyfill; font-size: 6vh; margin-top: 4vh;';
 }
 .rule {display: none;}
 .strikethrough {
@@ -225,7 +226,8 @@ a {
 	display: inline-block;
 	line-height: .7;
 	font-size: 27vh;
-	content: 'viewport-units-buggyfill; font-size: 27vh;';
+	margin-top: 8.5vh;
+	content: 'viewport-units-buggyfill; font-size: 27vh; margin-top: 8.5vh;';
 }
 .strikethrough:after {
 	content: "";
@@ -258,7 +260,8 @@ a {
 
 .modal-msg{
 	font-size: 5vh;
-	content: 'viewport-units-buggyfill; font-size: 5vh;';
+	margin-top: 3.5vh;
+	content: 'viewport-units-buggyfill; font-size: 5vh; margin-top: 3.5vh;';
 }
 .modal-msg .icon-smile, .modal-msg .icon-four-key,.modal-msg .icon-lightbuilb, .modal-msg .icon-factorial-key, .modal-msg .icon-square-key, .modal-msg .icon-power-key  {
 	color: rgb(0, 150, 218);
@@ -289,15 +292,21 @@ a {
 }
 .modal-msg.target-text{
 	font-size: 14vh;
-	content: 'viewport-units-buggyfill; font-size: 14vh;';
+	margin-top: 2vh;
+	content: 'viewport-units-buggyfill; font-size: 14vh; margin-top: 2vh;';
 }
 .modal-msg.new-symbols{
 	font-size: 8vh;
-	content: 'viewport-units-buggyfill; font-size: 8vh;';
+	margin-top: 5.625vh;
+	content: 'viewport-units-buggyfill; font-size: 8vh; margin-top: 5.625vh;';
 }
 .extra-modal-msg{
 	font-size: 3.75vh;
 	content: 'viewport-units-buggyfill; font-size: 3.75vh;';
+}
+.fours{
+	margin-top: 4.5vh;
+	content: 'viewport-units-buggyfill; margin-top: 4.5vh;';
 }
 .new-symbol i{
 	font-size: 17.5vh;
@@ -319,9 +328,9 @@ a {
 	color: rgb(0, 150, 218);
 }
 #level-chooser-selector{
-	margin: 150px;
+	margin: 8.5vh;
 	font-size: 11vh;
-	content: 'viewport-units-buggyfill; font-size: 11vh;';
+	content: 'viewport-units-buggyfill; font-size: 11vh; margin: 8.5vh;';
 }
 
 .icon-check{
