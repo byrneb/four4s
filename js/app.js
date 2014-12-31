@@ -878,7 +878,7 @@ app.HeaderView = Backbone.View.extend({
 	},
 
 	hint : function(){
-       	var heading = $("#hint-container");
+       	var heading = $(".hint-box");
        	if(heading.css('display') == 'block'){
           	heading.stop(true, true);
           	heading.css({ display: 'none'});
@@ -994,18 +994,6 @@ app.ButtonsView = Backbone.View.extend({
 	showExtraButtons : function(){
 		this.template = _.template($("#plus-21-buttons-template").html());
 		this.render();
-		var bodyHeight = $("body").height();
-		var bodyWidth = $("body").width();
-		var diameter = Math.floor(0.08 * bodyHeight);
-		var totalWidth = Math.ceil(0.8 * bodyWidth);
-		var padding = 2 * 1;  
-		var middleButtonMargin = Math.floor((totalWidth - (3*(diameter + padding)))/2);
-		var marginTop = 0.035 * bodyHeight;
-		marginTop = Math.round(marginTop * 100) / 100;
-		changecss(".button","font-size",diameter+"px");
-		changecss(".button","margin-top",marginTop+"px");
-		changecss(".button.icon-plus-key, .button.icon-mutliply-key, .button.icon-right-bracket-key, .button.icon-square-key","margin-left",middleButtonMargin+"px");
-		changecss(".button.icon-plus-key, .button.icon-mutliply-key, .button.icon-right-bracket-key, .button.icon-square-key","margin-right",middleButtonMargin+"px");
 	}
 });
 
@@ -1153,15 +1141,6 @@ calculateStylesheetProperties = function(){
 	changecss(".menu-option","margin-left",(-menuOptionHeight/2)+"px");
 	changecss(".menu-option","margin-right",(-menuOptionHeight/2)+"px");
 
-	/* Solution */
-	var marginTop = bodyHeight*0.1;
-	var marginBottom = bodyHeight*0.025;
-	marginTop = Math.round(marginTop * 100) / 100;
-	marginBottom = Math.round(marginBottom * 100) / 100;
-	changecss("#sol-container","margin-top",marginTop+"px");
-	changecss("#solution","margin-bottom",marginBottom+"px");
-
-
 	/* Modal */
 	var modalMarginTop = 0.04 * bodyHeight;
 	var strikeThroughMarginTop = 0.085 * bodyHeight;
@@ -1171,7 +1150,6 @@ calculateStylesheetProperties = function(){
 	var newSymbolMarginTop = 0.05625*bodyHeight;
 	modalMarginTop = Math.round(modalMarginTop * 100) / 100;
 	strikeThroughMarginTop = Math.round(strikeThroughMarginTop * 100) / 100;
-
 	changecss(".modal-header","margin-top",modalMarginTop+"px");
 	changecss(".strikethrough","margin-top",strikeThroughMarginTop+"px");
 	changecss(".new-symbol","margin-top",newSymbolMarginTop+"px");
@@ -1181,25 +1159,6 @@ calculateStylesheetProperties = function(){
 	changecss(".modal-msg i","line-height", "1.3");
 	changecss(".modal-msg i","margin-top", "0px");
 	changecss(".fours","margin-top", foursMarginTop+"px");
-
-	///
-	changecss(".modal-header","font-size","6vh");
-	
-
-	/* Symbol */
-	var diameter = Math.floor(0.1 * bodyHeight);
-	var totalWidth = Math.ceil(0.8 * bodyWidth);
-	var middleButtonMargin = Math.floor((totalWidth - (3*(diameter + 2)))/2);
-	var marginTop = 0.05 * bodyHeight;
-	marginTop = Math.round(marginTop * 100) / 100;
-	changecss(".button","margin-top",marginTop+"px");
-	changecss("#buttons","width",totalWidth+"px");
-	changecss(".button.icon-plus-key, .button.icon-mutliply-key, .button.icon-right-bracket-key, .button.icon-square-key","margin-left",middleButtonMargin+"px");
-	changecss(".button.icon-plus-key, .button.icon-mutliply-key, .button.icon-right-bracket-key, .button.icon-square-key","margin-right",middleButtonMargin+"px");
-
-	/* Hint */
-	var lineHeight = 0.085 * bodyHeight;
-	changecss("#hint-container","line-height",lineHeight+"px");
 
 	/* Level Select */
 	var selectorMargin = 0.085 * bodyHeight;
