@@ -93,9 +93,8 @@ a {
 }
 #buttons{
 	width: 80%;
-	left: 10%;
+	margin-left: 10%;
     height: 50%;
-    position: relative;
 }
 .button.icon-four-key, .button.icon-dot-key, .button.icon-factorial-key, .button.icon-left-bracket-key{
 	float:left;
@@ -105,9 +104,8 @@ a {
 }
 .button{
 	cursor: default;
+	display: inline;
 	color: rgb(0, 150, 218);
-	position: relative;
-	display: inline-block;
 }
 .starter-keyboard .button{	
 	font-size: 10vh;
@@ -118,7 +116,8 @@ a {
 	content: 'viewport-units-buggyfill; font-size: 13vh;';
 }
 .full-keyboard .button{
-	top: 3vh;	
+    position: relative;
+	top: 3vh;
 	font-size: 10vh;
 	content: 'viewport-units-buggyfill;  top:3vh; font-size: 10vh;';
 }
