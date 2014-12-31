@@ -100,7 +100,7 @@ a {
 }
 .button.icon-plus-key, .button.icon-mutliply-key, .button.icon-square-key, .button.icon-right-bracket-key{
 	left: calc((80vw - 3*10vh)/2);
-	content: 'viewport-units-buggyfill; calc((80vw - 3*10vh)/2);';
+	content: 'viewport-units-buggyfill; left:calc((80vw - 3*10vh)/2);';
 }
 .button.icon-minus-key, .button.icon-back-key, .button.icon-power-key, .button.icon-divide-key{
     left: calc(80vw - 3*10vh);
