@@ -92,28 +92,20 @@ a {
 	content: 'viewport-units-buggyfill; font-size: 13vh;';
 }
 #buttons{
-	width: 80%;
-	margin-left: 10%;
+	width: 100%;
     height: 50%;
-}
-.button.icon-four-key, .button.icon-dot-key, .button.icon-factorial-key, .button.icon-left-bracket-key{
-	float:left;
-}
-.button.icon-minus-key, .button.icon-back-key, .button.icon-power-key, .button.icon-divide-key{
-	float: right;
 }
 .button{
 	cursor: default;
-	display: inline;
 	color: rgb(0, 150, 218);
 }
-.starter-keyboard .button{	
-	font-size: 10vh;
-	content: 'viewport-units-buggyfill; font-size: 10vh;';
+.starter-keyboard{	
+	width: 100%;
+	height: 100%;
 }
-.keyboard-row{
-	height: 13vh;
-	content: 'viewport-units-buggyfill; font-size: 13vh;';
+.starter-keyboard .button{
+	font-size: 12vh;
+	content: 'viewport-units-buggyfill; font-size: 10vh;';
 }
 .full-keyboard .button{
     position: relative;
