@@ -99,19 +99,17 @@ a {
 	cursor: default;
 	color: rgb(0, 150, 218);
 }
-.starter-keyboard{	
+.starter-keyboard, .full-keyboard{	
 	width: 100%;
 	height: 100%;
 }
 .starter-keyboard .button{
 	font-size: 12vh;
-	content: 'viewport-units-buggyfill; font-size: 10vh;';
+	content: 'viewport-units-buggyfill; font-size: 12vh;';
 }
 .full-keyboard .button{
-    position: relative;
-	top: 3vh;
 	font-size: 10vh;
-	content: 'viewport-units-buggyfill;  top:3vh; font-size: 10vh;';
+	content: 'viewport-units-buggyfill; font-size: 10vh;';
 }
 .new-symbols i{
 	margin-right: 5%;
