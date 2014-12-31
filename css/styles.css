@@ -96,15 +96,12 @@ a {
 	left: 10%;
     height: 50%;
     position: relative;
-    text-align: start;
 }
-.button.icon-plus-key, .button.icon-mutliply-key, .button.icon-square-key, .button.icon-right-bracket-key{
-	left: calc((80vw - 3*10vh)/2);
-	content: 'viewport-units-buggyfill; left:calc((80vw - 3*10vh)/2);';
+.button.icon-four-key, .button.icon-dot-key, .button.icon-factorial-key, .button.icon-left-bracket-key{
+	float:left;
 }
 .button.icon-minus-key, .button.icon-back-key, .button.icon-power-key, .button.icon-divide-key{
-    left: calc(80vw - 3*10vh);
-	content: 'viewport-units-buggyfill; left: calc(80vw - 3*10vh);';
+	float: right;
 }
 .button{
 	cursor: default;
