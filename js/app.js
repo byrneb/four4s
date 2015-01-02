@@ -825,8 +825,6 @@ app.PlayScreenView = Backbone.View.extend({
 
 		if( level > 21 )
 			this.buttonsView.showExtraButtons();
-		else
-			calculateStylesheetProperties();
 	}
 });
 
