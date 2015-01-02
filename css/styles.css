@@ -299,6 +299,7 @@ a {
 	margin: 1.4vh;
 	background: white;
 	color: rgb(0, 150, 218);
+	content: 'viewport-units-buggyfill; padding: 1.4vh; margin: 1.4vh;';
 }
 #level-chooser-selector{
 	margin: 8.5vh;
